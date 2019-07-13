@@ -21,7 +21,9 @@ Translation bot built using `discord.js` and `Google Translate API`.
 * Write `!translate help` or `!t help` for a list of commands.
 
 
-## Deploy to [Heroku](https://www.heroku.com/)
+## If you are looking to set up a New Bot then follow the instruction below, If you already have a Heroku Bot Using C-3P0 then Scroll down for instruction on how to migrate your translation settings. 
+
+### Deploy to [Heroku](https://www.heroku.com/)
 To deploy a free translation bot that you can add to your discord server, follow these easy steps.
 
 #### 1. Fork this repo.
@@ -50,7 +52,25 @@ To deploy a free translation bot that you can add to your discord server, follow
 * Vist the resulting url and add your bot to any server where you have admin privileges.
 * Once added, your bot should show up more or less instantaneously. Type `!t help` within the discord chat for more details on how to use it. Happy translating!
 
-#### 5. Troubleshooting
+
+## If you already have a Heroku Bot Using C-3P0
+
+#### 1. Checklist
+* Make sure you have completed the following steps before attempting to migrate translation settings.
+1. You have an already up and running C-3P0 Bot.
+2.
+3.
+4.
+
+#### 2.
+
+#### 3.
+
+#### 4.
+
+#### 5.
+
+## Troubleshooting
 * You can set up debugging webhooks using the following steps
     1. Create a new channel on your server to recieve the webhooks, let's say `#webhooks`.
     2. Go to Server Settings -> Webhooks -> Create Webhook. Select the `#webhooks` channel, then copy the webhook's URL. It will look something like `https://discordapp.com/api/webhooks/012345678901234567/VCj9yOOtJF9VCm-BU2F9xrbnoWD5gBZZ-UU1mZHcxi5VLgr3bPb9NanRJM8YD9cpBisL`
