@@ -49,9 +49,9 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-eslint": "^4.0.2",
+    "gulp-eslint": "^6.0.0",
     "gulp-line-ending-corrector": "^1.0.3",
-    "gulp-uglify-es": "^0.1.11",
+    "gulp-uglify-es": "^1.0.4",
     "gulp-watch": "^4.3.11"
   }
 }
