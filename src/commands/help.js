@@ -67,7 +67,7 @@ const helpMessage = function(config, botname, param)
    // ------------------------------
    // Support & Donations
    // ------------------------------
- 
+
    var donation = "";
    if (auth.donation && auth.donation.length > 5)
    {
