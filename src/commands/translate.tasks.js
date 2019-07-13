@@ -95,7 +95,7 @@ const shoutTasks = function(res, data, origin, dest, destDisplay)
       data.text += ` (${res.length})`;
    }
    */
-   for (var i = 0, len = res.length; i < len; i++) 
+   for (var i = 0, len = res.length; i < len; i++)
    {
       const task = res[i];
       const dest = destResolver(task.dest);
