@@ -5,22 +5,32 @@ Translation bot built using `discord.js` and `Google Translate API`.
 ![GitHub last commit](https://img.shields.io/github/last-commit/ZyC0R3/Rita.svg?style=plastic)
 ![GitHub](https://img.shields.io/github/license/ZyC0R3/Rita.svg?style=plastic)
 ![GitHub issues](https://img.shields.io/github/issues-raw/ZyC0R3/Rita.svg?style=plastic)
+[![invite](https://img.shields.io/badge/Discord_Support-JOIN-7289DA.svg?style=plastic&)](https://discordapp.com/invite/mgNR64R)
+
 
 #### Current Test Branch
 ![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/ZyC0R3/Rita/test-branch?style=plastic)
 
+## Coming Soon!
+01. Local Installation Support Section.
+02. Error Message Support Section.
+03. Single Image with no Text forwarder.
+04. Auto Reverse transaltion for the auto function.
+
 
 ## Table of Contents
 
-1. [Features](#features)
-2. [Usage](#usage)
-3. [New Bot (RECOMMENDED)](#new-bot)
-4. [Existing Bot Migration (EXPERIMENTAL)](#existing-bot-migration)
-5. [Heroku Database Support](#database)
-6. [Troubleshooting](#troubleshooting)
-7. [Commands](#commands)
-8. [Credits & License](#credits-&-license)
-9. [Design Team](#design-team)
+01. [Features](#features)
+02. [Usage](#usage)
+03. [New Bot (RECOMMENDED)](#new-bot)
+04. [Existing Bot Migration (EXPERIMENTAL)](#existing-bot-migration)
+05. [Heroku Database Support](#database)
+06. [Local Installation Support](#local)
+07. [Troubleshooting](#troubleshooting)
+08. [Error Messages](#errors)
+09. [Commands](#commands)
+10. [Credits & License](#credits-&-license)
+11. [Design Team](#design-team)
 
 ## <a name="features"></a>Features
 * Translate custom messages
@@ -112,7 +122,7 @@ At this point, if we were to hit ‘save’ (please don’t), something very str
 3. Go to the **Advanced** tab and under db restriction copy the database name (it’s the same value as the **Maintenance Database** field filled earlier).
 4. Click Save/Connect and you are done. Edit away.
 
-## <a name="database"></a>Running local
+## <a name="local"></a>Local Installation Support
 The bot can also be run locally without Heroku. The local setup requires more steps since the database needs to be setup and the development tools need be installed. Start with the steps 1 and 2 in the description [New Bot (RECOMMENDED)](#new-bot) and continue as follows:
 
 #### 3. Create a local database
@@ -141,6 +151,9 @@ See step 4 in the description [New Bot (RECOMMENDED)](#new-bot).
 * If your bot in unresponsive, the first thing to check is Heroku. Log in and manually restart the `worker node src/bot.js` dyno.
 * For further troubleshooting, it's helpful to install the Heroku command line interface. Once installed you can login from a terminal with `heroku login` and check your apps logs with `heroku logs --tail -a <your-app-name>`
 * If you are unable to solve a problem yourself, report it with as much detail as possible in this repo's issue tracker.
+
+## <a name="errors"></a>Error Messages
+This section/feature is being Created, Check back soon or join the support discord.
 
 
 ## <a name="commands"></a>Commands
