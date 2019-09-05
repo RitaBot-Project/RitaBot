@@ -46,6 +46,7 @@
     "pg-hstore": "^2.3.3",
     "seconds-converter": "github:AlooAkbar/seconds-converter",
     "sequelize": "^5.10.1",
+    "sqlite3": "^4.1.0",
     "webhook-discord": "^3.2.0"
   },
   "devDependencies": {

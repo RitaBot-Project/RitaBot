@@ -112,6 +112,24 @@ At this point, if we were to hit ‘save’ (please don’t), something very str
 3. Go to the **Advanced** tab and under db restriction copy the database name (it’s the same value as the **Maintenance Database** field filled earlier).
 4. Click Save/Connect and you are done. Edit away.
 
+## <a name="database"></a>Running local
+The bot can also be run locally without Heroku. The local setup requires more steps since the database needs to be setup and the development tools need be installed. Start with the steps 1 and 2 in the description [New Bot (RECOMMENDED)](#new-bot) and continue as follows:
+
+#### 3. Create a local database
+Any Database that runs with SQL Sequelize ('https://sequelize.org/master/') can be used. My recommendation is to use the [SQL Lite](https://www.sqlite.org/index.html) database since the setup is fast and access is easy. Copy the connection details to the database for the next step. Example: The connection to a sqlite database with the name *database.db* stored at the same level of this README file would be *./database.db*.
+
+#### 4. Create a new .env File
+Copy the existing **.env.example** file and name it **.env**. Edit the Values of **DISCORD_TOKEN**, **DISCORD_BOT_OWNER_ID** and the **DATABASE_URL** according to the values that you copied earlier.
+
+#### 5. Install nodejs
+Install nodejs ('https://nodejs.org/en/').  
+
+#### 6. Run and start the bot
+Run `npm install -g gulp` in your console to install gulp. Build the bot code using `npm build` and run the bot with `npm start`. 
+
+#### 7. Invite your bot to your server and configure it!
+See step 4 in the description [New Bot (RECOMMENDED)](#new-bot).
+
 ## <a name="troubleshooting"></a>Troubleshooting
 * You can set up debugging Webhooks using the following steps
     1. Create a new channel on your server to receive the Webhooks, let's say `#Webhooks`.
