@@ -1,6 +1,7 @@
 const langCheck = require("../core/lang.check");
 const botSend = require("../core/send");
 const db = require("../core/db");
+//const _logger = require("../core/logger");
 
 // --------------------
 // Handle stop command
