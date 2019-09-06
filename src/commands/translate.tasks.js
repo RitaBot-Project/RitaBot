@@ -1,7 +1,6 @@
 const langCheck = require("../core/lang.check");
 const botSend = require("../core/send");
 const db = require("../core/db");
-const _logger = require("../core/logger");
 
 // --------------------
 // Handle stop command
@@ -82,7 +81,7 @@ module.exports = function(data)
 // ---------------------
 // Remove from database
 // ---------------------
-const shoutTasks = function(res, data, origin, dest, destDisplay)
+const shoutTasks = function(res, data)
 {
    //console.log(data);
    //console.log(res);
