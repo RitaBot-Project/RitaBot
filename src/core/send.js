@@ -42,7 +42,11 @@ const handleError = function(err)
    }
 
    logger("error", errMsg);
+
 };
+
+}
+
 
 function createFiles(dataAttachments)
 {
@@ -66,6 +70,9 @@ function createFiles(dataAttachments)
 
 function sendWebhookMessage(webhook, data)
 {
+   let username = "Rita Commands";
+   let avatarURL = "https://cdn.discordapp.com/icons/545787876105912341/a89767345fbb7216f52591ba6d683056.webp?size=512&quot";
+
    if (data.author)
    {
       data.author = {
