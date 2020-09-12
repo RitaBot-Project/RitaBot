@@ -3,6 +3,7 @@ const fn = require("./helpers");
 const db = require("./db");
 const logger = require("./logger");
 const discord = require("discord.js");
+const webhookClient = new discord.WebhookClient('id', 'token?')
 
 //
 // Send Data to Channel
@@ -20,18 +21,8 @@ const sendBox = function(data)
    }
 
    if (data.text && data.text.length > 1)
-   {
-      data.channel.send({
-         embed: {
-            title: data.title,
-            fields: data.fields,
-            author: data.author,
-            color: colors.get(data.color),
-            description: data.text,
-            footer: data.footer
-         }
-      }).then(() =>
-      {
+
+      .then(() =>
          sendEmbeds(data);
          sendAttachments(data);
       }).catch(err =>
