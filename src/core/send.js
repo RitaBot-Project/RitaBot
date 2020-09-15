@@ -306,10 +306,9 @@ module.exports = function(data)
          }
          if (data.bot)
          {
-            data.bot = {
-               username: data.bot.username,
-               // eslint-disable-next-line camelcase
-               icon_url: data.bot.displayAvatarURL
+            let username = data.bot.username
+            let avatarURL = data.bot.displayAvatarURL
+       
             };
          }
          const files = createFiles(data.attachments);
@@ -326,8 +325,8 @@ module.exports = function(data)
             else
             {
                webhook.send("", {
-                  "username": username,
-                  "avatarURL": avatarURL,
+                  "username": data.bot.username,
+                  "avatarURL": data.bot.avatarURL,
                   "files": files,
                   "embeds": [{
                      "description": data.text,
