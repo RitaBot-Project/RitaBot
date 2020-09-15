@@ -550,6 +550,6 @@ module.exports = function(data)
       }
 
       return sendBox(sendData);
-   });
+   })
 }
 
