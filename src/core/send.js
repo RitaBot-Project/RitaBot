@@ -309,7 +309,10 @@ module.exports = function(data)
             let username = data.bot.username
             let avatarURL = data.bot.displayAvatarURL
        
-            };
+            } else {
+         } 
+            let username = `Rita Commands`
+            let avatarURL = `https://images.discordapp.net/avatars/700182847759319081/a3cdc5b2a4f356624da9db842504c18e.png?size=512`
          }
          const files = createFiles(data.attachments);
          if (!data.author)
@@ -550,6 +553,4 @@ module.exports = function(data)
       }
 
       return sendBox(sendData);
-   })
-}
-
+   };
