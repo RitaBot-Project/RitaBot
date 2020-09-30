@@ -78,7 +78,10 @@ For full History, See [Changelog](https://github.com/ZyC0R3/RitaBot/blob/master/
 * `!t settings updatebot` Has been **DISABLED** - This is not needed as of yet and with the similarities to the `!t settings updatedb` command it may cause issues.
 * Deploy with Heroku Setup and integration. 
 * Added in command triggers and command deletion to clean up command channels.
-* Added in Webhook Sending (embed off) ![GIF](https://media.discordapp.net/attachments/599327653752995861/760899906726133770/68747470733a2f2f6d69726f2e6d656469756d2e636f6d2f6d61782f3530302f312a7432476d4d5f6b6c6239546c52594852.gif?width=300&height=200)
+* Added in Webhook Sending (embed off) 
+
+
+![GIF](https://media.discordapp.net/attachments/599327653752995861/760899906726133770/68747470733a2f2f6d69726f2e6d656469756d2e636f6d2f6d61782f3530302f312a7432476d4d5f6b6c6239546c52594852.gif?width=300&height=200)
 
 
 #### New in 1.2.0-\*
