@@ -81,8 +81,6 @@ For full History, See [Changelog](https://github.com/ZyC0R3/RitaBot/blob/master/
 * Added in Webhook Sending (embed off) 
 
 
-![GIF](https://media.discordapp.net/attachments/599327653752995861/760899906726133770/68747470733a2f2f6d69726f2e6d656469756d2e636f6d2f6d61782f3530302f312a7432476d4d5f6b6c6239546c52594852.gif?width=300&height=200)
-
 
 #### New in 1.2.0-\*
 * No Code changes, just URL updates for New name of Bot
@@ -237,8 +235,8 @@ For a fresh install of pgAdmin, the dashboard likely contains only one server. T
 
 At this point, if we were to hit ‘save’ (please don’t), something very strange would happen. You’d see hundreds if not thousands of databases appear in pgAdmin. This has to do with how Heroku configures their servers. You’ll still only have access to your specific database, not those of others. In order to avoid parsing so many databases, we have to white list only those databases we care about.
 
-#### 3. Go to the **Advanced** tab and under db restriction copy the database name (it’s the same value as the **Maintenance Database** field filled earlier).
-#### 4. Click Save/Connect and you are done. Edit away.
+1. Go to the **Advanced** tab and under db restriction copy the database name (it’s the same value as the **Maintenance Database** field filled earlier).
+2. Click Save/Connect and you are done. Edit away.
 
 ## <a name="local"></a>Local Installation Support
 The bot can also be run locally without Heroku. The local setup requires more steps since the database needs to be setup and the development tools need be installed. Start with the steps 1 and 2 in [Setting up a New Bot](#new-bot) and the continue as follows:
@@ -302,7 +300,7 @@ It is recommend to install git and pull from your fork or main:
 * Install git: `sudo apt-get install git`
 * Create the folder for the source: `mkdir Rita`
 * Clone the repository: `git clone https://github.com/ZyC0R3/RitaBot.git`
-* Checkout the branch you need: `git checkout --track origin/1.2.0-5`
+* Checkout the branch you need: `git checkout --track origin/1.2.0-6`
 
 Alternative: move the source code with WinSCP from your local environment to the Pi.
 
