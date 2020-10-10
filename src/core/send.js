@@ -19,13 +19,14 @@ const webHookName = "Translator Messaging System";
 module.exports = function(data)
 {
    // ------------------------------
-   // Get Embedded Variable From DB
+   // Change emoji string
    // ------------------------------
 
    if (data.author)
    {
       if (data.text)
       {
+         data.text = data.text.replace(/：/gm, `:`);
           data.text = data.text.replace(/<.+?>/g, tag => tag.replace(/\s+/g, ""));
          //  Removes un necessary dots, commas or language numeral names which cause problems
          const regex10 = /(?<=<:[^<>]*?)\.+(?=[^<>]*>)/gm;
@@ -34,7 +35,8 @@ module.exports = function(data)
          data.text = data.text.replace(regex11, ``);
          data.text = data.text.replace(/millions/g, ``);
          
-         if (data.text.includes(`milioni`){
+         if (data.text.includes(`milioni`))
+{
 data.text = data.text.replace(/mililoni/g, ``);
              }
          //  Russian animated emoji fix
