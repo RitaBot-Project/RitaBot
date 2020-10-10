@@ -33,6 +33,10 @@ module.exports = function(data)
          const regex11 = /(?<=<:[^<>]*?),+(?=[^<>]*>)/gm;
          data.text = data.text.replace(regex11, ``);
          data.text = data.text.replace(/millions/g, ``);
+         
+         if (data.text.includes(`milioni`){
+data.text = data.text.replace(/mililoni/g, ``);
+             }
          //  Russian animated emoji fix
          if (data.text.includes("<А"))
          {
