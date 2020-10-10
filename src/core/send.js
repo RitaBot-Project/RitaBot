@@ -43,7 +43,6 @@ module.exports = function(data)
          //  Russian animated emoji fix
          if (data.text.includes("<А"))
          {
-//eslint-disable-next-line
             const regex1 = /<([:+\s:\s*[a-z]+.*\g:\s*)([0-9\s]+)>/gmi;
             const str1 = data.text;
             const subst1 = `<a:customemoji:$2>`;
@@ -53,7 +52,6 @@ module.exports = function(data)
          //  animated emoji fix
          if (data.text.includes("<A"))
          {
-//eslint-disable-next-line
             const regex2 = /<([:+\s:\s*[a-z]+.*\g:\s*)([0-9\s]+)>/gmi;
             const str2 = data.text;
             const subst2 = `<a:customemoji:$2>`;
@@ -63,7 +61,7 @@ module.exports = function(data)
          // animated emojis
          else if (data.text.includes("<a"))
          {
-//eslint-disable-next-line
+
             const regex3 = /<([:+\s:\s*[a-z]+.*:\s*)([0-9\s]+)>/gmi;
             const str3 = data.text;
             const subst3 = `<a:customemoji:$2>`;
@@ -75,7 +73,7 @@ module.exports = function(data)
          {
             if (data.text.includes("<A"))
             {
-//eslint-disable-next-line
+
                const regex4 = /<([:+\s:\s*[a-z]+.*:\s*)([0-9\s]+)>/gmi;
                const str4 = data.text;
                const subst4 = `<:okthisisanemoji:$2>`;
@@ -84,9 +82,9 @@ module.exports = function(data)
             }
             const subst5 = "<:customemoji:$2>";
             const str5 = data.text;
-//eslint-disable-next-line
+
             const regx5 = /<([:+\s:\s*[a-z]+.*\g:\s*)([0-9\s]+)>/gmi;
-//eslint-disable-next-line
+
             data.text = str5.replace(regx5, subst5);
          }
       }
