@@ -29,9 +29,9 @@ module.exports = function(data)
          data.text = data.text.replace(/：/gm, `:`);
           data.text = data.text.replace(/<.+?>/g, tag => tag.replace(/\s+/g, ""));
          //  Removes un necessary dots, commas or language numeral names which cause problems
-         const regex10 = /(?<=<:[^<>]*?)\.+(?=[^<>]*>)/gm;
+         const regex10 = /(?<=<[^<>]*?)\.+(?=[^<>]*>)/gm;
          data.text = data.text.replace(regex10, ``);
-         const regex11 = /(?<=<:[^<>]*?),+(?=[^<>]*>)/gm;
+         const regex11 = /(?<=<[^<>]*?),+(?=[^<>]*>)/gm;
          data.text = data.text.replace(regex11, ``);
          data.text = data.text.replace(/millions/gmi, ``);
          data.text = data.text.replace(/milioni/gmi, ``);
