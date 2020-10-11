@@ -1,17 +1,22 @@
+// -----------------
+// Global variables
+// -----------------
+
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
 const botSend = require("../core/send");
 const fn = require("../core/helpers");
 const db = require("../core/db");
 const logger = require("../core/logger");
 
-// ------------------------------
+// -------------------------------
 // Auto translate Channel/Author
-// ------------------------------
+// -------------------------------
 
 module.exports = function(data)
 {
-   //
+   // -------------------------------------------------
    // Disallow this command in Direct/Private messages
-   //
+   // -------------------------------------------------
 
    if (data.message.channel.type === "dm")
    {
@@ -19,18 +24,26 @@ module.exports = function(data)
       data.text =
          ":no_entry:  This command can only be called in server channels.";
 
+      // -------------
+      // Send message
+      // -------------
+
       return botSend(data);
    }
 
-   //
+   // ----------------
    // Language checks
-   //
+   // ----------------
 
    if (data.cmd.from === "auto" || data.cmd.from.valid.length !== 1)
    {
       data.color = "error";
       data.text =
-         ":warning:  Please specify a valid language to translate from.";
+         ":warning:  Auto Function Under Construction, Please use a defined language to translate from for now.";
+
+      // -------------
+      // Send message
+      // -------------
 
       return botSend(data);
    }
@@ -41,12 +54,16 @@ module.exports = function(data)
       data.text =
          ":warning:  Please specify one valid language for auto translation.";
 
+      // -------------
+      // Send message
+      // -------------
+
       return botSend(data);
    }
 
-   //
+   // ------------------
    // Prepare task data
-   //
+   // ------------------
 
    data.task = {
       origin: data.message.channel.id,
@@ -59,15 +76,15 @@ module.exports = function(data)
       reply: data.message.guild.nameAcronym
    };
 
-   //
+   // --------------------
    // log task data (dev)
-   //
+   // --------------------
 
    logger("dev", data.task);
 
-   //
+   // ------------------------------------------
    // Error if non-manager sets channel as dest
-   //
+   // ------------------------------------------
 
    if (data.cmd.for[0] !== "me" && !data.message.isManager)
    {
@@ -76,12 +93,16 @@ module.exports = function(data)
          ":cop:  You need to be a channel manager to " +
          "auto translate for others.";
 
+      // -------------
+      // Send message
+      // -------------
+
       return botSend(data);
    }
 
-   //
+   // -----------------------------------------------
    // Error if channel exceeds maximum allowed tasks
-   //
+   // -----------------------------------------------
 
    db.getTasksCount(data.task.origin, function(err, res)
    {
@@ -99,15 +120,19 @@ module.exports = function(data)
             ":no_entry:  Cannot add more auto-translation tasks for this " +
             `channel (${data.config.maxTasksPerChannel} max)`;
 
+         // -------------
+         // Send message
+         // -------------
+
          return botSend(data);
       }
 
       taskLoop();
    });
 
-   //
+   // -------------------------------------------------
    // Resolve ID of each destiantion (user dm/channel)
-   //
+   // -------------------------------------------------
 
    const taskLoop = function()
    {
@@ -117,7 +142,21 @@ module.exports = function(data)
 
          if (dest === "me")
          {
-            taskBuffer.update("@" + data.message.author.id);
+            data.color = "error";
+            data.text =
+               ":warning: DM / User Translation Function Disabled";
+
+            // -------------
+            // Send message
+            // -------------
+
+            return botSend(data);
+
+            // ---------------
+            // Old Code Below
+            // ---------------
+
+            //taskBuffer.update("@" + data.message.author.id);
          }
 
          // resolve @everyone/@here
@@ -131,7 +170,22 @@ module.exports = function(data)
 
          if (dest.startsWith("<@"))
          {
-            const userID = dest.slice(2,-1);
+            data.color = "error";
+            data.text =
+               ":warning: DM / User Translation Function Disabled";
+
+            // -------------
+            // Send message
+            // -------------
+
+            return botSend(data);
+
+            // ---------------
+            // Old Code Below
+            // ---------------
+
+            /*
+            const userID = dest.slice(3,-1);
 
             fn.getUser(data.client, userID, user =>
             {
@@ -150,6 +204,7 @@ module.exports = function(data)
                   taskBuffer.reduce();
                }
             });
+            */
          }
 
          // resolve mentioned channel(s)
@@ -182,9 +237,9 @@ module.exports = function(data)
       });
    };
 
-   //
+   // ------------
    // Task buffer
-   //
+   // ------------
 
    var taskBuffer = {
       len: data.task.for.length,
@@ -210,26 +265,31 @@ module.exports = function(data)
       }
    };
 
-   //
+   // --------------------------------------------
    // Validate Task(s) before sending to database
-   //
+   // --------------------------------------------
 
    const validateTask = function()
    {
-      //
+      // --------------
       // Invalid dests
-      //
+      // --------------
 
       if (data.task.invalid.length > 0)
       {
          data.color = "error";
          data.text = ":warning:  Invalid auto translation request.";
+
+         // -------------
+         // Send message
+         // -------------
+
          return botSend(data);
       }
 
-      //
+      // ----------------------------------
       // Multiple dests set by non-manager
-      //
+      // ----------------------------------
 
       if (data.task.dest.length > 1 && !data.message.isManager)
       {
@@ -238,18 +298,22 @@ module.exports = function(data)
             ":cop::skin-tone-3:  You need to be a channel manager " +
             "to auto translate this channel for others.";
 
+         // -------------
+         // Send message
+         // -------------
+
          return botSend(data);
       }
 
-      //
+      // ---------------------
       // Add task to database
-      //
+      // ---------------------
 
       db.addTask(data.task);
 
-      //
+      // -------------------------
       // Send out success message
-      //
+      // -------------------------
 
       const langFrom = data.cmd.from.valid[0].name;
       const langTo = data.cmd.to.valid[0].name;
@@ -262,6 +326,10 @@ module.exports = function(data)
          ":white_check_mark:  Automatically translating messages " +
          `from **\`${langFrom}\`** to **\`${langTo}\`** ` +
          `for ${forNames}.`;
+
+      // -------------
+      // Send message
+      // -------------
 
       return botSend(data);
    };

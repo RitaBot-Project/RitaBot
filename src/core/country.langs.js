@@ -1,8 +1,8 @@
-//
+// -----------------------------------------------------------
 // List of countries, mapped by their unicode emoji
 // includes array of official country languages (ISO 639-1/2)
 // https://apps.timwhitlock.info/emoji/tables/iso3166
-//
+// -----------------------------------------------------------
 
 module.exports = {
    "🇦🇫": {
@@ -258,7 +258,7 @@ module.exports = {
    "🇨🇩": {
       code: "cd",
       name: "Democratic Republic of the Congo",
-      langs: ["fr", "ln", "kg", "sw"]
+      langs: ["fr", "sw"]
    },
    "🇨🇰": {
       code: "ck",
@@ -1018,7 +1018,7 @@ module.exports = {
    "🇿🇦": {
       code: "za",
       name: "South Africa",
-      langs: ["en", "af", "nr", "nso", "st", "ss", "ts", "tn", "ve", "xh", "zu"]
+      langs: ["en", "af", "st", "xh", "zu"]
    },
    "🇬🇸": {
       code: "gs",
@@ -1228,9 +1228,6 @@ module.exports = {
    "🇿🇼": {
       code: "zw",
       name: "Zimbabwe",
-      langs: [
-         "ny", "en", "xh", "ve", "tn", "toi", "st",
-         "sn", "ts", "nd", "ndc", "nmq", "swk", "hio"
-      ]
+      langs: ["ny", "en", "xh", "st", "sn"]
    }
 };

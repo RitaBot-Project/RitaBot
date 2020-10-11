@@ -1,3 +1,8 @@
+// -----------------
+// Global variables
+// -----------------
+
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
 const translate = require("google-translate-api");
 const ISO6391 = require("iso-639-1");
 const fn = require("./helpers");
@@ -13,9 +18,9 @@ const langExceptions =
    "ch": "zh-CN",
    "zh-cn": "zh-CN",
    "zh-tw": "zh-TW",
-   //"chinese traditional": "zh-TW",
-   //"chinese simplified": "zh-CN",
-   "chinese": "zh-CN"
+   "chinese traditional": "zh-TW",
+   "chinese simplified": "zh-CN"
+   //"chinese": "zh-CN"
 };
 
 const langInvertException = function(code)
@@ -48,7 +53,6 @@ const getLangISO = function(lang)
       code = lang;
    }
 
-   //if (langExceptions.hasOwnProperty(code))
    if (Object.prototype.hasOwnProperty.call(langExceptions,code))
    {
       return langExceptions[code];

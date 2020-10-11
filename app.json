@@ -1,0 +1,58 @@
+{
+  "name": "RITA Translator",
+  "description": "RITA Discord Translator Bot.   Providing translation services with many uses to connect communities. We pride ourselves in being free for all to use.",
+  "keywords": [
+    "Discord",
+    "Translator",
+    "Rita",
+    "Free",
+    "Translate API",
+    "Discord.js",
+    "Translate",
+    "Real",
+    "Time",
+    "Interchangeable",
+    "Translating",
+    "Assistant",
+    "Real-Time Interchangeable Translating Assistant",
+    "https://ritabot.org",
+    "RitaBot",
+    "Rita Deploy",
+    "Rita Deploy Heroku"
+  ],
+  "logo": "https://cdn.discordapp.com/attachments/599327653752995861/759555905661960212/android-chrome-192x192.png",
+  "website": "https://ritabot.org/",
+  "repository": "https://github.com/Zyc0r3/RitaBot",
+  "success_url": "/",
+  "env": {
+    "DISCORD_TOKEN": {
+      "description": "The login token to your bot!  Find this at https://discord.com/developers/applications",
+      "value": "",
+      "required": true
+    },
+    "DISCORD_DEBUG_WEBHOOK_ID": {
+      "description": "Enter the ID for Webhook Debug logging, This is for sending log and error messages to a designated channel, however it is not needed , it's only for debugging, if you wish to turn it on later in the future you can do so in the Environment Variables tab in App Settings. Refer to https://ritabot.org/troubleshooting/ for help",
+      "value": "",
+      "required": false
+    },
+    "DISCORD_DEBUG_WEBHOOK_TOKEN": {
+      "description": "Enter the Token for Webhook Debug logging. This is for sending log and error messages to a designated channel, however it is not needed , it's only for debugging, if you wish to turn it on later in the future you can do so in the Environment Variables tab in App Settings. Refer to https://ritabot.org/troubleshooting/ for help",
+      "value": "",
+      "required": false
+    },
+    "NODE_MODULES_CACHE": {
+      "description": "This is to ensure that when the bot updates it does not use any old Dependencies that Heroku has stored and gets fresh ones from the package.json file.",
+      "value": "false",
+      "required": true
+    }
+  },
+  "image": "heroku/nodejs",
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

@@ -8,12 +8,14 @@
         "es6": true
     },
     "extends": "eslint:recommended",
+    "parser": "babel-eslint",
     "rules": {
-      "no-console": "off",
-      "no-extra-parens": "warn",
+      // eslint Error
+      "new-parens": "error",
+      "no-lonely-if": "error",
+      "no-multi-assign": "error",
+      "no-undef": "error",
       "curly": "error",
-      "eqeqeq": "error",
-      "complexity": ["warn", 10],
       "dot-notation": "error",
       "no-alert": "error",
       "no-else-return": "error",
@@ -22,13 +24,19 @@
       "no-eval": "error",
       "no-floating-decimal": "error",
       "no-loop-func": "error",
-      "no-multi-spaces": "warn",
-      "no-multi-str": "warn",
       "no-param-reassign": "error",
       "no-return-assign": "error",
       "no-self-compare": "error",
+      "no-whitespace-before-property": "error",
+      // eslint Warn
+      "eqeqeq": "warn",
+      "no-extra-parens": "warn",
+      "complexity": ["warn", 10],
+      "no-multi-spaces": "warn",
+      "no-multi-str": "warn",
       "no-unused-expressions": "warn",
       "no-useless-concat": "warn",
+      "no-constant-condition": "error",
       "yoda": "warn",
       "callback-return": "error",
       "global-require": "error",
@@ -45,11 +53,7 @@
       "max-nested-callbacks": ["warn", 5],
       "max-params": ["warn", 5],
       "max-statements-per-line": ["warn", {"max": 2}],
-      "new-parens": "error",
-      "no-lonely-if": "error",
-      "no-multi-assign": "error",
       "no-trailing-spaces": "warn",
-      "no-whitespace-before-property": "error",
       "object-property-newline": "warn",
       "operator-linebreak": ["warn", "after"],
       "padded-blocks": ["warn", "never"],
@@ -61,10 +65,16 @@
       "wrap-regex": "warn",
       "prefer-const": "warn",
       "template-curly-spacing": "warn",
-      "no-unused-vars": "off",
       "no-mixed-spaces-and-tabs": "warn",
       "no-extra-semi": "warn",
       "no-prototype-builtins": "warn",
-      "no-unreachable": "warn"
+      "no-unreachable": "warn",
+      // eslint Off
+      "no-unused-vars": "off",
+      "block-scoped-var": "off",
+      "no-useless-return": "off",
+      "no-console": "off",
+      "no-dupe-keys": "off"
+      
     }
 }

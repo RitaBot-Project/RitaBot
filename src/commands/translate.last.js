@@ -1,3 +1,8 @@
+// -----------------
+// Global variables
+// -----------------
+
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
 const fn = require("../core/helpers");
 const botSend = require("../core/send");
 const translate = require("../core/translate");
@@ -12,26 +17,30 @@ const getCount = function(count)
    return "-1";
 };
 
+// ---------------
+// Translate last
+// ---------------
+
 module.exports = function(data)
 {
-   //
+   // -------------------------
    // Prepare translation data
-   //
+   // -------------------------
 
    data.translate = {
       to: data.cmd.to,
       from: data.cmd.from
    };
 
-   //
+   // ----------------
    // Get count param
-   //
+   // ----------------
 
    var count = getCount(data.cmd.num);
 
-   //
+   // ---------
    // Set mode
-   //
+   // ---------
 
    var mode = "all";
 
@@ -48,13 +57,17 @@ module.exports = function(data)
             ":warning:  Cannot translate more than __**`" +
             data.config.maxChains + "`**__ message chains at once.";
 
+      // -------------
+      // Send message
+      // -------------
+
       botSend(data);
       count = data.config.maxChains;
    }
 
-   //
+   // -------------------------
    // Get requested collection
-   //
+   // -------------------------
 
    var limit = Math.abs(count) * data.config.maxChainLen + 1;
 
@@ -99,15 +112,15 @@ module.exports = function(data)
          }
       }
 
-      //
+      // --------------------------
       // Get requested chains only
-      //
+      // --------------------------
 
       const reqChains = chains.slice(-Math.abs(count));
 
-      //
+      // --------------------------
       // Error - No messages found
-      //
+      // --------------------------
 
       if (reqChains.length < 1)
       {
@@ -116,12 +129,16 @@ module.exports = function(data)
             ":warning:  Could not find any valid messages to " +
             "translate. Bots and commands are ignored.";
 
+         // -------------
+         // Send message
+         // -------------
+
          return botSend(data);
       }
 
-      //
+      // -----------------------
       // Translate single chain
-      //
+      // -----------------------
 
       if (mode === "single")
       {
@@ -130,9 +147,9 @@ module.exports = function(data)
          return translate(data);
       }
 
-      //
+      // -----------------------------------
       // Translate multiple chains (buffer)
-      //
+      // -----------------------------------
 
       data.bufferChains = reqChains;
       return translate(data);

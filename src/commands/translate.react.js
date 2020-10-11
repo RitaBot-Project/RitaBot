@@ -1,36 +1,40 @@
+// -----------------
+// Global variables
+// -----------------
+
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
 const langCheck = require("../core/lang.check");
 const translate = require("../core/translate");
 const fn = require("../core/helpers");
 const logger = require("../core/logger");
 const countryLangs = require("../core/country.langs");
 
-// ---------------------------------------------------
-// translate a message through discord reaction (flag)
-// ---------------------------------------------------
+// ----------------------------------------------------
+// Translate a message through discord reaction (flag)
+// ----------------------------------------------------
 
 module.exports = function(data, client)
 {
-   //
+   // ---------------------
    // Get country by emoji
-   //
+   // ---------------------
 
    const emoji = data.emoji.name;
 
-   //if (emoji && countryLangs.hasOwnProperty(emoji))
    if (Object.prototype.hasOwnProperty.call(emoji && countryLangs,emoji))
    {
-      //
+      // ------------------------------------------------
       // Stop proccessing if country has no langs / null
-      //
+      // ------------------------------------------------
 
       if (!countryLangs[emoji].langs)
       {
          return;
       }
 
-      //
+      // -----------------
       // Get message data
-      //
+      // -----------------
 
       fn.getMessage(
          client,
@@ -75,9 +79,9 @@ module.exports = function(data, client)
             data.message.roleColor = fn.getRoleColor(data.message.member);
             data.canWrite = true;
 
-            //
+            // ------------------
             // Start translation
-            //
+            // ------------------
 
             translate(data);
          }

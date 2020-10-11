@@ -1,3 +1,8 @@
+// -----------------
+// Global variables
+// -----------------
+
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
 const translate = require("./translate");
 const logger = require("./logger");
 const botSend = require("./send");
@@ -16,15 +21,9 @@ module.exports = function(data)
 
    if (data.rows.length > 0)
    {
-      //
-      // Ignore bot commands
-      //
-      // * Disabled until a standard for commands exists
-      //
-      // const ignoreRegex = /^\S{0,20}[~!$%^&*_\-+:;?=>.,|\\/]\w+(?:.*)?$/;
-      //
+      // ----------------------------------------------
       // Add !i to end of message to ignore it instead
-      //
+      // ----------------------------------------------
 
       if (
          //ignoreRegex.test(data.message.content) ||
@@ -54,9 +53,9 @@ const analyzeRows = function(data, i)
 {
    const row = data.rows[i];
 
-   //
+   // -------------------------------
    // Set forward channel for sender
-   //
+   // -------------------------------
 
    if (row.dest !== data.message.channel.id)
    {
@@ -82,9 +81,9 @@ const analyzeRows = function(data, i)
       }
    }
 
-   //
+   // ------------------------
    // Set translation options
-   //
+   // ------------------------
 
    data.translate = {
       original: data.message.content,
@@ -92,9 +91,9 @@ const analyzeRows = function(data, i)
       from: { valid: [{iso: row.LangFrom}] }
    };
 
-   //
+   // ------------------
    // Start translation
-   //
+   // ------------------
 
    startTranslation(data, i, row);
 };
@@ -108,9 +107,9 @@ const startTranslation = function(data, i, row)
 {
    const replyID = row.reply;
 
-   //
+   // ---------------------------------
    // Add footer to forwarded messages
-   //
+   // ---------------------------------
 
    data.footer = {
       text: "via "
@@ -128,9 +127,9 @@ const startTranslation = function(data, i, row)
 
    const footerOriginal = data.footer;
 
-   //
+   // -------------------
    // Sending to user/DM
-   //
+   // -------------------
 
    if (row.dest.startsWith("@"))
    {
@@ -157,9 +156,9 @@ const startTranslation = function(data, i, row)
       });
    }
 
-   //
+   // -------------------------
    // Sending to other channel
-   //
+   // -------------------------
 
    else
    {
@@ -181,8 +180,16 @@ const sendTranslation = function(data)
          data.message.attachments.array().length > 0
       )
       {
+         // -------------
+         // Send message
+         // -------------
+
          return botSend(data);
       }
+
+      // -------------
+      // Send message
+      // -------------
 
       return translate(data);
    }

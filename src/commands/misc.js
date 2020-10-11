@@ -1,5 +1,9 @@
-/*eslint-disable no-irregular-whitespace*/
+// -----------------
+// Global variables
+// -----------------
 
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
+/*eslint-disable no-irregular-whitespace*/
 const botSend = require("../core/send");
 const auth = require("../core/auth");
 const fn = require("../core/helpers");
@@ -8,27 +12,9 @@ const stripIndent = require("common-tags").stripIndent;
 const oneLine = require("common-tags").oneLine;
 const secConverter = require("seconds-converter");
 
-// =============
-// Version Info
-// =============
-
-exports.version = function(data)
-{
-   var version = `**\`${data.config.version}\`**`;
-
-   if (auth.changelog)
-   {
-      version += ` ([changelog](${auth.changelog}))`;
-   }
-
-   data.color = "info";
-   data.text = `:robot:  Current bot version is ${version}`;
-   return botSend(data);
-};
-
-// ============
+// ------------
 // Invite Link
-// ============
+// ------------
 
 exports.invite = function(data)
 {
@@ -40,12 +26,17 @@ exports.invite = function(data)
       text:
          "Requires VIEW, SEND, REACT, EMBED, ATTACH and MENTION permissions.\n"
    };
+
+   // -------------
+   // Send message
+   // -------------
+
    return botSend(data);
 };
 
-// =======================
+// -----------------------
 // Get info on all shards
-// =======================
+// -----------------------
 
 exports.shards = function(data)
 {
@@ -54,17 +45,17 @@ exports.shards = function(data)
       return;
    }
 
-   //
+   // ---------------
    // Get shard info
-   //
+   // ---------------
 
    const shard = data.message.client.shard;
 
    if (!shard)
    {
-      //
+      // ---------------
       // Render message
-      //
+      // ---------------
 
       data.title = "Shards Info";
 
@@ -81,16 +72,16 @@ exports.shards = function(data)
          **${data.message.client.users.size}**  users
       ` + "\n​";
 
-      //
+      // -------------
       // Send message
-      //
+      // -------------
 
       return botSend(data);
    }
 
-   //
+   // --------------------------
    // Get proccess/shard uptime
-   //
+   // --------------------------
 
    const shardErr = function(err)
    {
@@ -103,10 +94,6 @@ exports.shards = function(data)
       {
          shard.fetchClientValues("users.size").then(usersSize =>
          {
-            //logger("dev", guildsSize);
-            //logger("dev", channelsSize);
-            //logger("dev", usersSize);
-
             const output = [];
 
             for (let i = 0; i < shard.count; ++i)
@@ -126,9 +113,9 @@ exports.shards = function(data)
                });
             }
 
-            //
+            // ---------------
             // Render message
-            //
+            // ---------------
 
             data.title = "Shards Info";
 
@@ -144,23 +131,23 @@ exports.shards = function(data)
 
             data.fields = output;
 
-            //
+            // -------------
             // Send message
-            //
+            // -------------
 
             botSend(data);
 
-            //
+            // -------------
             // catch errors
-            //
+            // -------------
          }).catch(shardErr);
       }).catch(shardErr);
    }).catch(shardErr);
 };
 
-// ======================
+// ----------------------
 // Current proccess info
-// ======================
+// ----------------------
 
 exports.proc = function(data)
 {
@@ -169,17 +156,17 @@ exports.proc = function(data)
       return;
    }
 
-   //
+   // ------------------
    // Get proccess data
-   //
+   // ------------------
 
    const title = `**\`${process.title}\`** `;
    const pid = `**\`#${process.pid}\`** `;
    const platform = `**\`${process.platform}\`** `;
 
-   //
+   // ---------------
    // Get shard info
-   //
+   // ---------------
 
    let shard = data.message.client.shard;
 
@@ -191,9 +178,9 @@ exports.proc = function(data)
       };
    }
 
-   //
+   // -----------------------
    // Byte formatter (mb/gb)
-   //
+   // -----------------------
 
    const byteFormat = function(bytes)
    {
@@ -207,9 +194,9 @@ exports.proc = function(data)
       return mb.toFixed(2) + " mb";
    };
 
-   //
+   // -----------------
    // Get memory usage
-   //
+   // -----------------
 
    const memory = process.memoryUsage();
    const memoryFormat = oneLine`
@@ -219,15 +206,15 @@ exports.proc = function(data)
       **\`${byteFormat(memory.external)}\`** \`external\`
    `;
 
-   //
+   // --------------
    // Get CPU usage
-   //
+   // --------------
 
-   const cpu = cpuUsage();
+   const cpu = process.cpuUsage();
 
-   //
+   // --------------------------
    // Get proccess/shard uptime
-   //
+   // --------------------------
 
    const procUptime = secConverter(Math.round(process.uptime()), "sec");
 
@@ -241,9 +228,9 @@ exports.proc = function(data)
       `;
    };
 
-   //
+   // ---------------
    // Render message
-   //
+   // ---------------
 
    data.text = stripIndent`
       :robot:  Process:  ${title + pid + platform}
@@ -259,16 +246,16 @@ exports.proc = function(data)
       :pager:  Current Shard:  **\`${shard.id + 1} / ${shard.count}\`**
    `;
 
-   //
+   // -------------
    // Send message
-   //
+   // -------------
 
    botSend(data);
 };
 
-// ==============
+// --------------
 // Get CPU Usage
-// ==============
+// --------------
 
 const cpuUsage = function()
 {

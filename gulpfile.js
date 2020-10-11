@@ -23,12 +23,15 @@ function compress()
    //.pipe(uglify())
       .pipe(gulp.dest("build"));
 }
+
+function GulpWatch()
+{
+   gulp.watch("src/**/*.js", gulp.series("default"));
+}
+
 gulp.task("compress", compress);
 gulp.task("lint", lint);
 gulp.task("watch", GulpWatch);
 gulp.task("default", gulp.parallel(lint, compress));
 gulp.task("build", gulp.parallel(lint, compress));
-function GulpWatch()
-{
-   gulp.watch("src/**/*.js", gulp.series("default"));
-}
+

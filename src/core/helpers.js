@@ -1,12 +1,13 @@
+// -----------------
+// Global variables
+// -----------------
+
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
 const logger = require("./logger");
 
-// =================
-// Helper Functions
-// =================
-
-//
-// Buffer end checker
-//
+// --------------------------------------
+// Helper Functions & Buffer end checker
+// --------------------------------------
 
 exports.bufferEnd = function(arrOriginal, arrFinal)
 {
@@ -17,45 +18,45 @@ exports.bufferEnd = function(arrOriginal, arrFinal)
    return false;
 };
 
-//
+// ----------------------
 // Check user permission
-//
+// ----------------------
 
 exports.checkPerm = function(member, channel, perm)
 {
    return channel.permissionsFor(member).has(perm);
 };
 
-//
+// ------------------------------------
 // Get key name of object by its value
-//
+// ------------------------------------
 
 exports.getKeyByValue = function (object, value)
 {
    return Object.keys(object).find(key => object[key] === value);
 };
 
-//
+// -----------------------------
 // Remove duplicates from array
-//
+// -----------------------------
 
 exports.removeDupes = function (array)
 {
    return Array.from(new Set(array));
 };
 
-//
+// ------------------------------
 // Replace all matches in string
-//
+// ------------------------------
 
 exports.replaceAll = function(str, search, replacement)
 {
    return str.replace(new RegExp(search, "g"), replacement);
 };
 
-//
+// ---------------------------
 // Sort array by specific key
-//
+// ---------------------------
 
 exports.sortByKey = function(array, key)
 {
@@ -67,9 +68,9 @@ exports.sortByKey = function(array, key)
    });
 };
 
-//
+// -----------------------------------
 // Split string to array if not array
-//
+// -----------------------------------
 
 exports.arraySplit = function(input, sep)
 {
@@ -80,9 +81,9 @@ exports.arraySplit = function(input, sep)
    return input.split(sep);
 };
 
-//
+// -----------------------
 // Split string to chunks
-//
+// -----------------------
 
 exports.chunkString = function(str, len)
 {
@@ -99,18 +100,18 @@ exports.chunkString = function(str, len)
    return _ret;
 };
 
-//
+// ----------------------------------
 // Get sum of array values (numbers)
-//
+// ----------------------------------
 
 exports.arraySum = function(array)
 {
    return array.reduce((a, b) =>a + b, 0);
 };
 
-//
+// -----------------------
 // Get Highest Role Color
-//
+// -----------------------
 
 exports.getRoleColor = function(member)
 {
@@ -121,9 +122,9 @@ exports.getRoleColor = function(member)
    return null;
 };
 
-//
+// ---------
 // Get user
-//
+// ---------
 
 exports.getUser = function(client, userID, cb)
 {
@@ -143,9 +144,9 @@ exports.getUser = function(client, userID, cb)
    });
 };
 
-//
+// ------------
 // Get channel
-//
+// ------------
 
 exports.getChannel = function(client, channelID, userID, cb)
 {
@@ -171,9 +172,9 @@ exports.getChannel = function(client, channelID, userID, cb)
    }
 };
 
-//
+// ------------
 // Get message
-//
+// ------------
 
 exports.getMessage = function(client, messageID, channelID, userID, cb)
 {

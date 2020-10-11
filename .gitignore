@@ -1,4 +1,8 @@
 node_modules
 build
+SQLlite
+*.exe
+sqlite3.dll
+sqlite3.def
 *.db
 .env

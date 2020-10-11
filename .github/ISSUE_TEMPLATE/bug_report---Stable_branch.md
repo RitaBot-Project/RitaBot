@@ -2,7 +2,7 @@
 name: Bug report - Stable Branch
 about: Create a report to help us improve
 title: ''
-labels: 1.1.7, Bug
+labels: 1.2.0-?, Bug
 assignees: ''
 
 ---
@@ -17,11 +17,11 @@ Steps to reproduce the behavior:
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
+**Expected behaviour**
 A clear and concise description of what you expected to happen.
 
 **Error Message from Webhook**
-Pleasr give the error message from Discord Webhook
+Please give the error message from Discord Webhook
 
 **Screenshots**
 If applicable, add screenshots to help explain your problem.

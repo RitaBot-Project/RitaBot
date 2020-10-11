@@ -1,7 +1,18 @@
+// -----------------
+// Global variables
+// -----------------
+
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
 const autoTranslate = require("./auto");
 const Sequelize = require("sequelize");
 const logger = require("./logger");
 const Op = Sequelize.Op;
+var dbEmbedValue ="";
+var dbBot2BotValue ="";
+
+// ----------------------
+// Database Auth Process
+// ----------------------
 
 const db = process.env.DATABASE_URL.endsWith(".db") ?
    new Sequelize({
@@ -23,7 +34,11 @@ db
    {
       logger("error", err);
    });
-//--
+
+// ---------------------------------
+// Database server table definition
+// ---------------------------------
+
 const Servers = db.define("servers", {
    id: {
       type: Sequelize.STRING(32),
@@ -42,9 +57,21 @@ const Servers = db.define("servers", {
    active: {
       type: Sequelize.BOOLEAN,
       defaultValue: true
+   },
+   embedstyle: {
+      type: Sequelize.STRING(8),
+      defaultValue: "on"
+   },
+   bot2botstyle: {
+      type: Sequelize.STRING(8),
+      defaultValue: "off"
    }
 });
-//--
+
+// --------------------------------
+// Database tasks table definition
+// --------------------------------
+
 const Tasks = db.define("tasks", {
    origin: Sequelize.STRING(32),
    dest: Sequelize.STRING(32),
@@ -123,6 +150,135 @@ exports.updateServerLang = function(id, lang, _cb)
       });
 };
 
+// -------------------------------
+// Update Embedded Variable in DB
+// -------------------------------
+
+exports.updateEmbedVar = function(id, embedstyle, _cb)
+{
+   dbEmbedValue = embedstyle;
+   return Servers.update({ embedstyle: embedstyle }, { where: { id: id } }).then(
+      function ()
+      {
+         _cb();
+      });
+};
+
+// ------------------------------
+// Get Embedded Variable From DB
+// ------------------------------
+
+exports.getEmbedVar = async function run(id)
+{
+   var value = await db.query(`select * from (select embedstyle as "embedstyle" from servers where id = ?) as table1`, { replacements: [id],
+      type: db.QueryTypes.SELECT});
+   dbEmbedValue = value[0].embedstyle;
+   return this.setEmbedVar();
+};
+
+// -------------------------------------------
+// Call Saved Embedded Variable Value From DB
+// -------------------------------------------
+
+module.exports.setEmbedVar = function(data)
+{
+   return dbEmbedValue;
+};
+
+
+// ------------------------------
+// Update Bot2Bot Variable In DB
+// ------------------------------
+
+exports.updateBot2BotVar = function(id, bot2botstyle, _cb)
+{
+   dbBot2BotValue = bot2botstyle;
+   return Servers.update({ bot2botstyle: bot2botstyle }, { where: { id: id } }).then(
+      function ()
+      {
+         _cb();
+      });
+};
+
+// -----------------------------
+// Get Bot2Bot Variable From DB
+// -----------------------------
+
+exports.getBot2BotVar = async function run(id)
+{
+   var value = await db.query(`select * from (select bot2botstyle as "bot2botstyle" from servers where id = ?) as table2`, { replacements: [id],
+      type: db.QueryTypes.SELECT});
+   dbBot2BotValue = value[0].bot2botstyle;
+   return this.setBot2BotVar();
+};
+
+// ------------------------------------------
+// Call Saved Bot2Bot Variable Value From DB
+// ------------------------------------------
+
+module.exports.setBot2BotVar = function(data)
+{
+   return dbBot2BotValue;
+};
+
+// -----------------------------
+// Add Missing Variable Columns
+// -----------------------------
+
+exports.updateColumns = function(data)
+{
+   // Very sloppy code, neew to find a better fix.
+   db.query(`ALTER TABLE public.servers ADD COLUMN "embedstyle" character varying(8) COLLATE pg_catalog."default" DEFAULT 'on'::character varying;`,function(err)
+   {
+      if (err)
+      {
+         console.log("ERROR:"+err.message);
+      }
+      else
+      {
+         console.log("embedstyle column added");
+      }
+   });
+   db.query(`ALTER TABLE public.servers ADD COLUMN "bot2botstyle" character varying(8) COLLATE pg_catalog."default" DEFAULT 'off'::character varying;`,function(err)
+   {
+      if (err)
+      {
+         console.log("ERROR:"+err.message);
+      }
+      else
+      {
+         console.log("bot2botstyle column added");
+      }
+   });
+
+   // ------------------------------------------
+   // Add Missing Variable Columns for local db
+   // ------------------------------------------
+
+   db.query(`ALTER TABLE servers ADD COLUMN "embedstyle" character varying(8)  DEFAULT 'on'`,function(err)
+   {
+      if (err)
+      {
+         console.log("ERROR:"+err.message);
+      }
+      else
+      {
+         console.log("embedstyle column added");
+      }
+   });
+   db.query(`ALTER TABLE servers ADD COLUMN "bot2botstyle" character varying(8) DEFAULT 'off'`,function(err)
+   {
+      if (err)
+      {
+         console.log("ERROR:"+err.message);
+      }
+      else
+      {
+         console.log("bot2botstyle column added");
+      }
+   });
+};
+
 // ------------------
 // Get Channel Tasks
 // ------------------
@@ -151,9 +307,9 @@ exports.channelTasks = function(data)
       return autoTranslate(data);
    }
 };
-// --------------------------------
+// ------------------------------
 // Get tasks for channel or user
-// --------------------------------
+// ------------------------------
 
 exports.getTasks = function(origin, dest, cb)
 {
@@ -220,9 +376,9 @@ exports.removeTask = function(origin, dest, cb)
       });
 };
 
-// --------------
+// ---------------
 // Get Task Count
-// --------------
+// ---------------
 
 exports.getTasksCount = function(origin, cb)
 {
@@ -250,28 +406,12 @@ exports.getServersCount = function(cb)
 
 exports.addTask = function(task)
 {
-   // Tasks.upsert({
-   //   orign: task.origin,
-   //   dest: task.dest,
-   //   reply: task.reply, // + task.origin.slice(-3),
-   //   server: task.server,
-   //   active: true,
-   //   lang_to: task.to,
-   //   lang_from: task.from,
-   // }).then(() => {
-   //   console.log('Task added successfully.');
-   // })
-   // .catch(err => {
-   //   console.error('Unable to add task to the database:', err);
-   // });
-
-
    task.dest.forEach(dest =>
    {
       Tasks.upsert({
          origin: task.origin,
          dest: dest,
-         reply: task.reply, // + task.origin.slice(-3),
+         reply: task.reply,
          server: task.server,
          active: true,
          LangTo: task.to,
@@ -300,7 +440,7 @@ exports.increaseServers = function(id)
 // Get bot stats
 // --------------
 
-exports.getStats = function(cb)
+exports.getStats = function(callback)
 {
    return db.query(`select * from (select sum(count) as "totalCount", ` +
   `count(id)-1 as "totalServers" from servers) as table1, ` +
@@ -309,31 +449,32 @@ exports.getStats = function(cb)
   `(select count(distinct origin) as "activeTasks" ` +
   `from tasks where active = TRUE) as table4, ` +
   `(select count(distinct origin) as "activeUserTasks" ` +
-  `from tasks where active = TRUE and origin like '@%') as table5;`, { type: Sequelize.QueryTypes.SELECT}).then(
-      function(result)
-      {
-         cb(null, result);
-      }
-   );
+  `from tasks where active = TRUE and origin like '@%') as table5;`, { type: Sequelize.QueryTypes.SELECT})
+      .then(
+         result => callback(result),
+         err => logger("error", err + "\nQuery: " + err.sql, "db")
+      );
 };
 
 // ----------------
 // Get server info
 // ----------------
 
-exports.getServerInfo = function(id, cb)
+exports.getServerInfo = function(id, callback)
 {
    return db.query(`select * from (select count as "count",` +
    `lang as "lang" from servers where id = ?) as table1,` +
    `(select count(distinct origin) as "activeTasks"` +
    `from tasks where server = ?) as table2,` +
    `(select count(distinct origin) as "activeUserTasks"` +
-   `from tasks where origin like '@%' and server = ?) as table3;`, { replacements: [ id, id, id],
-      type: db.QueryTypes.SELECT}).then(
-      function (result)
-      {
-         cb(null, result);
-      });
+   `from tasks where origin like '@%' and server = ?) as table3, ` +
+   `(select embedstyle as "embedstyle" from servers where id = ?) as table4, ` +
+   `(select bot2botstyle as "bot2botstyle" from servers where id = ?) as table5;`, { replacements: [ id, id, id, id, id],
+      type: db.QueryTypes.SELECT})
+      .then(
+         result => callback(result),
+         err => this.updateColumns() //+ logger("error", err + "\nQuery: " + err.sql, "db")
+      );
 };
 
 // ---------

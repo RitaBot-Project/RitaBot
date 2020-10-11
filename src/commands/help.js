@@ -1,17 +1,21 @@
-const botSend = require("../core/send");
-const auth = require("../core/auth");
+// -----------------
+// Global variables
+// -----------------
 
-// ------------------------------
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
+const botSend = require("../core/send");
+
+// ------------------------
 // Bot Help / Command List
-// ------------------------------
+// ------------------------
 
 module.exports = function(data)
 {
    data.color = "info";
 
-   // ------------------------------
+   // ----------------------------------------------
    // Detect if help is needed for specific command
-   // ------------------------------
+   // ----------------------------------------------
 
    var getHelpWith = "basics";
 
@@ -23,12 +27,16 @@ module.exports = function(data)
 
    data.text = helpMessage(data.config, data.bot.username, getHelpWith);
 
+   // -------------
+   // Send message
+   // -------------
+
    return botSend(data);
 };
 
-// ------------------------------
+// -------------
 // Help Section
-// ------------------------------
+// -------------
 
 const helpSection = function(data)
 {
@@ -48,42 +56,35 @@ const helpSection = function(data)
    return section;
 };
 
-// ------------------------------
+// ----------
 // Help Text
-// ------------------------------
+// ----------
 
 const helpMessage = function(config, botname, param)
 {
-   // ------------------------------
+   // ---------
    // Bot Info
-   // ------------------------------
+   // ---------
 
    const cmd = config.translateCmdShort;
 
    const info =
    `**${botname} Bot - v.${config.version}**\n` +
-   `Translates Discord messages (based on \`Google API\`).\n\n`;
+   `Translates Discord messages (based on \`Google API\`).\n\n` +
+   "```md\n" +
+   `# All the commands can be found by entering the following:\n` +
+   `> ${cmd} help modules` +
+   "```\n\n";
 
-   // ------------------------------
-   // Support & Donations
-   // ------------------------------
-
-   var donation = "";
-   if (auth.donation && auth.donation.length > 5)
-   {
-      donation =
-         "Like this bot? [Support the developer!](" + auth.donation + ")";
-   }
-
-   // ------------------------------
+   // ------------
    // Help Basics
-   // ------------------------------
+   // ------------
 
    const basics =
    helpSection({
       config: config,
       title: "Translate by Reacting",
-      link: "https://github.com/ZyC0R3/Rita/wiki/Translate-by-Reacting",
+      link: "<https://github.com/ZyC0R3/Rita/wiki/Translate-by-Reacting>",
       icon: ":flag_white:",
       cmd: null,
       help: "react",
@@ -93,7 +94,7 @@ const helpMessage = function(config, botname, param)
    helpSection({
       config: config,
       title: "Translate Custom Text",
-      link: "https://github.com/ZyC0R3/Rita/wiki/Translate-Custom-Message",
+      link: "<https://github.com/ZyC0R3/Rita/wiki/Translate-Custom-Message>",
       icon: ":abc:",
       cmd: "this",
       help: "custom",
@@ -103,7 +104,7 @@ const helpMessage = function(config, botname, param)
    helpSection({
       config: config,
       title: "Translate Last Message",
-      link: "https://github.com/ZyC0R3/Rita/wiki/Translate-Last-Message",
+      link: "<https://github.com/ZyC0R3/Rita/wiki/Translate-Last-Message>",
       icon: ":arrow_double_up:",
       cmd: "last",
       help: "last",
@@ -113,7 +114,7 @@ const helpMessage = function(config, botname, param)
    helpSection({
       config: config,
       title: "Translate Channel (Automatic)",
-      link: "https://github.com/ZyC0R3/Rita/wiki/Translate-Channel-Automatic",
+      link: "<https://github.com/ZyC0R3/Rita/wiki/Translate-Channel-Automatic>",
       icon: ":hash:",
       cmd: "channel",
       help: "auto",
@@ -123,17 +124,17 @@ const helpMessage = function(config, botname, param)
    helpSection({
       config: config,
       title: "Stats",
-      link: "https://github.com/ZyC0R3/Rita/wiki/Get-Statistics",
+      link: "<https://github.com/ZyC0R3/Rita/wiki/Get-Statistics>",
       icon: ":bar_chart:",
       cmd: "stats",
-      help: "misc",
+      help: "stats",
       args: "stats [server/global]",
       example: ""
    }) +
    helpSection({
       config: config,
       title: "Settings",
-      link: "https://github.com/ZyC0R3/Rita/wiki/Settings",
+      link: "<https://github.com/ZyC0R3/Rita/wiki/Settings>",
       icon: ":gear:",
       cmd: "settings",
       help: "settings",
@@ -143,7 +144,7 @@ const helpMessage = function(config, botname, param)
    helpSection({
       config: config,
       title: "Misc. Settings",
-      link: "https://github.com/ZyC0R3/Rita/wiki/Misc.-Commands",
+      link: "<https://github.com/ZyC0R3/Rita/wiki/Misc.-Commands>",
       icon: ":robot:",
       cmd: "misc",
       help: "misc",
@@ -152,7 +153,8 @@ const helpMessage = function(config, botname, param)
    }) +
    helpSection({
       config: config,
-      title: "Channel Tasks",
+      title: "Tasks",
+      link: "<https://github.com/ZyC0R3/Rita/wiki/Misc.-Commands>",
       icon: ":clipboard:",
       cmd: "Tasks",
       help: "Tasks",
@@ -162,7 +164,7 @@ const helpMessage = function(config, botname, param)
    helpSection({
       config: config,
       title: "ReadMe",
-      link: "https://github.com/ZyC0R3/Rita/blob/master/README.md",
+      link: "<https://github.com/ZyC0R3/Rita/blob/master/README.md>",
       icon: ":bookmark_tabs:",
       cmd: "readme",
       help: "readme",
@@ -172,22 +174,107 @@ const helpMessage = function(config, botname, param)
    helpSection({
       config: config,
       title: "Report Bugs / Request Features",
-      link: "https://github.com/ZyC0R3/Rita/issues",
+      link: "<https://github.com/ZyC0R3/Rita/issues>",
       icon: ":raising_hand::skin-tone-3:"
-   }) +
-   donation;
+   });
 
-   // ------------------------------
-   // ReadMe location
-   // ------------------------------
+
+   // -----------------
+   // ReadMe + Discord
+   // -----------------
 
    const readme =
-   `__**The ReadMe File can be located below**__\n\n` +
-   `https://github.com/ZyC0R3/Rita/blob/master/README.md`;
 
-   // ------------------------------
+   `**Github ReadMe**\n\n` +
+   "```md\n" +
+   `# To read the GitHub read me go here:\n` +
+   `> ( https://github.com/ZyC0R3/RitaBot/blob/master/README.md ) \n\n` +
+   `# If you need to update your bot's version you can do so here:\n` +
+   `> ( https://github.com/ZyC0R3/RitaBot#migration )\n\n` +
+   `# You can join Rita's Discord Support Server here: \n\n` +
+   `> https://discord.gg/mgNR64R` +
+   "```\n\n";
+
+
+   // --------------------------------
+   // Report Bugs + Report in Discord
+   // --------------------------------
+
+   const report =
+   `**Report Bugs**\n` +
+   "```md\n" +
+   `# You can report issues in Github here:\n` +
+   `> ( https://github.com/ZyC0R3/RitaBot/issues )\n\n` +
+   `# Rita also has a support server with it's developers and contributors... You may join that here: \n` +
+   `> https://discord.com/invite/mgNR64R \n` +
+   "```\n\n";
+
+   // ----------------
+   // Module Commands
+   // ----------------
+
+   const modules =
+   `__**Modules**__\n\n` +
+   `These will help you look through ${botname}'s commands.` +
+   "```md\n" +
+
+   `# Translation Help Modules\n` +
+   `> ${cmd} help auto\n` +
+   `> ${cmd} help react\n` +
+   `> ${cmd} help last\n` +
+   `> ${cmd} help this\n\n` +
+
+   `# Translation Style Modules\n` +
+   `> ${cmd} help embed\n` +
+
+
+   `> ${cmd} help bot2bot\n\n` +
+
+
+   `# Information Modules\n` +
+   `> ${cmd} help stats\n` +
+   `> ${cmd} help tasks\n` +
+   `> ${cmd} help settings\n\n` +
+
+   `# Other Modules\n` +
+   `> ${cmd} help misc\n` +
+   `> ${cmd} help report\n` +
+   `> ${cmd} help readme\n` +
+   "```";
+
+
+   // -----------
+   // Embed Help
+   // -----------
+   const embed =
+   `__**Styles**__\n\n` +
+   "```md\n" +
+
+   `# Embed Style\n` +
+   `> Turns on Embed Translation\n` +
+   `> ${cmd} embed on\n\n` +
+   `> Turns on Webhook Translation Sending\n` +
+   `> ${cmd} embed off\n\n` +
+   "```";
+   // -------------
+   // Bot2bot Help
+   // -------------
+
+   const bot2bot =
+   `__**bot to Bot Translation**__\n\n` +
+   "```md\n" +
+
+   `# Bot to Bot\n` +
+   `> Turns on Bot2Bot Translations\n` +
+   `> ${cmd} bot2bot on\n\n` +
+   `> Turns off Bot2Bot Translations\n` +
+   `> ${cmd} bot2bot off\n\n` +
+   `> Usually 90% of bots ignore bot messages` +
+   ` but this feature allows discord bots to be translated too` +
+   "```";
+   // --------------------
    // Last Message (last)
-   // ------------------------------
+   // --------------------
 
    const last =
    `__**Translate Last Message(s)**__\n\n` +
@@ -213,18 +300,23 @@ const helpMessage = function(config, botname, param)
    `* ${cmd} last -6 to english from german` +
    "```";
 
-   // ------------------------------
+   // --------------------
    // Flag Emoji Reaction
-   // ------------------------------
+   // --------------------
 
    const react =
    `__**Translate by reaction**__\n\n` +
-   `Translates a message in the server when you react to it with a ` +
-   `flag emoji. For example: :flag_ca:, :flag_it:, :flag_eg:, :flag_jp:`;
+   `# Add a message reaction with the flag of the language` +
+   `you wish to translate to\n\n` +
+   `# Examples\n` +
+   `:flag_gb: = English\n` +
+   `:flag_fr: = French\n\n` +
+   ` Please note that only official country flags are registered`;
 
-   // ------------------------------
+
+   // ----------------------
    // Custom message (this)
-   // ------------------------------
+   // ----------------------
 
    const custom =
    `__**Translate Custom Message**__\n\n` +
@@ -247,9 +339,9 @@ const helpMessage = function(config, botname, param)
    `* ${cmd} this to de from en: how are you? \n` +
    "```";
 
-   // ------------------------------
+   // -------------------------
    // Auto translate (channel)
-   // ------------------------------
+   // -------------------------
 
    const auto =
    `__**Auto Translate Channels/Users**__\n\n` +
@@ -273,14 +365,11 @@ const helpMessage = function(config, botname, param)
    `* ${cmd} channel to en from de for #englishChannel \n` +
    `* ${cmd} channel to de from en for @steve \n` +
    `* ${cmd} channel to en from ru for #ch1, #ch2, #usr1 \n` +
-   "```" +
-   "\n* Translated messages that are forwarded to users include a special id " +
-   "for replying. Simply copy the code and paste into DM window before your " +
-   "message to send a response, example: `XX123: your message here`.";
+   "```";
 
-   // ------------------------------
+   // ----------------------
    // Auto translate (stop)
-   // ------------------------------
+   // ----------------------
 
    const stop =
    `__**Stop Auto Translation**__\n\n` +
@@ -303,9 +392,9 @@ const helpMessage = function(config, botname, param)
    `* ${cmd} stop for all \n` +
    "```";
 
-   // ------------------------------
-   // Misc
-   // ------------------------------
+   // -------------
+   // Misc Command
+   // -------------
 
    const misc =
    `__**Miscellaneous Commands**__\n\n` +
@@ -315,12 +404,6 @@ const helpMessage = function(config, botname, param)
    `> ${cmd} help\n` +
    `> ${cmd} help [command]\n\n` +
 
-   `# Statistics\n` +
-   `> ${cmd} version \n` +
-   `> ${cmd} stats \n` +
-   `> ${cmd} stats global \n` +
-   `> ${cmd} stats server \n\n` +
-
    `# Links\n` +
    `> ${cmd} invite\n\n` +
 
@@ -328,9 +411,24 @@ const helpMessage = function(config, botname, param)
    `> ${cmd} list\n` +
    "```";
 
-   // ------------------------------
-   // Settings
-   // ------------------------------
+   // -------------------
+   // Statistics Command
+   // -------------------
+
+   const stats =
+   `__**Statistics**__\n\n` +
+   "```md\n" +
+
+   `# Statistics\n` +
+   `> ${cmd} version \n` +
+   `> ${cmd} stats \n` +
+   `> ${cmd} stats global \n` +
+   `> ${cmd} stats server \n` +
+   "```";
+
+   // -----------------
+   // Settings Command
+   // -----------------
 
    const settings =
    `__**Settings**__\n\n` +
@@ -341,15 +439,24 @@ const helpMessage = function(config, botname, param)
    `> ${cmd} settings setLang to [lang]\n\n` +
 
    `# Disconnect bot from server\n` +
-   `> ${cmd} settings disconnect \n` +
+   `> ${cmd} settings disconnect\n\n` +
 
    `# Displays list of servers the bot is in\n` +
-   `> ${cmd} settings listservers` +
+   `> ${cmd} settings listservers\n\n` +
+
+   `# Fix Guild Mismatch\n` +
+   `* MAY NOT WORK WITH SOME DB's \n` +
+   `> ${cmd} settings dbfix\n\n` +
+
+
+
+   `# Update Bot\n` +
+   `> ${cmd} settings updatebot\n` +
    "```";
 
-   // ------------------------------
-   // Tasks
-   // ------------------------------
+   // --------------
+   // Tasks Command
+   // --------------
 
    const tasks =
    `__**Channel Tasks**__\n\n` +
@@ -357,16 +464,16 @@ const helpMessage = function(config, botname, param)
    "```md\n" +
 
    `# Displays translation tasks of the current channel\n` +
-   `> ${cmd} tasks\n` +
+   `> ${cmd} tasks\n\n` +
 
    `# Displays translation tasks of specified channel\n` +
-   `> COMING IN FUTURE UPDATE\n` +
+   `* COMING IN FUTURE UPDATE \n` +
    `> ${cmd} tasks for [#channel]\n` +
    "```";
 
-   // ------------------------------
+   // ----------------
    // Proccess result
-   // ------------------------------
+   // ----------------
 
    const paramMap =
    {
@@ -379,7 +486,12 @@ const helpMessage = function(config, botname, param)
       "misc": misc,
       "settings": settings,
       "tasks": tasks,
-      "readme": readme
+      "stats": stats,
+      "readme": readme,
+      "modules": modules,
+      "report": report,
+      "embed": embed,
+      "bot2bot": bot2bot
    };
 
    //if (paramMap.hasOwnProperty(param))

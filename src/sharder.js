@@ -1,16 +1,21 @@
+// -----------------
+// Global variables
+// -----------------
+
+// codebeat:disable[LOC,ABC,BLOCK_NESTING]
 const discord = require("discord.js");
 const auth = require("./core/auth");
 
-/**
- * Discord Main Bot Script
- */
+// ------------------------
+// Discord Main Bot Script
+// ------------------------
 
 const path = require("path");
 const bot = path.join(__dirname, "bot.js");
 
-/**
- * Shard Manager
- */
+// --------------
+// Shard Manager
+// --------------
 
 let shards = 2;
 
@@ -25,8 +30,8 @@ const shardingOptions = {
 
 const manager = new discord.ShardingManager(bot, shardingOptions);
 
-/**
- * Spawn Shards
- */
+// -------------
+// Spawn Shards
+// -------------
 
 manager.spawn().catch(console.error);

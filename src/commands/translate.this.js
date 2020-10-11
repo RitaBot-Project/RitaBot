@@ -1,15 +1,20 @@
+// -----------------
+// Global variables
+// -----------------
+
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
 const botSend = require("../core/send");
 const translate = require("../core/translate");
 
 // -----------------------------
-// translate string to language
+// Translate string to language
 // -----------------------------
 
 module.exports = function(data)
 {
-   //
+   // -----------------------------
    // Send error for empty content
-   //
+   // -----------------------------
 
    if (!data.cmd.content)
    {
@@ -24,12 +29,16 @@ module.exports = function(data)
          data.config.translateCmd + " help custom" +
          "```";
 
+      // -------------
+      // Send message
+      // -------------
+
       return botSend(data);
    }
 
-   //
+   // ------------------
    // Start translation
-   //
+   // ------------------
 
    data.translate = {
       original: data.cmd.content,

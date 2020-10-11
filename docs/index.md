@@ -1,72 +1,62 @@
-## What is Rita and who are we?
+## RITA (Stable) [![invite](https://img.shields.io/badge/Discord_Support-JOIN-7289DA.svg?)](https://discordapp.com/invite/mgNR64R)
+A Translation bot built using `discord.js` and a custom `Google Translate API`.
+*(The NPM Version of Google Translate API is outdated and does not work with this distribution, as such a custom and maintained version is installed.)*
 
-*Rita is the culmination of many things, it started with a mobile game, a community of gamers, a discord server of different languages and a desire to all be understood. She is a Real-Time Translator Bot for use on Discord, Self-hosted on Heroku (or a local install) and Completly **100%** Free. She is maintained by a small group of users, each with diffrent backgronds and some learning as we go.*
+### --RITA-- Master Branch
+![GitHub package.json version](https://img.shields.io/github/package-json/v/ZyC0R3/RitaBot?label=Stable%20Version)
+[![codebeat badge](https://codebeat.co/badges/125a5ce4-4ba1-45cf-95fa-266e1353c331)](https://codebeat.co/projects/github-com-zyc0r3-ritabot-master)
+[![Build Status](https://travis-ci.com/ZyC0R3/RitaBot.svg?branch=master)](https://travis-ci.com/ZyC0R3/RitaBot)
+[![CircleCI](https://circleci.com/gh/ZyC0R3/RitaBot.svg?style=svg)](https://circleci.com/gh/ZyC0R3/RitaBot)
+![GitHub last commit](https://img.shields.io/github/last-commit/ZyC0R3/RitaBot.svg)
+![GitHub](https://img.shields.io/github/license/ZyC0R3/RitaBot.svg)
+![GitHub issues](https://img.shields.io/github/issues/ZyC0R3/RitaBot)
 
-------
+### --Google Translate API-- Master Branch
+![GitHub package.json version](https://img.shields.io/github/package-json/v/ZyC0R3/google-translate-api)
+[![Build Status](https://travis-ci.com/ZyC0R3/google-translate-api.svg?branch=master)](https://travis-ci.com/ZyC0R3/google-translate-api)
+![GitHub last commit](https://img.shields.io/github/last-commit/ZyC0R3/google-translate-api)
+![GitHub issues](https://img.shields.io/github/issues/ZyC0R3/google-translate-api)
 
-## Why did you make Rita?
+#### --RITA-- Current Test Branch
+![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/ZyC0R3/RitaBot/test-branch?label=Test%20Version)
+[![Build Status](https://travis-ci.com/ZyC0R3/RitaBot.svg?branch=test-branch)](https://travis-ci.com/ZyC0R3/RitaBot)
+[![CircleCI](https://circleci.com/gh/ZyC0R3/RitaBot/tree/test-branch.svg?style=svg)](https://circleci.com/gh/ZyC0R3/RitaBot/tree/test-branch)
 
-*The mobile game itself would get old, fast. The community around it, however, is what kept us going. The one downside was we didn't all speak the same language. The game we played translated our conversations for us but Discord didn't,  so the server admins used a  translation bot called C-3P0. This introduction is the start of the story.*
-
-------
-## The history of Rita?
-
-*There are loads of different translation bots out there, some are amazing, some are expensive, some are free but have limits, and others are just rubbish. C-3P0 checked all these boxes.*
-
-*Originally called discord-translator and made by Aziz, then forked By NotMyself and renamed Louie, forked again By AlooAkbar and renamed C-3P0, its code was neglected, not maintained, left outdated and iterations made private for commercial gains.*
-
-------
-
-## Why Rita and what does it stand for?
-
-*I and a group of fellow C-3P0 users decided that collectively we could do better, plagued with crashes, API changes, relentless bugs and issues, the drive to make something better was born.*
-
-*Rita's history and various iterations each added something extra, it just needed to be brought together and moulded, moulded into something amazing, moulded into Rita. The Real-Time Intergalactic Translating Assistant.*
-
-------
-#### *There you have it, the story, dramatised and electrified for effect, but all true, of how Rita was born.*
-
-------
-
-## Rita (beta)
-Translation bot built using `discord.js` and `Google Translate API`.
-
-![GitHub package.json version](https://img.shields.io/github/package-json/v/ZyC0R3/Rita?label=Stable%20Version)
-[![codebeat badge](https://codebeat.co/badges/a26b41c5-771e-4452-8a60-1947b0ed302c)](https://codebeat.co/projects/github-com-zyc0r3-rita-1-1-6)
-[![Build Status](https://travis-ci.com/ZyC0R3/Rita.svg?branch=1.1.7)](https://travis-ci.com/ZyC0R3/Rita)
-[![CircleCI](https://circleci.com/gh/ZyC0R3/Rita/tree/1.1.7.svg?style=svg)](https://circleci.com/gh/ZyC0R3/Rita/tree/1.1.7)
-![GitHub last commit](https://img.shields.io/github/last-commit/ZyC0R3/Rita.svg)
-![GitHub](https://img.shields.io/github/license/ZyC0R3/Rita.svg)
-![GitHub issues](https://img.shields.io/github/issues-raw/ZyC0R3/Rita.svg)
-[![invite](https://img.shields.io/badge/Discord_Support-JOIN-7289DA.svg?)](https://discordapp.com/invite/mgNR64R)
-
-
-#### Current Test Branch
-![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/ZyC0R3/Rita/test-branch?label=Test%20Version)
-[![Build Status](https://travis-ci.com/ZyC0R3/Rita.svg?branch=test-branch)](https://travis-ci.com/ZyC0R3/Rita)
-[![CircleCI](https://circleci.com/gh/ZyC0R3/Rita/tree/test-branch.svg?style=svg)](https://circleci.com/gh/ZyC0R3/Rita/tree/test-branch)
+#### --Google Translate API-- Current Test Branch
+![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/ZyC0R3/google-translate-api/test-branch)
+[![Build Status](https://travis-ci.com/ZyC0R3/google-translate-api.svg?branch=test-branch)](https://travis-ci.com/ZyC0R3/google-translate-api)
 
 ## Coming Soon!
 
 01. Error Message Support Section.
 02. Auto Reverse translation for the auto function.
-03. `!t tasks #TargetChannel` Implementation. 
+03. `!t tasks #TargetChannel` Implementation.
 04. Introduction of a Streamlined Command Handler. (This will be done as a New Project)
+05. Accept "auto" as a language for Automatic detection and translation.
+
+## New in 1.2.1-\*
+* Minor Code changes
+* Active Test Branch
+* Various Security vulnerabilities fixed
+* Various Dev Dependencies Updated
+* Node V9 No longer supported
+
+## New in 1.2.0-\*
+* No Code changes, just URL updates for New name of Bot
+* Published to NPM
+* Non code changes will be appended with Version-\*\* from now on
+
+## New in 1.1.8
+* Various Security vulnerabilities fixed
+* Various Spelling mistakes in ReadMe have been corrected
+* Dev Dependencies core to this bot, the `google-transalte-api` & `google-transalte-token` have been updated
 
 ## New in 1.1.7
-* Setup on a Raspberry Pi Section.
-* gulp-watch updated dependancies.
-* Patch for Chinese language support.
-* Various Security vulnerabilites fixed.
+* Setup on a Raspberry Pi Section
+* gulp-watch updated dependencies. (*Moved to Local Repo as it was out-of-date and full of Security Issues.*)
+* Patch for Chinese language support
+* Various Security vulnerabilities fixed
 * Various commands re-activated.
-
-## New in 1.1.6
-* Updated ReadMe with Local Installation Support Section.
-* Images can now be sent in chat without the need for accompanying text.
-* All Heroku Build Warnings have been fixed.
-* the bot now responds when you change the server language.
-* Translation to user Via DM is now working again.
-* Stop command no longer crashes the bot.
 
 ## Table of Contents
 
@@ -83,13 +73,14 @@ Translation bot built using `discord.js` and `Google Translate API`.
 11. [Commands](#commands)
 12. [Credits & License](#credits-&-license)
 13. [Design Team](#design-team)
+14. [What, Who, How and Why?](#history)
 
 ## <a name="features"></a>Features
 * Translate custom messages
 * Translate messages by reacting with flag emoji
 * Translate last message(s) in channel
 * Translate to multiple languages at once
-* Automatic translation of channels with option to forward translations to users or seperate channels.
+* Automatic translation of channels with option to forward translations to users or separate channels.
 * Supports 100+ languages
 
 ## <a name=""></a>Usage
@@ -106,8 +97,8 @@ Translation bot built using `discord.js` and `Google Translate API`.
 
 
 #### 1. Fork this repo.
-* If you don't yet have a github account, [create one](https://github.com/join)! It's free and easy.
-* Use the button in the upper righthand side of this page to fork the repo so that it will be associated with your github account.
+* If you don't yet have a Github account, [create one](https://github.com/join)! It's free and easy.
+* Use the button in the upper righthand side of this page to fork the repo so that it will be associated with your Github account.
 
 #### 2. Create a new [Discord App](https://discordapp.com/developers/applications/me/create)
 * Give app a friendly name and click the **Create App** button
@@ -123,20 +114,25 @@ Translation bot built using `discord.js` and `Google Translate API`.
 * Under **Deployment Method** select Github. Connect to your Github account and search for this repo by name.
 * Scroll down to the manual deploy section, and select the **Master** branch. Click deploy branch, and wait for the successfully deployed message.
 * Go to the **Resources** tab and look for the addons section. Search 'Postgres', and add a 'Hobby Dev - Free' version of Heroku Postgres. This will be automatically attached as your bot's database.
-* Go to the **Settings** tab. Click to reveal Config Variables, then add a new one. The key will be **DISCORD_TOKEN**, and the value will be your discord bot's token that you copied earlier.
+* Go to the **Settings** tab. Click to reveal Config Variables, then add then add the following:
+  * **KEY:** =  DISCORD_TOKEN
+  * **Value:** = Your discord bot's token that you copied earlier.
+  * **KEY:** =  NODE_MODULES_CACHE
+  * **Value:** = false
+    * *This is to ensure that when the bot updates it does not use any old Dependencies that Heroku has stored and gets fresh ones from the package.json file*
 * Go to the **Overview** tab and click configure dynos. Turn off the default `web npm start` dyno and turn on the `worker node src/bot.js` dyno. Your bot will now be up and running!
 
 #### 4. Invite your bot to your server and configure it!
-* Replace the CLIENTID string in the following url with your own apps client id: https://discordapp.com/oauth2/authorize?&client_id=CLIENTID&scope=bot&permissions=8
-* Visit the resulting url and add your bot to any server where you have admin privileges.
+* Replace the CLIENTID string in the following URL with your own apps client id: https://discordapp.com/oauth2/authorize?&client_id=CLIENTID&scope=bot&permissions=8
+* Visit the resulting URL and add your bot to any server where you have admin privileges.
 * Once added, your bot should show up more or less instantaneously. Type `!t help` within the discord chat for more details on how to use it. Happy translating!
 
 
-## <a name="update"></a>How to Update to 1.1.7
+## <a name="update"></a>How to Update to 1.1.7 and Above
 #### 1. Checklist
 * You must have a bot already running on your server, if not then refer to [Setting up a New Bot](#new-bot)
 
-#### 2. Fork this Repo 
+#### 2. Fork this Repo
 * Complete a Pull Request from the master Branch of ZyC0R3/Rita to your master branch.
 * Detailed instructions with example can be found here: https://www.sitepoint.com/quick-tip-sync-your-fork-with-the-original-without-the-cli/
 
@@ -154,11 +150,11 @@ Translation bot built using `discord.js` and `Google Translate API`.
 1. You have an already up and running C-3P0 Bot.
 2. You are using Heroku to run the old version.
 3. Make sure you do not disable, reset or delete your database (preferably Postgres from Heroku)
+4. You have already completed a Pull Request from the master Branch of ZyC0R3/Rita to your master branch.
 
 #### 2. Migrate
-* Go to Heroku and click your app of C-3PO, once you have direct yourself to the deploy section. Once at the deploy section fork this project ( https://github.com/ZyC0R3/Rita ) and name it whatever you like.  
-* Go back to the deploy section in Heroku and scroll down until you see the current fork your C-3PO bot is running off of, next to it there should be a button saying "Disconnect" click that and then click search on repositories.
-* Click your fork of this project and wait for it to load. Once that is completed you need to deploy the 'Master' version of the bot.
+* Go to Heroku and click your app of C-3PO, and locate the **Deploy** section. Scroll down until you see the current fork your C-3PO bot is running off of, next to it there should be a button saying **Disconnect**
+* Next click search on repositories and select your fork of this project and wait for it to load. Once that is completed you need to **Deploy** the 'Master' Branch/Version of the bot.
 * Wait for it to finish deploying and you should be good to go. Turn on your worker dyno (if it was not already) and make sure your DISCORD_TOKEN is connected in the variables section in Settings. All data from your previous C-3PO bot should be saved in the database of Postgres as long as you do not delete it and will connect to all the previous channel translation connections. Happy Translating!
 
 
@@ -167,7 +163,7 @@ Sometimes you need to edit the Database manually, This is not something you shou
 
 #### 1. Checklist
 1. Know that you are doing, if you don't then **don't** touch the DB. Simple.
-2. Download and Install [Postgres Admin 4](https://www.postgresql.org/ftp/pgadmin/pgadmin4/v4.10/), This guide will be for Windows, but it shouldn't be much different for any other OS.
+2. Download and Install Postgres Admin 4, Located [Here](https://www.pgadmin.org/download/) or [Here](https://www.postgresql.org/ftp/pgadmin/pgadmin4/). *This guide will be for Windows, but it shouldn't be much different for any other OS.*
 3. Locate your credentials for you Heroku Database, Log in to **Heroku** > Select your **App** > Click **Resources** > Click **Heroku Postgres** > Click **Settings** > Click **View Credentials** (*Note: Heroku rotates credentials periodically and updates applications where this database is attached.*)
 
 #### 2. Connect
@@ -179,7 +175,7 @@ For a fresh install of pgAdmin, the dashboard likely contains only one server. T
 *Under the connection tab:*
   * **Hostname/Address:** This is the host credential you located in Step 3. It should look like \*\*-\*\*-\*\*...amazonaws.com
   * **Port:** Keep the port at 5432, unless your credentials list otherwise
-  * **Maintenance databaseL** This is the database field located in Step 3.
+  * **Maintenance databaseL** This is the database field located in Step 3 Below.
   * **Username:**  This is the user field in the credentials
   * **Password:** The password field located in Step 3. I highly advise checking save password so that you don’t have to copypasta this every time you want to connect.
   * In the **SSL Tab**, mark SSL mode as require
@@ -199,35 +195,37 @@ Any Database that runs with SQL Sequelize ('https://sequelize.org/master/') can 
 Copy the existing **.env.example** file and name it **.env**. Edit the Values of **DISCORD_TOKEN**, **DISCORD_BOT_OWNER_ID** and the **DATABASE_URL** according to the values that you copied earlier.
 
 #### 3. Install nodejs
-Install nodejs ('https://nodejs.org/en/').  
+Install nodejs from https://nodejs.org/en/  
 
 #### 4. Run and start the bot
-Run `npm install -g gulp` in your console to install gulp. Build the bot code using `npm build` and run the bot with `npm start`. 
+Run `npm install -g gulp` in your console to install gulp. Build the bot code using `npm build` and run the bot with `npm start`.
 
 #### 5. Invite your bot to your server and configure it!
-Return to step 4 in [Setting up a New Bot](#new-bot).
+* Replace the CLIENTID string in the following URL with your own apps client id: https://discordapp.com/oauth2/authorize?&client_id=CLIENTID&scope=bot&permissions=8
+* Visit the resulting URL and add your bot to any server where you have admin privileges.
+* Once added, your bot should show up more or less instantaneously. Type `!t help` within the discord chat for more details on how to use it. Happy translating!
 
 ## <a name="pi"></a>Setup on a Raspberry Pi
 We recommend to initially run your bot in a local environment on your laptop before you run the translator on a Raspberry Pi. The local setup allows you to get familiar with the setup and the settings.
 
-The following description allows a headless configuration. Only a network connection is required. This description is explicitely for running the bot on a Raspberry Pi 4, but the setup should be similar for earlier version.
+The following description allows a headless configuration. Only a network connection is required. This description is explicitly for running the bot on a Raspberry Pi 4, but the setup should be similar for earlier version.
 
-Recommendation: run it locally first before putting the code on pi. Easier to ensure that .env variabels are setup correctly.
+Recommendation: run it locally first before putting the code on pi. Easier to ensure that .env variables are setup correctly.
 
-#### 1. Write Raspbian on your SD card 
-Download the minimal image of Raspbian (https://www.raspberrypi.org/downloads/raspbian/). This setup is based on Raspbian Buster Lite, July 2019. 
+#### 1. Write Raspbian on your SD card
+Download the minimal image of Raspbian (https://www.raspberrypi.org/downloads/raspbian/). This setup is based on Raspbian Buster Lite, July 2019.
 
 Use balenaEtcher(https://www.balena.io/etcher/) to write the image on your SD card.
 
 For more Information: See https://www.raspberrypi.org/documentation/installation/installing-images/README.md
 
-#### 2. Enable SSH 
+#### 2. Enable SSH
 Enable SSH by placing a file named “ssh” (without any extension) onto the boot partition of the SD card.
 
 #### 3. Start and Login
 * Pop your prepared SD card, power and a network cable into the Pi.
-* Find your Pi's IP Adrdress. Check your Router's DHCP allocation table or use a mobile app like Fing (https://play.google.com/store/apps/details?id=com.overlook.android.fing) to find the IP of Pi.
-* Install WinSCP and Putty on your Laptop. 
+* Find your Pi's IP Address. Check your Router's DHCP allocation table or use a mobile app like Fing (https://play.google.com/store/apps/details?id=com.overlook.android.fing) to find the IP of Pi.
+* Install WinSCP and Putty on your Laptop.
 * Start Putty and login into your Pi. Username: pi, PW: raspberry. Change your password with 'passwd'.
 
 #### 4. Initial Setup
@@ -236,7 +234,7 @@ Enable SSH by placing a file named “ssh” (without any extension) onto the bo
 * Update your repositories: `sudo apt-get dist-upgrade`
 
 #### 5. Install node and npm
-The fastes way to install the current node and npm versions (https://nodejs.org/en/download/) was to follow the description from nodesource (https://github.com/nodesource/distributions/blob/master/README.md): 
+The fastes way to install the current node and npm versions (https://nodejs.org/en/download/) was to follow the description from nodesource (https://github.com/nodesource/distributions/blob/master/README.md):
 * Get the source: `curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -`
 * Install: `sudo apt-get install -y nodejs`
 * Check version: `node -v` and `npm -v`
@@ -245,13 +243,13 @@ The fastes way to install the current node and npm versions (https://nodejs.org/
 It is recommend to install git and pull from your fork or main:
 * Install git: `sudo apt-get install git`
 * Create the folder for the source: `mkdir Rita`
-* Clone the repository: `git clone https://github.com/ZyC0R3/Rita.git`
+* Clone the repository: `git clone https://github.com/ZyC0R3/RitaBot.git`
 * Checkout the branch you need: `git checkout --track origin/1.1.7`
 
 Alternative: move the source code with WinSCP from your local environment to the Pi.
 
 #### 7. Install the database
-Install sqlite3 with `sudo apt-get install sqlite3`. 
+Install sqlite3 with `sudo apt-get install sqlite3`.
 
 Create an empty database file (`sqlite3 database.db`)and call `.tables`)
 
@@ -271,7 +269,7 @@ There are different ways to make the bot initialize at startup. The following de
 * Make the file executable: `sudo chmod +x /etc/init.d/translate_bot`
 * Update the system script links: `sudo update-rc.d translate_bot defaults`
 * Now, you can interact with the bot service with commands `sudo service translate_bot start`,  `sudo service translate_bot status` and `sudo service translate_bot stop`
-* The logging will be in `/var/log/translate_bot.err` and `/var/log/translate_bot.log` 
+* The logging will be in `/var/log/translate_bot.err` and `/var/log/translate_bot.log`
 * Reboot and hope everything is running smooth: `sudo reboot`
 * Enjoy (or return to step 4 in [Setting up a New Bot](#new-bot) if you haven't done yet)
 
@@ -292,12 +290,12 @@ This section/feature is being Created, Check back soon or join the support disco
 
 
 ## <a name="commands"></a>Commands
-* [Translate Custom Text](https://github.com/ZyC0R3/Rita/wiki/Translate-Custom-Message)
-* [Translate by Reaction](https://github.com/ZyC0R3/Rita/wiki/Translate-by-Reacting)
-* [Translate Last Message](https://github.com/ZyC0R3/Rita/wiki/Translate-Last-Message)
-* [Translate Channel](https://github.com/ZyC0R3/Rita/wiki/Translate-Channel-Automatic)
-* [Settings](https://github.com/ZyC0R3/Rita/wiki/Settings)
-* [Misc. Commands](https://github.com/ZyC0R3/Rita/wiki/Misc.-Commands)
+* [Translate Custom Text](https://github.com/ZyC0R3/RitaBot/wiki/Translate-Custom-Message)
+* [Translate by Reaction](https://github.com/ZyC0R3/RitaBot/wiki/Translate-by-Reacting)
+* [Translate Last Message](https://github.com/ZyC0R3/RitaBot/wiki/Translate-Last-Message)
+* [Translate Channel](https://github.com/ZyC0R3/RitaBot/wiki/Translate-Channel-Automatic)
+* [Settings](https://github.com/ZyC0R3/RitaBot/wiki/Settings)
+* [Misc. Commands](https://github.com/ZyC0R3/RitaBot/wiki/Misc.-Commands)
 
 ## <a name="credits-&-license"></a>Credits & License
 
@@ -310,5 +308,30 @@ This project was originally released by Aziz under the MIT license. He chose to 
 * Z3US / [cyberlooper](https://github.com/cyberlooper)
 * Maddious / [MadIndex](https://github.com/MadIndex)
 * defqon.1 / [wdaniel1985](https://github.com/wdaniel1985)
+
+## <a name="history"></a>What is Rita and who are we?
+
+*Rita is the culmination of many things, it started with a mobile game, a community of gamers, a discord server of different languages and a desire to all be understood. She is a Real-Time Translator Bot for use on Discord, Self-hosted on Heroku (or a local install) and Completly **100%** Free. She is maintained by a small group of users, each with different backgrounds and some learning as we go.*
+
+#### Why did you make Rita?
+
+*The mobile game itself would get old, fast. The community around it, however, is what kept us going. The one downside was we didn't all speak the same language. The game we played translated our conversations for us but Discord didn't, so the server admins used a  translation bot called C-3P0. This introduction is the start of the story.*
+
+#### The history of Rita?
+
+*There are loads of different translation bots out there, some are amazing, some are expensive, some are free but have limits, and others are just rubbish. C-3P0 checked all these boxes.*
+
+*Originally called discord-translator and made by Aziz, then forked By NotMyself and renamed Louie, forked again By AlooAkbar and renamed C-3P0, its code was neglected, not maintained, left outdated and iterations made private for commercial gains.*
+
+#### Why Rita and what does it stand for?
+
+*I and a group of fellow C-3P0 users decided that collectively we could do better, plagued with crashes, API changes, relentless bugs and issues, the drive to make something better was born.*
+
+*Rita's history and various iterations each added something extra, it just needed to be brought together and moulded, moulded into something amazing, moulded into Rita. The Real-Time Interchangeable Translating Assistant.*
+
+------
+#### *There you have it, the story, dramatised and electrified for effect, but all true, of how Rita was born.*
+
+------
 
 Released under MIT license.

@@ -1,3 +1,8 @@
+// -----------------
+// Global variables
+// -----------------
+
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
 const translate = require("google-translate-api");
 const db = require("./db");
 const botSend = require("./send");
@@ -20,11 +25,9 @@ const translateFix = function(string)
       .replace(role, "$1");
 };
 
-// -----------------------------------------
-// Get user color with jimp and colorThief
-// -----------------------------------------
-// @Deprecated: now using role color instead
-// -----------------------------------------
+// ---------------------------------------
+// Get user color for translated response
+// ---------------------------------------
 
 function getUserColor(data, callback)
 {
@@ -54,6 +57,11 @@ const bufferSend = function(arr, data)
       data.color = msg.color;
       data.author = msg.author;
       data.showAuthor = true;
+
+      // -------------
+      // Send message
+      // -------------
+
       botSend(data);
    });
 };
@@ -126,21 +134,26 @@ const updateServerStats = function(message)
 
 module.exports = function(data) //eslint-disable-line complexity
 {
-   //
+   // -------------------
    // Get message author
-   //
+   // -------------------
 
    data.author = data.message.author;
 
-   //
+   // -------------------------
    // Report invalid languages
-   //
+   // -------------------------
 
    invalidLangChecker(data.translate.from, function()
    {
       data.color = "warn";
       data.text = ":warning:  Cannot translate from `" +
                   data.translate.from.invalid.join("`, `") + "`.";
+
+      // -------------
+      // Send message
+      // -------------
+
       botSend(data);
    });
 
@@ -149,12 +162,17 @@ module.exports = function(data) //eslint-disable-line complexity
       data.color = "warn";
       data.text = ":warning:  Cannot translate to `" +
                   data.translate.to.invalid.join("`, `") + "`.";
+
+      // -------------
+      // Send message
+      // -------------
+
       botSend(data);
    });
 
-   //
+   // -------------------------------------
    // Stop if there are no valid languages
-   //
+   // -------------------------------------
 
    if (
       data.translate.to.valid.length < 1 ||
@@ -164,9 +182,9 @@ module.exports = function(data) //eslint-disable-line complexity
       return;
    }
 
-   //
+   // --------------------------------
    // Handle value of `from` language
-   //
+   // --------------------------------
 
    var from = data.translate.from;
 
@@ -175,9 +193,9 @@ module.exports = function(data) //eslint-disable-line complexity
       from = data.translate.from.valid[0].iso;
    }
 
-   //
+   // ---------------
    // Get guild data
-   //
+   // ---------------
 
    var guild = null;
 
@@ -186,37 +204,42 @@ module.exports = function(data) //eslint-disable-line complexity
       guild = data.message.channel.guild;
    }
 
-   //
+   // ----------------------------------------------
    // Translate multiple chains (!translate last n)
-   //
+   // ----------------------------------------------
 
    if (data.bufferChains)
    {
       return bufferChains(data, from, guild);
    }
 
-   //
+   // -----------------------------
    // Multi-translate same message
-   //
+   // -----------------------------
 
    var translateBuffer = {};
 
    if (data.translate.multi && data.translate.to.valid.length > 1)
    {
-      //
+      // ------------------------------------------
       // Stop if user requested too many languages
-      //
+      // ------------------------------------------
 
       if (data.translate.to.valid.length > 6)
       {
          data.text = "Too many languages specified";
          data.color = "error";
+
+         // -------------
+         // Send message
+         // -------------
+
          return botSend(data);
       }
 
-      //
+      // --------------------
       // Buffer translations
-      //
+      // --------------------
 
       const bufferID = data.message.createdTimestamp;
 
@@ -258,9 +281,9 @@ module.exports = function(data) //eslint-disable-line complexity
       return;
    }
 
-   //
+   // ------------------------
    // Send single translation
-   //
+   // ------------------------
 
    const opts = {
       to: data.translate.to.valid[0].iso,
@@ -270,9 +293,9 @@ module.exports = function(data) //eslint-disable-line complexity
    const fw = data.forward;
    const ft = data.footer;
 
-   //
+   // --------------------
    // Split long messages
-   //
+   // --------------------
 
    const textArray = fn.chunkString(data.translate.original, 1500);
 

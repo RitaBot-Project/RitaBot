@@ -1,8 +1,13 @@
+// -----------------
+// Global variables
+// -----------------
+
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
 const botSend = require("../core/send");
 
-// --------------------
+// ---------------------
 // Supported Languages
-// --------------------
+// ---------------------
 
 module.exports = function(data)
 {
@@ -41,6 +46,10 @@ module.exports = function(data)
 
    data.color = "info";
    data.text = output;
+
+   // -------------
+   // Send message
+   // -------------
 
    return botSend(data);
 };
