@@ -83,7 +83,8 @@ module.exports = function(data)
 
             data.text = str5.replace(regx5, subst5);
          }
-               if (data.text.includes("<a") && data.text.includes("<:"){
+               if (data.text.includes("<a") && data.text.includes("<:"))
+                   {
                    const regex20 = /<(a)([:?\s:\s[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+\S*:\s*)([0-9\s]+)>/gmi;
                    const regex30 = /<:([:?\s:\s[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+\S*(:)\s*)([0-9\s]+)>/gmi;
                    data.text.replace(regex20, "<a:customemoji:$3>");
