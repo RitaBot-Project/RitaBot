@@ -36,15 +36,21 @@ module.exports = function(data)
       const regex11 = /(?<=<[^<>]*?)\.+(?=[^<>]*>)/gm;
       data.text = data.text.replace(regex11, ``);
       //  Remove Exclamation marks
-      data.text = data.text.replace(/<@!/gm, `<@`);
+      data.text = data.text.replace(/<@!/gmi, `<@`);
+      data.text = data.text.replace(/<!@/gmi, `<@`);
       //  Change formatted special characters to normal
       data.text = data.text.replace(/：/gmi, ":");
       data.text = data.text.replace(/，/gmi, ", ");
       data.text = data.text.replace(/、/gmi, ", ");
       data.text = data.text.replace(/！/gmi, "");
-      data.text.replace(/<A/gmi, "<a");
+      data.text = data.text.replace(/<A/gmi, "<a");
+      data.text = data.text.replace(/>/gmi, ">");
+      data.text = data.text.replace(/</gm, "<");
+      data.text = data.text.replace(/<А/gmi, "<a");
       data.text = data.text.replace(/＆/gmi, ``);
       data.text = data.text.replace(/></gm, `> <`);
+      data.text = data.text.replace(/＃/gmi, "#");
+      data.text = data.text.replace(/＃/gmi, "#");
    }
 
    if (data.author)
@@ -52,7 +58,7 @@ module.exports = function(data)
       if (data.text)
       {
          languageRegex(data);
-
+         data.text = data.text.replace(/<А/gmi, "<a");
          if (data.text.includes("<А"))
          {
             const regex1 = /<([:?\s:\s[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+\S*:\s*)([0-9\s]+)>/gmi;
