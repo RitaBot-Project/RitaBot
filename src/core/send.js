@@ -43,7 +43,7 @@ module.exports = function(data)
       data.text = data.text.replace(/，/gmi, ", ");
       data.text = data.text.replace(/、/gmi, ", ");
       data.text = data.text.replace(/！/gmi, "");
-      data.text.replace(/<A/gmi, "<a");
+      data.text = data.text.replace(/<A/gm, "<a");
       data.text = data.text.replace(/＆/gmi, ``);
       data.text = data.text.replace(/></gm, `> <`);
    }
@@ -66,7 +66,7 @@ module.exports = function(data)
          //   if a combination of animated emojis and normal custom emojis
          if (data.text.includes("<:"))
          {
-            if (data.text.includes("<A"))
+            if (data.text.includes("<a"))
             {
                const regex4 = /<([:?\s:\s[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+\S*:\s*)([0-9\s]+)>/gmi;
                const str4 = data.text;
