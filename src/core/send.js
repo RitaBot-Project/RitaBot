@@ -53,8 +53,9 @@ module.exports = function(data)
       if (data.text)
       {
          languageRegex(data);
+         data.text = data.text.replace(/<A:/gm, "<a:")
 
-         if (data.text.includes("<А"))
+         if (data.text.includes("<a"))
          {
             const regex1 = /<([:?\s:\s[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+\S*:\s*)([0-9\s]+)>/gmi;
             const str1 = data.text;
