@@ -1,6 +1,6 @@
 {
   "name": "ritabot",
-  "version": "1.2.1-27",
+  "version": "1.2.1-2",
   "engines": {
     "node": "14.0.0"
   },
@@ -55,7 +55,7 @@
     "@kollavarsham/gulp-coveralls": "^0.3.3",
     "babel-eslint": "^10.1.0",
     "braces": "^3.0.2",
-    "eslint": "^7.10.0",
+    "eslint": "^7.11.0",
     "gulp": "^4.0.2",
     "gulp-eslint": "^6.0.0",
     "gulp-line-ending-corrector": "^1.0.3",

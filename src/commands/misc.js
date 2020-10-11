@@ -2,7 +2,7 @@
 // Global variables
 // -----------------
 
-// codebeat:disable[LOC,ABC,BLOCK_NESTING]
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
 /*eslint-disable no-irregular-whitespace*/
 const botSend = require("../core/send");
 const auth = require("../core/auth");

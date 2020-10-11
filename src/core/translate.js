@@ -2,7 +2,7 @@
 // Global variables
 // -----------------
 
-// codebeat:disable[LOC,ABC,BLOCK_NESTING]
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
 const translate = require("google-translate-api");
 const db = require("./db");
 const botSend = require("./send");

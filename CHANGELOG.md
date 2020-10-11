@@ -4,10 +4,9 @@
 * All feature in previous versions are included however core functions are faulty and may cause DB issues. 
   * Updating to this version may corrupt your DB, Do not do this unless you have backed it up. 
 
-## 1.2.2 - Unreleased
+## 1.2.2 - Test Branch
 
-
-## 1.2.1 - Test Branch
+## 1.2.1 
 * New commands added (embed, bot2bot, settings updatedb)
   * embed command allows you to change the type of message that is sent to the translation channel, in embed format or standard text. Standard text shows the users avatar and name instead of the bot.
   * bot2bot allows for messages sent from other bots, in non embedded format to be translated as well. (Due to limitation this has been implimented but is disabled for now)
@@ -32,8 +31,6 @@
 * `!t settings updatebot` Has been **DISABLED** - This is not needed as of yet and with the similarities to the `!t settings updatedb` command it may cause issues.
 * Deploy with Heroku Setup and integration. 
  
-
-
 ## 1.2.0
 * No Code changes, just URL updates for New name of Bot
 * Published to NPM

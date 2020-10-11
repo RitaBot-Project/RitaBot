@@ -2,7 +2,7 @@
 // Global variables
 // -----------------
 
-// codebeat:disable[LOC,ABC,BLOCK_NESTING]
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
 const translate = require("google-translate-api");
 const ISO6391 = require("iso-639-1");
 const fn = require("./helpers");

@@ -2,7 +2,7 @@
 // Global variables
 // -----------------
 
-// codebeat:disable[LOC,ABC,BLOCK_NESTING]
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
 const discord = require("discord.js");
 const auth = require("./auth");
 const colors = require("./colors").get;
@@ -11,6 +11,10 @@ const spacer = "​                                                          ​
 const hook = new discord.WebhookClient(
    auth.loggerWebhookID, auth.loggerWebhookToken
 );
+
+// ------------
+// logger code
+// ------------
 
 module.exports = function(type, data, subtype = null)
 {

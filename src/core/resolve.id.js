@@ -1,3 +1,9 @@
+// -----------------
+// Global variables
+// -----------------
+
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
+
 // -----------
 // ID Helpers
 // -----------

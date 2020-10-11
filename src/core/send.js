@@ -2,7 +2,7 @@
 // Global variables
 // -----------------
 
-// codebeat:disable[LOC,ABC,BLOCK_NESTING]
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
 /* eslint-disable no-undef */
 const colors = require("./colors");
 const fn = require("./helpers");
@@ -18,68 +18,88 @@ const webHookName = "Translator Messaging System";
 // eslint-disable-next-line complexity
 module.exports = function(data)
 {
-   // ------------------------------
-   // Get Embedded Variable From DB
-   // ------------------------------
+   // ----------------------------
+   // Regex Statments for Emoji's
+   // ----------------------------
+
+   function languageRegex(data)
+   {
+      // Remove Whitespaces
+      data.text = data.text.replace(/<.+?>/g, tag => tag.replace(/\s+/g, ""));
+      //  Remove translated numeral keywords
+      data.text = data.text.replace(/millions/gmi, ``);
+      data.text = data.text.replace(/milioni/gmi, ``);
+      // Commas Replacement
+      const regex10 = /(?<=<[^<>]*?),+(?=[^<>]*>)/gm;
+      data.text = data.text.replace(regex10, ``);
+      // Period Replacement
+      const regex11 = /(?<=<[^<>]*?)\.+(?=[^<>]*>)/gm;
+      data.text = data.text.replace(regex11, ``);
+      //  Remove Exclamation marks
+      data.text = data.text.replace(/<@!/gmi, `<@`);
+      data.text = data.text.replace(/<!@/gmi, `<@`);
+      //  Change formatted special characters to normal
+      data.text = data.text.replace(/：/gmi, ":");
+      data.text = data.text.replace(/，/gmi, ", ");
+      data.text = data.text.replace(/、/gmi, ", ");
+      data.text = data.text.replace(/！/gmi, "");
+      data.text = data.text.replace(/<A/gmi, "<a");
+      data.text = data.text.replace(/>/gmi, ">");
+      data.text = data.text.replace(/</gm, "<");
+      data.text = data.text.replace(/<А/gmi, "<a");
+      data.text = data.text.replace(/＆/gmi, ``);
+      data.text = data.text.replace(/></gm, `> <`);
+      data.text = data.text.replace(/＃/gmi, "#");
+      data.text = data.text.replace(/＃/gmi, "#");
+   }
 
    if (data.author)
    {
       if (data.text)
       {
-          data.text = data.text.replace(/<.+?>/g, tag => tag.replace(/\s+/g, ""));
-         //  Removes un necessary dots, commas or language numeral names which cause problems
-         const regex10 = /(?<=<:[^<>]*?)\.+(?=[^<>]*>)/gm;
-         data.text = data.text.replace(regex10, ``);
-         const regex11 = /(?<=<:[^<>]*?),+(?=[^<>]*>)/gm;
-         data.text = data.text.replace(regex11, ``);
-         data.text = data.text.replace(/millions/g, ``);
-         data.text = data.text.replace(/：/gmi, ":");
-         //  Russian animated emoji fix
+         languageRegex(data);
+         data.text = data.text.replace(/<А/gmi, "<a");
          if (data.text.includes("<А"))
          {
-            const regex1 = /<([:+\s:\s*[a-z0-9ЁёА-я_\s\u00C0-\u017F]+.*:\s*)([0-9\s]+)>/gmi;
+            const regex1 = /<(a)([:?\s:\s[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+\S*:\s*)([0-9\s]+)>/gmi;
             const str1 = data.text;
-            const subst1 = `<a:customemoji:$2>`;
+            const subst1 = `<a:customemoji:$3>`;
 
             data.text = str1.replace(regex1, subst1);
          }
-         //  animated emoji fix
-         if (data.text.includes("<A"))
+         if (data.text.includes("<a"))
          {
-            const regex2 = /<([:+\s:\s*[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+.:\s*)([0-9\s]+)>/gm;
-            const str2 = data.text;
-            const subst2 = `<a:customemoji:$2>`;
+            const regex4 = /<(a)([:?\s:\s[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+\S*:\s*)([0-9\s]+)>/gmi;
+            const str4 = data.text;
+            const subst4 = `<a:customemoji:$3>`;
 
-            data.text = str2.replace(regex2, subst2);
-         }
-         // animated emojis
-         else if (data.text.includes("<a"))
-         {
-            const regex3 = /<([:+\s:\s*[a-z0-9ЁёА-я_\s\u00C0-\u017F]+.:\s*)([0-9\s]+)>/gmi;
-            const str3 = data.text;
-            const subst3 = `<a:customemoji:$2>`;
-
-            data.text = str3.replace(regex3, subst3);
+            data.text = str4.replace(regex4, subst4);
          }
          //   if a combination of animated emojis and normal custom emojis
-         if (data.text.includes("<:"))
+         if (!data.text.includes("<a") && data.text.includes("<:"))
          {
-            if (data.text.includes("<A"))
-            {
-               const regex4 = /<([:+\s:\s*[a-z0-9ЁёА-я_\s\u00C0-\u017F]+.:\s*)([0-9\s]+)>/gmi;
-               const str4 = data.text;
-               const subst4 = `<:okthisisanemoji:$2>`;
-
-               data.text = str4.replace(regex4, subst4);
-            }
-            const subst5 = "<:customemoji:$2>";
+            const subst5 = "<:customemoji:$3>";
             const str5 = data.text;
-            const regx5 = /<([:+\s:\s*[a-z0-9ЁёА-я_\s\u00C0-\u017F]+.:\s*)([0-9\s]+)>/gmi;
+            const regx5 = /<:([:?\s:\s[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+\S*(:)\s*)([0-9\s]+)>/gmi;
 
             data.text = str5.replace(regx5, subst5);
          }
+         if (data.text.includes("<a") && data.text.includes("<:"))
+         {
+            const regex20 = /<(a)([:?\s:\s[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+\S*:\s*)([0-9\s]+)>/gmi;
+            const regex30 = /<:([:?\s:\s[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+\S*(:)\s*)([0-9\s]+)>/gmi;
+            data.text.replace(regex20, "<a:customemoji:$3>");
+            data.text.replace(regex30, "<:customemoji:3>");
+         }
       }
    }
+
+   // ----------------------------------------------------
+   // The first time this runs after a reset it will
+   // always send as Off state as set.EmbedVar = "",
+   // Alot of this is debug code, but left in for testing
+   // ----------------------------------------------------
+
    console.log(`Guild ID from message`);
    console.log(`Raw = ` + data.message.guild.id);
    const guildValue = data.message.guild.id;
@@ -94,17 +114,12 @@ module.exports = function(data)
          .setAuthor(data.bot.username, data.bot.displayAvatarURL)
          .setDescription(data.text)
          .setTimestamp()
-         .setFooter("𝗕𝗼𝘁𝗵 𝗺𝗲𝘀𝘀𝗮𝗴𝗲𝘀  𝘄𝗶𝗹𝗹 𝘀𝗲𝗹𝗳-𝗱𝗲𝘀𝘁𝗿𝘂𝗰𝘁 𝗶𝗻 𝟯𝟬 𝘀𝗲𝗰𝗼𝗻𝗱𝘀");
+         .setFooter("𝗕𝗼𝘁𝗵 𝗺𝗲𝘀𝘀𝗮𝗴𝗲𝘀  𝘄𝗶𝗹𝗹 𝘀𝗲𝗹𝗳-𝗱𝗲𝘀𝘁𝗿𝘂𝗰𝘁 𝗶𝗻 10 𝘀𝗲𝗰𝗼𝗻𝗱𝘀");
       message.reply(ignoreMessageEmbed).then(msg =>
       {
-         msg.delete(30000);
+         msg.delete(10000);
       });
    }
-
-   // -----------------------------------------------
-   // The first time this runs after a reset it will
-   // always send as Off state as set.EmbedVar = "",
-   // -----------------------------------------------
 
    console.log(`db.set Stage 1 = ` + db.setEmbedVar());
    db.getEmbedVar(guildValue);
@@ -116,7 +131,7 @@ module.exports = function(data)
       console.log(`db.set Stage 2 = ` + db.setEmbedVar());
       var output =
       "**:robot: " + data.bot.username + " has restarted\n\n" +
-      " :gear: Please resend your previous message or command.**\n";
+      " :gear: Please resend your previous message.**\n";
       data.color = "warn";
       data.text = output;
       return ignoreMessage();
@@ -161,8 +176,6 @@ const embedOn = function(data)
 
       if (data.text && data.text.length > 1)
       {
-         data.text = data.text.replace("<A", "<a");
-         data.text = data.text.replace(/<.+?>/g, tag => tag.replace(/\s+/g, ""));
          if (!data.author)
          {
             message.delete(5000);
@@ -347,12 +360,16 @@ const embedOff = function(data)
       {
          nicknameVar = message.member.nickname;
       }
-      else
+
+      if (data.text === undefined)
       {
          nicknameVar = message.author.username;
       }
+      if (data.text && message.member.nickname === undefined | null)
+      {
+         nicknameVar = data.author.username;
+      }
    }
-
    if (!message.member)
    {
       if (data.emoji)
@@ -393,14 +410,14 @@ const embedOff = function(data)
          else
          {
             message.delete(5000);
-            const botEmbed = new discord.RichEmbed()
+            const botEmbedOff = new discord.RichEmbed()
                .setColor(colors.get(data.color))
                .setAuthor(data.bot.username, data.bot.icon_url)
                .setDescription(data.text)
                .setTimestamp()
                .setFooter("This message will self-destruct in one minute");
 
-            data.channel.send(botEmbed).then(msg =>
+            data.channel.send(botEmbedOff).then(msg =>
             {
                msg.delete(60000);
             });
@@ -414,14 +431,11 @@ const embedOff = function(data)
             if (data.author.icon_url) { avatarURL = data.author.icon_url;}
          }
          {
-            data.text = data.text.replace(/<.+?>/g, tag => tag.replace(/\s+/g, ""));
-            data.text = data.text.replace(/<А/gm, "<a");
-            data.text = data.text.replace(/<A/gm, "<a");
-
             webhook.send(data.text, {
                "username": nicknameVar,
                "avatarURL": data.author.icon_url,
                "files": files
+
             });
          }
       }
@@ -652,3 +666,4 @@ const checkPerms = function(data, sendBox)
 
    return sendBox(sendData);
 };
+
