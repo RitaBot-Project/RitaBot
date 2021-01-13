@@ -17,8 +17,10 @@ A Translation bot built using `discord.js` and a custom `Google Translate API`.
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/ZyC0R3/RitaBot/test-branch)
 
 ###  Check out our website [here](https://ritabot.org) for an easy to read wiki and quick start guide.
-###  To read an *article* about how to start Using RITA go [here instead](https://medium.com/@Artanis_/setup-discord-translation-bot-6899428b0cf2?source=friends_link&sk=cdf79a8e7970408e0238b271e98f2aeb)
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/Zyc0r3/RitaBot)
+
+* To read an *article* about how to start Using RITA go [here instead](https://medium.com/@Artanis_/setup-discord-translation-bot-6899428b0cf2?source=friends_link&sk=cdf79a8e7970408e0238b271e98f2aeb)
+
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/Zyc0r3/RitaBot) (Please note that Heroku Button is not 100% reliable)
 
 *NEW:* One Click Build with Heroku, For instructions Please go [here](#deploy).
 
@@ -71,28 +73,6 @@ For full History, See [Changelog](https://github.com/ZyC0R3/RitaBot/blob/master/
     * Once you have completed Step 2, the bot will have come online, but it wont have fully Initialised.
     * To prevent a never ending loop of errors, the VERY FIRST message or command sent on the server will Initialise the DB fully. Meaning you will have to send that message again.
       * Please Note Due to [Automatic dyno restarts](https://devcenter.heroku.com/articles/dynos#automatic-dyno-restarts) the first message after each restart will share the same behaviour as above.
-  * Alternative update method via command line, minimal GUI interface needed.
-    * Prerequiste. Navigate to your Herkou bot Dyno overview page. And turn the active web worker off.
-    * Step 1: Naviagte to the directory where you ran `git clone` for your fork of the RitaBot repository.
-      * `cd RitaBot`
-      * `git status` should return the following `On branch master Your branch is up to date with 'origin/master'. nothing to commit, working tree clean` if so preoceed to Step 2
-      * if how ever you get the following messages you will need to resolve them before proceeding further.
-        * `Changes not staged for commit:` you have the following options
-          * Do this if you have changes you deam nesiciary to add only
-            * (use "`git add <modified file>`" to update what will be committed) followed by `git commit -m <commit message>` and lastly `git push master`
-            * If you are adding you own commits I'm assuming you know how to deal with potential merge conflicts and can appropriatly resolve them accordingly before rebase step.
-          * The other and HIGHLY prefered method is to simply checkout the modifed files to avoid merge conflicts  (use "`git checkout -- . ` to discard changes all changes working directory)
-            * Once you think you've gotten the branch back to `working tree clean` state by running `git status` one more time. You are ready to move on to Step 2
-    * Step 2: Now just run the following commands in order
-      * `git remote add upstream https://github.com/ZyC0R3/RitaBot.git`
-      * `git fetch upstream`
-      * `git checkout master`
-      * `git rebase upstream/master`
-      * `git push -f origin master` (Note you will only have to use the `-f` flag for the first psuh)
-        * enter your username and password from your Github account that's linked to the bot to complete the `git push`
-      * Restart your stopped Web Dyno on the Heroku website.
-      * Go to `Depploy` page on your Heroku app overview, scroll to the bottom and click `Deploy Branch` at the bottom in the Manual Deploy section.
-    * Congrats update to new bot is complete. You can verify the update by checking the version of the bot after it finishes rebooting with the trusty `!t stats` command
 * Added in command triggers and command deletion to clean up command channels.
 * Custom Emoji's are now supported and will be sent with the translated message correctly, with the exception of a few languages.
 * DM Translation have been disabled as it has been identified they never worked as intended. they will be re-introduced in a later update.
@@ -165,6 +145,7 @@ This Method does not need you to Fork this repository, you can run your bot stra
   * https://discordapp.com/oauth2/authorize?&client_id=CLIENTIDGOESHERE&scope=bot&permissions=8
 * Visit the resulting URL and add your bot to any server where you have admin privileges.
 * Once added, your bot should show up more or less instantaneously. Type `!t help` within the discord chat for more details on how to use it. Happy translating!
+    * If your bot was not online when you invited it when it does appear online you shall need to run the command `!t settings dbfix` to make it log the server in your database
 
 ## <a name="new-bot"></a>Setting up a Bot Manually
 
@@ -227,7 +208,7 @@ This Method does not need you to Fork this repository, you can run your bot stra
 * Select the bot you made in step 3 of [Setting up a New Bot](#new-bot)
 * Under **Deployment Method** make sure you have Github selected, ensure Connect to GitHub has the correct repository selected, Scroll down to the manual deploy section, and select the **Master** branch. Click deploy branch, and wait for the successfully deployed message.
 
-### 4. Updating Database
+#### 4. Updating Database
 
 * You will need to run three commands for your database to be updated to the new versions needs. Your bot shall not function until all of these have been run.
 * Please run the following commands in consecutive order: 
@@ -382,6 +363,29 @@ There are different ways to make the bot initialize at startup. The following de
 * Reboot and hope everything is running smooth: `sudo reboot`
 * Enjoy (or return to step 4 in [Setting up a New Bot](#new-bot) if you haven't done yet)
 
+#### 11. Updating the Bot
+Update method via command line, minimal GUI interface needed
+* Step 1: Naviagte to the directory where you ran `git clone` for your fork of the RitaBot repository.
+  * `cd RitaBot`
+  * `git status` should return the following `On branch master Your branch is up to date with 'origin/master'. nothing to commit, working tree clean` if so preoceed to Step 2
+  * if how ever you get the following messages you will need to resolve them before proceeding further.
+    * `Changes not staged for commit:` you have the following options
+      * Do this if you have changes you deam nesiciary to add only
+        * (use "`git add <modified file>`" to update what will be committed) followed by `git commit -m <commit message>` and lastly `git push master`
+        * If you are adding you own commits I'm assuming you know how to deal with potential merge conflicts and can appropriatly resolve them accordingly before rebase step.
+      * The other and HIGHLY prefered method is to simply checkout the modifed files to avoid merge conflicts  (use "`git checkout -- . ` to discard changes all changes working directory)
+        * Once you think you've gotten the branch back to `working tree clean` state by running `git status` one more time. You are ready to move on to Step 2
+* Step 2: Now just run the following commands in order
+  * `git remote add upstream https://github.com/ZyC0R3/RitaBot.git`
+  * `git fetch upstream`
+  * `git checkout master`
+  * `git rebase upstream/master`
+  * `git push -f origin master` (Note you will only have to use the `-f` flag for the first psuh)
+    * enter your username and password from your Github account that's linked to the bot to complete the `git push`
+  * Restart your stopped Web Dyno on the Heroku website.
+  * Go to `Depploy` page on your Heroku app overview, scroll to the bottom and click `Deploy Branch` at the bottom in the Manual Deploy section.
+* Congrats update to new bot is complete. You can verify the update by checking the version of the bot after it finishes rebooting with the trusty `!t stats` command
+
 ## <a name="troubleshooting"></a>Troubleshooting
 * You can set up debugging Webhooks using the following steps
     1. Create a new channel on your server to receive the Webhooks, let's say `#Webhooks`.
@@ -399,12 +403,12 @@ This section/feature is being Created, Check back soon or join the [Support Disc
 
 
 ## <a name="commands"></a>Commands
-* [Translate Custom Text](https://ritabot.org)
-* [Translate by Reaction](https://ritabot.org)
-* [Translate Last Message](https://ritabot.org)
-* [Translate Channel](https://ritabot.org)
-* [Settings](https://ritabot.org)
-* [Misc. Commands](https://ritabot.org)
+* [Translate Custom Text](https://ritabot.org/trans-cust/)
+* [Translate by Reaction](https://ritabot.org/trans-reac/)
+* [Translate Last Message](https://ritabot.org/trans-last/)
+* [Translate Channel](https://ritabot.org/trans-auto/)
+* [Settings](https://ritabot.org/trans-sett/)
+* [Misc. Commands](https://ritabot.org/trans-misc/)
 
 ## <a name="build"></a>All Build Statuses and CI Checks
 
