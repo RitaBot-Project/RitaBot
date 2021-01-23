@@ -15,8 +15,8 @@ Test Branch will be updated to latest version and will be pushed once stable.
 | :x: | 1.1.5 | 9.0.0 |
 | :x: | 1.1.6 | 9.0.0 |
 | :white_check_mark: | 1.1.7 | 12.9.1 |
-| :white_check_mark: | 1.2.0-? | 13.5.0 |
-| :white_check_mark: | 1.2.1-? | 14.0.0 |
+| :white_check_mark: | 1.2.0-3 | 13.5.0 |
+| :white_check_mark: | 1.2.1-4 | 14.0.0 |
 
 ### Below is the Dependency versions in each build
 
@@ -49,4 +49,5 @@ Test Branch will be updated to latest version and will be pushed once stable.
 | :white_check_mark: | 1.2.1-? | braces <br> gulp <br>gulp-eslint <br>gulp-line-ending-corrector <br>gulp-uglify-es | 3.0.2 <br> 4.0.2 <br>6.0.0 <br>1.0.3 <br>2.0.0 |
 ## Reporting a Vulnerability
 
-Rasie a new Issue
+Raise a new issue with us concerning supported versions of our dependencies.
+Join our [Discord Server](https://discord.gg/NAxA3nf)  to report them.

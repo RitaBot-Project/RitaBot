@@ -43,9 +43,16 @@ module.exports = function(data)
       data.text = data.text.replace(/，/gmi, ", ");
       data.text = data.text.replace(/、/gmi, ", ");
       data.text = data.text.replace(/！/gmi, "");
-      data.text.replace(/<A/gmi, "<a");
+      data.text = data.text.replace(/<A/gmi, "<a");
+      data.text = data.text.replace(/>/gmi, ">");
+      data.text = data.text.replace(/</gm, "<");
+      data.text = data.text.replace(/<А/gmi, "<a");
       data.text = data.text.replace(/＆/gmi, ``);
       data.text = data.text.replace(/></gm, `> <`);
+      data.text = data.text.replace(/＃/gmi, "#");
+      data.text = data.text.replace(/＃/gmi, "#");
+      data.text = data.text.replace(/((\s?)(\*)(\s?))/gmis, "*");
+      data.text = data.text.replace(/(?<=<[^<>]*?)([0-9]*)\s*@+(?=[^<>]*>)/gmi, "@$1");
    }
 
    if (data.author)
@@ -53,31 +60,28 @@ module.exports = function(data)
       if (data.text)
       {
          languageRegex(data);
-
-         if (data.text.includes("<А"))
+         data.text = data.text.replace(/<А/gmi, "<a");
+         if (data.text.includes("<А" || "<a"))
          {
-            const regex1 = /<([:?\s:\s[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+\S*:\s*)([0-9\s]+)>/gmi;
+            const regex1 = /<(a)([:?\s:\s[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+\S*:\s*)([0-9\s]+)>/gmi;
             const str1 = data.text;
-            const subst1 = `<a:customemoji:$2>`;
-
+            const subst1 = `<a:customemoji:$3>`;
             data.text = str1.replace(regex1, subst1);
          }
          //   if a combination of animated emojis and normal custom emojis
-         if (data.text.includes("<:"))
+         if (!data.text.includes("<a") && data.text.includes("<:"))
          {
-            if (data.text.includes("<A"))
-            {
-               const regex4 = /<([:?\s:\s[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+\S*:\s*)([0-9\s]+)>/gmi;
-               const str4 = data.text;
-               const subst4 = `<a:customemoji:$2>`;
-
-               data.text = str4.replace(regex4, subst4);
-            }
-            const subst5 = "<:customemoji:$2>";
+            const subst5 = "<:customemoji:$3>";
             const str5 = data.text;
-            const regx5 = /<([:?\s:\s[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+\S*:\s*)([0-9\s]+)>/gmi;
-
+            const regx5 = /<:([:?\s:\s[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+\S*(:)\s*)([0-9\s]+)>/gmi;
             data.text = str5.replace(regx5, subst5);
+         }
+         if (data.text.includes("<a") && data.text.includes("<:"))
+         {
+            const regex20 = /<(a)([:?\s:\s[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+\S*:\s*)([0-9\s]+)>/gmi;
+            const regex30 = /<:([:?\s:\s[a-z0-9ЁёА-я_A-Z\s\u00C0-\u017F]+\S*(:)\s*)([0-9\s]+)>/gmi;
+            data.text.replace(regex20, "<a:customemoji:$3>");
+            data.text.replace(regex30, "<:customemoji:$3>");
          }
       }
    }
@@ -87,6 +91,7 @@ module.exports = function(data)
    // always send as Off state as set.EmbedVar = "",
    // Alot of this is debug code, but left in for testing
    // ----------------------------------------------------
+
 
    console.log(`Guild ID from message`);
    console.log(`Raw = ` + data.message.guild.id);
@@ -99,7 +104,7 @@ module.exports = function(data)
       const ignoreMessageEmbed = new discord.RichEmbed()
          .setColor(colors.get(data.color))
          .setTitle("**Bot Alert**\n")
-         .setAuthor(data.bot.username, data.bot.displayAvatarURL)
+         .setAuthor(data.bot.username, data.bot.icon_url || "https://ritabot.org/index/images/favicon.png")
          .setDescription(data.text)
          .setTimestamp()
          .setFooter("𝗕𝗼𝘁𝗵 𝗺𝗲𝘀𝘀𝗮𝗴𝗲𝘀  𝘄𝗶𝗹𝗹 𝘀𝗲𝗹𝗳-𝗱𝗲𝘀𝘁𝗿𝘂𝗰𝘁 𝗶𝗻 10 𝘀𝗲𝗰𝗼𝗻𝗱𝘀");
@@ -119,7 +124,8 @@ module.exports = function(data)
       console.log(`db.set Stage 2 = ` + db.setEmbedVar());
       var output =
       "**:robot: " + data.bot.username + " has restarted\n\n" +
-      " :gear: Please resend your previous message.**\n";
+      " :gear: Please resend your previous message.**\n\n" +
+      "  :wrench: You may need to define the embed value using `!t embed on/off` if this message is in a loop when sending commands/messages.";
       data.color = "warn";
       data.text = output;
       return ignoreMessage();
@@ -342,26 +348,32 @@ const embedOff = function(data)
    // Send Webhook Message
    // ---------------------
 
-   if (message.member)
+   /*  if (message.member)
    {
       if (message.member.nickname)
       {
          nicknameVar = message.member.nickname;
       }
-      else
+      if (data.text === undefined)
       {
          nicknameVar = message.author.username;
       }
+      if (data.text && message.member.nickname === undefined | null)
+      {
+         nicknameVar = data.author.username;
+      }
    }
-
    if (!message.member)
    {
       if (data.emoji)
       {
          nicknameVar = data.author.username;
       }
+   }*/
+   if (data.author)
+   {
+      nicknameVar = data.author.name || data.author.username;
    }
-
    function sendWebhookMessage(webhook, data)
    {
       if (data.author)
@@ -386,7 +398,7 @@ const embedOff = function(data)
          if (data.text === undefined)
          {
             webhook.send(data.text, {
-               "username": nicknameVar,
+               "username": message.author.username,
                "avatarURL": message.author.displayAvatarURL,
                "files": files
             });
@@ -416,7 +428,7 @@ const embedOff = function(data)
          }
          {
             webhook.send(data.text, {
-               "username": nicknameVar,
+               "username": data.author.name || data.author.username,
                "avatarURL": data.author.icon_url,
                "files": files
             });
@@ -466,10 +478,11 @@ const embedOff = function(data)
             {
                // You can rename 'Webhook' to the name of your bot if you like, people will see if under the webhooks tab of the channel.
                existingWebhook = webhooks.find(x => x.name === webHookName);
+               const webHookURL = "https://ritabot.org/index/images/favicon.png"
 
                if (!existingWebhook)
                {
-                  channel.createWebhook(webHookName, data.bot.displayAvatarURL)
+                  channel.createWebhook(webHookName, webHookURL)
                      .then(newWebhook =>
                      {
                         // Finally send the webhook

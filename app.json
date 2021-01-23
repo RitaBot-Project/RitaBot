@@ -1,6 +1,6 @@
 {
   "name": "RITA Translator",
-  "description": "RITA Discord Translator Bot.   Providing translation services with many uses to connect communities. We pride ourselves in being free for all to use.",
+  "description": "RITA Discord Translator Bot. Providing translation services with many uses to connect communities. A 100% open-source and free project.",
   "keywords": [
     "Discord",
     "Translator",
@@ -18,7 +18,10 @@
     "https://ritabot.org",
     "RitaBot",
     "Rita Deploy",
-    "Rita Deploy Heroku"
+    "Rita Deploy Heroku",
+    "Real-Time Interchangable Translating Assistant",
+    "Free Translator",
+    "Open source translator" 
   ],
   "logo": "https://cdn.discordapp.com/attachments/599327653752995861/759555905661960212/android-chrome-192x192.png",
   "website": "https://ritabot.org/",
@@ -41,7 +44,7 @@
       "required": false
     },
     "NODE_MODULES_CACHE": {
-      "description": "This is to ensure that when the bot updates it does not use any old Dependencies that Heroku has stored and gets fresh ones from the package.json file.",
+      "description": "This is to ensure that when the bot updates it does not use any old Dependencies that Heroku has stored and gets fresh ones from the package.json file. Please never change this or else updates we add to dependencies (google-translate-api , google-translate-token) will not take into effect on your bot.",
       "value": "false",
       "required": true
     }

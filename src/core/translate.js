@@ -137,6 +137,7 @@ module.exports = function(data) //eslint-disable-line complexity
    // -------------------
    // Get message author
    // -------------------
+   // global.data.message = data.message
 
    data.author = data.message.author;
 

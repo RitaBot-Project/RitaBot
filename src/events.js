@@ -37,7 +37,7 @@ exports.listen = function(client)
       config = {
          version: botVersion,
          botServer: "https://discord.gg/mgNR64R",
-         inviteURL: auth.invite,
+         inviteURL: auth.invite || "Set this in your .env file / config variables in Heroku",
          owner: auth.botOwner,
          defaultLanguage: "en",
          translateCmd: "!translate",
