@@ -1,6 +1,6 @@
 {
   "name": "ritabot",
-  "version": "1.2.1-8",
+  "version": "1.2.1-9",
   "engines": {
     "node": "14.0.0"
   },
@@ -8,7 +8,7 @@
   "main": "src/bot.js",
   "license": "MIT",
   "scripts": {
-    "start": "node build/bot",
+    "start": "node src/bot.js",
     "build": "gulp build",
     "coveralls": "gulp coveralls",
     "dev": "gulp watch",
