@@ -79,136 +79,136 @@ const helpMessage = function(config, botname, param)
    // ------------
    // Help Basics
    // ------------
-
-   const basics =
-   helpSection({
-      config: config,
-      title: "Translate by Reacting",
-      link: "<https://github.com/ZyC0R3/Rita/wiki/Translate-by-Reacting>",
-      icon: ":flag_white:",
-      cmd: null,
-      help: "react",
-      args: null,
-      example: "!t help react for examples"
-   }) +
-   helpSection({
-      config: config,
-      title: "Translate Custom Text",
-      link: "<https://github.com/ZyC0R3/Rita/wiki/Translate-Custom-Message>",
-      icon: ":abc:",
-      cmd: "this",
-      help: "custom",
-      args: "to [lang] from [lang]: [msg]",
-      example: "to french from english: hello"
-   }) +
-   helpSection({
-      config: config,
-      title: "Translate Last Message",
-      link: "<https://github.com/ZyC0R3/Rita/wiki/Translate-Last-Message>",
-      icon: ":arrow_double_up:",
-      cmd: "last",
-      help: "last",
-      args: "[count] from [lang] to [lang]",
-      example: "3 from german to spanish"
-   }) +
-   helpSection({
-      config: config,
-      title: "Translate Channel (Automatic)",
-      link: "<https://github.com/ZyC0R3/Rita/wiki/Translate-Channel-Automatic>",
-      icon: ":hash:",
-      cmd: "channel",
-      help: "auto",
-      args: "from [lang] to [lang] for [@/#]",
-      example: "from hebrew to arabic for me"
-   }) +
-   helpSection({
-      config: config,
-      title: "Stats",
-      link: "<https://github.com/ZyC0R3/Rita/wiki/Get-Statistics>",
-      icon: ":bar_chart:",
-      cmd: "stats",
-      help: "stats",
-      args: "stats [server/global]",
-      example: ""
-   }) +
-   helpSection({
-      config: config,
-      title: "Settings",
-      link: "<https://github.com/ZyC0R3/Rita/wiki/Settings>",
-      icon: ":gear:",
-      cmd: "settings",
-      help: "settings",
-      args: "setLang to [lang]",
-      example: "setLang to italian"
-   }) +
-   helpSection({
-      config: config,
-      title: "Misc. Settings",
-      link: "<https://github.com/ZyC0R3/Rita/wiki/Misc.-Commands>",
-      icon: ":robot:",
-      cmd: "misc",
-      help: "misc",
-      args: "",
-      example: ""
-   }) +
-   helpSection({
-      config: config,
-      title: "Tasks",
-      link: "<https://github.com/ZyC0R3/Rita/wiki/Misc.-Commands>",
-      icon: ":clipboard:",
-      cmd: "Tasks",
-      help: "Tasks",
-      args: "",
-      example: ""
-   }) +
-   helpSection({
-      config: config,
-      title: "ReadMe",
-      link: "<https://github.com/ZyC0R3/Rita/blob/master/README.md>",
-      icon: ":bookmark_tabs:",
-      cmd: "readme",
-      help: "readme",
-      args: "",
-      example: ""
-   }) +
-   helpSection({
-      config: config,
-      title: "Report Bugs / Request Features",
-      link: "<https://github.com/ZyC0R3/Rita/issues>",
-      icon: ":raising_hand::skin-tone-3:"
-   });
-
-
+//REMOVED BELOW HERE//
+//   const basics =
+//   helpSection({
+//      config: config,
+//      title: "Translate by Reacting",
+//      link: "<https://github.com/ZyC0R3/Rita/wiki/Translate-by-Reacting>",
+//      icon: ":flag_white:",
+//      cmd: null,
+//      help: "react",
+//      args: null,
+//      example: "!t help react for examples"
+//   }) +
+//   helpSection({
+//      config: config,
+//      title: "Translate Custom Text",
+//      link: "<https://github.com/ZyC0R3/Rita/wiki/Translate-Custom-Message>",
+//      icon: ":abc:",
+//      cmd: "this",
+//      help: "custom",
+//      args: "to [lang] from [lang]: [msg]",
+//      example: "to french from english: hello"
+//   }) +
+//   helpSection({
+//      config: config,
+//      title: "Translate Last Message",
+//      link: "<https://github.com/ZyC0R3/Rita/wiki/Translate-Last-Message>",
+//      icon: ":arrow_double_up:",
+//      cmd: "last",
+//      help: "last",
+//      args: "[count] from [lang] to [lang]",
+//      example: "3 from german to spanish"
+//   }) +
+//   helpSection({
+//      config: config,
+//      title: "Translate Channel (Automatic)",
+//      link: "<https://github.com/ZyC0R3/Rita/wiki/Translate-Channel-Automatic>",
+//      icon: ":hash:",
+//      cmd: "channel",
+//      help: "auto",
+//      args: "from [lang] to [lang] for [@/#]",
+//      example: "from hebrew to arabic for me"
+//   }) +
+//   helpSection({
+//      config: config,
+//      title: "Stats",
+//      link: "<https://github.com/ZyC0R3/Rita/wiki/Get-Statistics>",
+//      icon: ":bar_chart:",
+//      cmd: "stats",
+//      help: "stats",
+//      args: "stats [server/global]",
+//      example: ""
+//   }) +
+//   helpSection({
+//      config: config,
+//      title: "Settings",
+//      link: "<https://github.com/ZyC0R3/Rita/wiki/Settings>",
+//      icon: ":gear:",
+//      cmd: "settings",
+//      help: "settings",
+//      args: "setLang to [lang]",
+//      example: "setLang to italian"
+//   }) +
+//   helpSection({
+//      config: config,
+//      title: "Misc. Settings",
+//      link: "<https://github.com/ZyC0R3/Rita/wiki/Misc.-Commands>",
+//      icon: ":robot:",
+//      cmd: "misc",
+//      help: "misc",
+//      args: "",
+//      example: ""
+//   }) +
+//   helpSection({
+//      config: config,
+//      title: "Tasks",
+//      link: "<https://github.com/ZyC0R3/Rita/wiki/Misc.-Commands>",
+//      icon: ":clipboard:",
+//      cmd: "Tasks",
+//      help: "Tasks",
+//      args: "",
+//      example: ""
+//   }) +
+//   helpSection({
+//      config: config,
+//      title: "ReadMe",
+//      link: "<https://github.com/ZyC0R3/Rita/blob/master/README.md>",
+//      icon: ":bookmark_tabs:",
+//      cmd: "readme",
+//      help: "readme",
+//      args: "",
+//      example: ""
+//   }) +
+//   helpSection({
+//      config: config,
+//      title: "Report Bugs / Request Features",
+//      link: "<https://github.com/ZyC0R3/Rita/issues>",
+//      icon: ":raising_hand::skin-tone-3:"
+//   });
+//
+//
    // -----------------
    // ReadMe + Discord
    // -----------------
 
-   const readme =
-
-   `**Github ReadMe**\n\n` +
-   "```md\n" +
-   `# To read the GitHub read me go here:\n` +
-   `> ( https://github.com/ZyC0R3/RitaBot/blob/master/README.md ) \n\n` +
-   `# If you need to update your bot's version you can do so here:\n` +
-   `> ( https://github.com/ZyC0R3/RitaBot#migration )\n\n` +
-   `# You can join Rita's Discord Support Server here: \n\n` +
-   `> https://discord.gg/mgNR64R` +
-   "```\n\n";
-
-
+//   const readme =
+//
+//   `**Github ReadMe**\n\n` +
+//   "```md\n" +
+//   `# To read the GitHub read me go here:\n` +
+//   `> ( https://github.com/ZyC0R3/RitaBot/blob/master/README.md ) \n\n` +
+//   `# If you need to update your bot's version you can do so here:\n` +
+//   `> ( https://github.com/ZyC0R3/RitaBot#migration )\n\n` +
+//   `# You can join Rita's Discord Support Server here: \n\n` +
+//   `> https://discord.gg/mgNR64R` +
+//   "```\n\n";
+//
+//
    // --------------------------------
    // Report Bugs + Report in Discord
    // --------------------------------
-
-   const report =
-   `**Report Bugs**\n` +
-   "```md\n" +
-   `# You can report issues in Github here:\n` +
-   `> ( https://github.com/ZyC0R3/RitaBot/issues )\n\n` +
-   `# Rita also has a support server with it's developers and contributors... You may join that here: \n` +
-   `> https://discord.com/invite/mgNR64R \n` +
-   "```\n\n";
-
+//
+//   const report =
+//   `**Report Bugs**\n` +
+//   "```md\n" +
+//   `# You can report issues in Github here:\n` +
+//   `> ( https://github.com/ZyC0R3/RitaBot/issues )\n\n` +
+//   `# Rita also has a support server with it's developers and contributors... You may join that here: \n` +
+//   `> https://discord.com/invite/mgNR64R \n` +
+//   "```\n\n";
+//
    // ----------------
    // Module Commands
    // ----------------
