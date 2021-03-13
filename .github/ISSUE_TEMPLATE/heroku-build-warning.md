@@ -2,7 +2,7 @@
 name: Heroku Build Warning
 about: Report a Heroku Build Warnings in a successful Deployment
 title: ''
-labels: Build, Deployment Warnings
+labels: Deployment Warnings
 assignees: ''
 
 ---
