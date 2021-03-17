@@ -51,8 +51,8 @@ module.exports = function(data)
       data.text = data.text.replace(/></gm, `> <`);
       data.text = data.text.replace(/＃/gmi, "#");
       data.text = data.text.replace(/＃/gmi, "#");
-      data.text = data.text.replace(/((\s?)(\*)(\s?))/gmis, "*")
-      data.text = data.text.replace(/(?<=<[^<>]*?)([0-9]*)\s*@+(?=[^<>]*>)/gmi, "@$1")
+      data.text = data.text.replace(/((\s?)(\*)(\s?))/gmis, "*");
+      data.text = data.text.replace(/(?<=<[^<>]*?)([0-9]*)\s*@+(?=[^<>]*>)/gmi, "@$1");
    }
 
    if (data.author)
@@ -104,7 +104,7 @@ module.exports = function(data)
       const ignoreMessageEmbed = new discord.RichEmbed()
          .setColor(colors.get(data.color))
          .setTitle("**Bot Alert**\n")
-         .setAuthor(data.bot.username, data.bot.displayAvatarURL)
+         .setAuthor(data.bot.username, data.bot.icon_url || "https://ritabot.org/index/images/favicon.png")
          .setDescription(data.text)
          .setTimestamp()
          .setFooter("𝗕𝗼𝘁𝗵 𝗺𝗲𝘀𝘀𝗮𝗴𝗲𝘀  𝘄𝗶𝗹𝗹 𝘀𝗲𝗹𝗳-𝗱𝗲𝘀𝘁𝗿𝘂𝗰𝘁 𝗶𝗻 10 𝘀𝗲𝗰𝗼𝗻𝗱𝘀");
@@ -123,7 +123,7 @@ module.exports = function(data)
       db.setEmbedVar;
       console.log(`db.set Stage 2 = ` + db.setEmbedVar());
       var output =
-      "**:robot: " + data.bot.username + " has restarted\n\n" +
+      "**:robot: Your bot has restarted\n\n" +
       " :gear: Please resend your previous message.**\n\n" +
       "  :wrench: You may need to define the embed value using `!t embed on/off` if this message is in a loop when sending commands/messages.";
       data.color = "warn";
@@ -478,10 +478,11 @@ const embedOff = function(data)
             {
                // You can rename 'Webhook' to the name of your bot if you like, people will see if under the webhooks tab of the channel.
                existingWebhook = webhooks.find(x => x.name === webHookName);
+               const webHookURL = "https://ritabot.org/index/images/favicon.png"
 
                if (!existingWebhook)
                {
-                  channel.createWebhook(webHookName, data.bot.displayAvatarURL)
+                  channel.createWebhook(webHookName, webHookURL)
                      .then(newWebhook =>
                      {
                         // Finally send the webhook

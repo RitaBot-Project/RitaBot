@@ -17,10 +17,22 @@ var dbBot2BotValue ="";
 const db = process.env.DATABASE_URL.endsWith(".db") ?
    new Sequelize({
       dialect: "sqlite",
+      dialectOptions: {
+         ssl: {
+            require: true,
+            rejectUnauthorized: false
+         }
+      },
       storage: process.env.DATABASE_URL
    }) :
    new Sequelize(process.env.DATABASE_URL, {
-      logging: console.log
+      logging: console.log,
+      dialectOptions: {
+         ssl: {
+            require: true,
+            rejectUnauthorized: false
+         }
+      }
       //logging: null,
    });
 
