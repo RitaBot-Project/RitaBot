@@ -1,6 +1,6 @@
 {
   "name": "ritabot",
-  "version": "1.2.1-8",
+  "version": "1.2.1-9",
   "engines": {
     "node": "14.0.0"
   },
@@ -8,7 +8,7 @@
   "main": "src/bot.js",
   "license": "MIT",
   "scripts": {
-    "start": "node build/bot",
+    "start": "node src/bot.js",
     "build": "gulp build",
     "coveralls": "gulp coveralls",
     "dev": "gulp watch",
@@ -19,7 +19,7 @@
   "contributors": [
     {
       "name": "RITA <blank@email.com>",
-      "url": "https://github.com/ZyC0R3/Rita"
+      "url": "https://github.com/RitaBot-Project/RitaBot"
     }
   ],
   "keywords": [
@@ -27,20 +27,22 @@
     "discordjs",
     "bot",
     "translate",
-    "translator"
+    "translator",
+    "free translator",
+    "discordtranslator"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ZyC0R3/Rita"
+    "url": "https://github.com/RitaBot-Project/RitaBot.git"
   },
   "funding": "https://ritabot.org",
-  "homepage": "https://ritabot.org",
-  "bugs": "https://github.com/ZyC0R3/Rita/issues",
+  "homepage": "https://ritabot.org/",
+  "bugs": "https://github.com/RitaBot-Project/RitaBot/issues",
   "dependencies": {
     "common-tags": "^1.8.0",
     "discord.js": "^11.6.4",
     "dotenv": "^8.2.0",
-    "google-translate-api": "github:ZyC0R3/google-translate-api",
+    "google-translate-api": "github:RitaBot-Project/google-translate-api",
     "iso-639-1": "^2.1.4",
     "lodash": "^4.17.20",
     "make-dir": "^3.1.0",
@@ -60,6 +62,6 @@
     "gulp-eslint": "^6.0.0",
     "gulp-line-ending-corrector": "^1.0.3",
     "gulp-uglify-es": "^2.0.0",
-    "gulp-watch": "github:ZyC0R3/gulp-watch"
+    "gulp-watch": "github:RitaBot-Project/gulp-watch"
   }
 }

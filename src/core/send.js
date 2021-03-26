@@ -123,7 +123,7 @@ module.exports = function(data)
       db.setEmbedVar;
       console.log(`db.set Stage 2 = ` + db.setEmbedVar());
       var output =
-      "**:robot: " + data.bot.username + " has restarted\n\n" +
+      "**:robot: Your bot has restarted\n\n" +
       " :gear: Please resend your previous message.**\n\n" +
       "  :wrench: You may need to define the embed value using `!t embed on/off` if this message is in a loop when sending commands/messages.";
       data.color = "warn";
