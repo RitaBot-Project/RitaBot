@@ -64,8 +64,14 @@ module.exports = function(config, message, edited, deleted)
       config: config,
       bot: bot,
       message: message,
+      member: message.member,
       canWrite: true
    };
+
+   if (data.member.displayName) // Replace username with nickname if exists
+   {
+      data.message.author.username = data.member.displayName;
+   }
 
    // ------------------
    // Proccess Commands
