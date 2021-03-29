@@ -5,10 +5,14 @@
 ------
 
 <p align="center">
-<img src="https://img.shields.io/github/package-json/v/ZyC0R3/RitaBot?label=Stable%20Version"> <a href="https://discordapp.com/invite/mgNR64R"><img src="https://img.shields.io/badge/Discord_Support-JOIN-7289DA.svg?"></a><a href="https://opensource.org/licenses/MIT"> <img src="https://img.shields.io/github/license/ZyC0R3/RitaBot.svg"> </a> <a href="https://github.com/Zyc0r3/RitaBot/tree/test-branch-1.3.0/"><img src="https://img.shields.io/github/package-json/v/ZyC0R3/RitaBot/test-branch-1.3.0?label=Test%20Version"></a> <a href="https://github.com/Zyc0r3/RitaBOt/stargazers/"> <img src="https://img.shields.io/github/stars/Zyc0r3/RitaBot" href="https://github.com/Zyc0r3/RitaBot/stargazers"> </a>
+<img src="https://img.shields.io/github/package-json/v/ZyC0R3/RitaBot?label=Stable%20Version"> <a href="https://discordapp.com/invite/mgNR64R"><img src="https://img.shields.io/badge/Discord_Support-JOIN-7289DA.svg?"></a><a href="https://opensource.org/licenses/MIT"> <img src="https://img.shields.io/github/license/ZyC0R3/RitaBot.svg"> </a> <a href="https://github.com/Zyc0r3/RitaBot/tree/test-branch-1.3.0/"><img src="https://img.shields.io/github/package-json/v/ZyC0R3/RitaBot/test-branch?label=Test%20Version"></a> <a href="https://github.com/Zyc0r3/RitaBOt/stargazers/"> <img src="https://img.shields.io/github/stars/Zyc0r3/RitaBot" href="https://github.com/Zyc0r3/RitaBot/stargazers"> </a>
  <img src="https://img.shields.io/github/checks-status/Zyc0r3/RitaBot/ed616d5df0c63cfde954b4ea36fbab13c1ad86a6?label=build"> <a href="https://github.com/Zyc0r3/RitaBot/fork"> <img src="https://img.shields.io/badge/dynamic/json?color=success&label=forks&query=forks&url=https%3A%2F%2Fapi.github.com%2Frepos%2FZyc0r3%2FRitaBot"> </a>
 </p><br/><br/>
-
+<p align="center"> 
+<img alt="open collective badge" src="https://opencollective.com/ritabot-project/tiers/supporter/badge.svg?label=Supporter&color=brightgreen" />
+<img alt="open collective badge" src="https://opencollective.com/ritabot-project/tiers/sponsor/badge.svg?label=Sponsor&color=brightgreen" />
+<img alt="open collective badge" src="https://opencollective.com/ritabot-project/tiers/backer/badge.svg?label=Backer&color=brightgreen" />
+</p><br/><br/>
 
 
 <p align="center">An open-source, free Discord Translator Bot built using <strong>google-translate-api</strong> and <strong>Discord.js</strong>.</p>
@@ -158,6 +162,32 @@ Rename the existing **.env.example** file and name it **.env**. Edit the Values 
     * `!t embed on` or `!t embed off`
   * Your bot is now setup and ready for any translation you have for it to do. Use the commands `!t help` and `!t help modules` to learn more about the commands Rita has!
 
+## <a name="database"></a>Heroku Database Support
+Sometimes you need to edit the Database manually, This is not something you should be playing around with unless you really know what you are doing.
+
+#### 1. Checklist
+1. Know that you are doing, if you don't then **don't** touch the DB. Simple.
+2. Download and Install Postgres Admin 4, Located [Here](https://www.pgadmin.org/download/) or [Here](https://www.postgresql.org/ftp/pgadmin/pgadmin4/). *This guide will be for Windows, but it shouldn't be much different for any other OS.*
+3. Locate your credentials for you Heroku Database, Log in to **Heroku** > Select your **App** > Click **Resources** > Click **Heroku Postgres** > Click **Settings** > Click **View Credentials** (*Note: Heroku rotates credentials periodically and updates applications where this database is attached.*)
+
+#### 2. Connect
+For a fresh install of pgAdmin, the dashboard likely contains only one server. This is your local server, Ignore this.
+1. Right click server(s) > create > server …
+2. Fill out the following:
+  * **Name:** This is solely for you. Name it whatever you want, I chose ‘Heroku-Run — On’
+
+*Under the connection tab:*
+  * **Hostname/Address:** This is the host credential you located in Step 3. It should look like \*\*-\*\*-\*\*...amazonaws.com
+  * **Port:** Keep the port at 5432, unless your credentials list otherwise
+  * **Maintenance database** This is the database name in the credentials
+  * **Username:**  This is the user field in the credentials
+  * **Password:** The password field located in Step 3. I highly advise checking save password so that you don’t have to copypasta this every time you want to connect.
+  * In the **SSL Tab**, mark SSL mode as require
+
+At this point, if we were to hit ‘save’ (please don’t), something very strange would happen. You’d see hundreds if not thousands of databases appear in pgAdmin. This has to do with how Heroku configures their servers. You’ll still only have access to your specific database, not those of others. In order to avoid parsing so many databases, we have to white list only those databases we care about.
+
+1. Go to the **Advanced** tab and under db restriction copy the database name (it’s the same value as the **Maintenance Database** field filled earlier).
+2. Click Save/Connect and you are done. Edit away.
 ------
 ### <a name="soon"></a>:bulb: Coming Soon!
 
@@ -167,15 +197,16 @@ Rename the existing **.env.example** file and name it **.env**. Edit the Values 
 04. Introduction of a Streamlined Command Handler. (This will be done as a New Project)
 05. Update to Discord.js V12 (V1.3.0)
 06. Allow Bot Translation (V1.3.0)
-07. Webhooks (`!t embed off`version) using Nickname instead of Username (1.3.0) 
+07. Webhooks (`!t embed off` version) using Nickname instead of Username (1.3.0) 
 08. Check what language translation requests are orignally in to stop unnecessary translations and to make automatic-same channel translation ethical (1.3.0)
+09. Discord slash commands introduction
 
 ------
 
 ### <a name="supporters"></a> :clap: Supporters
 
-[![Stargazers repo roster for @Zyc0r3/RitaBot](https://reporoster.com/stars/Zyc0r3/RitaBot)](https://github.com/Zyc0r3/RitaBot/stargazers)
-[![Forkers repo roster for @Zyc0r3/RitaBot](https://reporoster.com/forks/Zyc0r3/RitaBot)](https://github.com/Zyc0r3/RitaBot/network/members)
+[![Stargazers repo roster for @Zyc0r3/RitaBot](https://reporoster.com/stars/RitaBot-Project/RitaBot)](https://github.com/RitaBot-Project/RitaBot/stargazers)
+[![Forkers repo roster for @Zyc0r3/RitaBot](https://reporoster.com/forks/RitaBot-Project/RitaBot)](https://github.com/RitaBot-Project/RitaBot/network/members)
 
 ------
 
