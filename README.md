@@ -65,7 +65,7 @@
 
 * Please ***star our project*** if you like it using the top-right Star icon. Every star helps us! 
 <p align="center">
-<img src="https://ritabot.org/index//images/star.png" href="https://github.com/Zyc0r3/RitaBot/stargazers">
+<img src="https://ritabot.org/assets/images/star.png" href="https://github.com/RitaBot-Project/RitaBot/stargazers">
 </p><br/><br/>
 
 #### 2. Create a new [Discord Application](https://discordapp.com/developers/applications) in the Discord Developer Portal

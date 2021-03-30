@@ -31,7 +31,7 @@
       // eslint Warn
       "eqeqeq": "warn",
       "no-extra-parens": "warn",
-      "complexity": ["warn", 10],
+      "complexity": ["warn", 12],
       "no-multi-spaces": "warn",
       "no-multi-str": "warn",
       "no-unused-expressions": "warn",
@@ -41,7 +41,6 @@
       "callback-return": "error",
       "global-require": "error",
       "brace-style": ["warn", "allman", {"allowSingleLine": true}],
-      "camelcase": "warn",
       "comma-dangle": ["warn", "never"],
       "func-call-spacing": "warn",
       "indent": ["warn", 3, {"SwitchCase": 1}],
@@ -74,6 +73,7 @@
       "block-scoped-var": "off",
       "no-useless-return": "off",
       "no-console": "off",
+      "camelcase": "off",
       "no-dupe-keys": "off"
       
     }
