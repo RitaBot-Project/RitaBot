@@ -20,16 +20,16 @@ module.exports.run = function(data)
    // Command allowed by admins only
    // -------------------------------
 
-   if (!data.message.isAdmin)
+   if (data.message.isAdmin === false)
    {
       data.color = "warn";
-      data.text = ":cop:  This command is reserved for server administrators.";
+      data.text = ":cop:  This command is reserved for server adminis.";
 
       // -------------
       // Send message
       // -------------
 
-      sendMessage(data);
+      return sendMessage(data);
    }
 
    // -----------------------------------
@@ -53,8 +53,10 @@ module.exports.run = function(data)
    // ----------------
    // Execute setting
    // ----------------
-
-   embedSettings(data);
+   if (data.message.isAdmin)
+   {
+      embedSettings(data);
+   }
 };
 
 // -------------------------------
@@ -110,7 +112,7 @@ const embedSettings = function(data)
 
 function sendMessage (data)
 {
-   message.delete(5000);
+   data.message.delete(5000);
    const richEmbedMessage = new discord.RichEmbed()
       .setColor(colors.get(data.color))
       .setAuthor(data.bot.username, data.bot.displayAvatarURL)
@@ -118,7 +120,7 @@ function sendMessage (data)
       .setTimestamp()
       .setFooter("This message will self-destruct in one minute");
 
-   return message.channel.send(richEmbedMessage).then(msg =>
+   return data.message.channel.send(richEmbedMessage).then(msg =>
    {
       msg.delete(60000);
    });

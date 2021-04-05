@@ -93,22 +93,20 @@ module.exports = function(data)
    // ----------------------------------------------------
 
 
-   console.log(`Guild ID from message`);
-   console.log(`Raw = ` + data.message.guild.id);
-   const guildValue = data.message.guild.id;
-   console.log(`Const = ` + guildValue);
-   console.log(`---------------------`);
 
-   function ignoreMessage()
+   const guildValue = data.message.guild.id;
+
+
+   function ignoreMessage(data)
    {
       const ignoreMessageEmbed = new discord.RichEmbed()
          .setColor(colors.get(data.color))
          .setTitle("**Bot Alert**\n")
-         .setAuthor(data.bot.username, data.bot.icon_url || "https://ritabot.org/index/images/favicon.png")
+         .setAuthor(data.bot.username, data.bot.icon_url || "https://ritabot.gg/index/images/favicon.png")
          .setDescription(data.text)
          .setTimestamp()
          .setFooter("𝗕𝗼𝘁𝗵 𝗺𝗲𝘀𝘀𝗮𝗴𝗲𝘀  𝘄𝗶𝗹𝗹 𝘀𝗲𝗹𝗳-𝗱𝗲𝘀𝘁𝗿𝘂𝗰𝘁 𝗶𝗻 10 𝘀𝗲𝗰𝗼𝗻𝗱𝘀");
-      message.reply(ignoreMessageEmbed).then(msg =>
+      data.message.reply(ignoreMessageEmbed).then(msg =>
       {
          msg.delete(10000);
       });
@@ -123,12 +121,12 @@ module.exports = function(data)
       db.setEmbedVar;
       console.log(`db.set Stage 2 = ` + db.setEmbedVar());
       var output =
-      "**:robot: " + data.bot.username + " has restarted\n\n" +
+      "**:robot: Your bot has restarted\n\n" +
       " :gear: Please resend your previous message.**\n\n" +
       "  :wrench: You may need to define the embed value using `!t embed on/off` if this message is in a loop when sending commands/messages.";
       data.color = "warn";
       data.text = output;
-      return ignoreMessage();
+      return ignoreMessage(data);
    }
    else
    // eslint-disable-next-line no-else-return
@@ -172,10 +170,20 @@ const embedOn = function(data)
       {
          if (!data.author)
          {
-            message.delete(5000);
+            if (!data.bot)
+            {
+               username = data.channel.client.user.username;
+               icon_url = data.channel.client.user.displayAvatarURL;
+            }
+            else
+            {
+               username = data.bot.username;
+               icon_url = data.bot.icon_url;
+            }
+
             const botEmbedOn = new discord.RichEmbed()
                .setColor(colors.get(data.color))
-               .setAuthor(data.bot.username, data.bot.icon_url)
+               .setAuthor(username, icon_url)
                .setDescription(data.text)
                .setTimestamp()
                .setFooter("This message will self-destruct in one minute");
@@ -405,7 +413,6 @@ const embedOff = function(data)
          }
          else
          {
-            message.delete(5000);
             const botEmbedOff = new discord.RichEmbed()
                .setColor(colors.get(data.color))
                .setAuthor(data.bot.username, data.bot.icon_url)
@@ -478,7 +485,7 @@ const embedOff = function(data)
             {
                // You can rename 'Webhook' to the name of your bot if you like, people will see if under the webhooks tab of the channel.
                existingWebhook = webhooks.find(x => x.name === webHookName);
-               const webHookURL = "https://ritabot.org/index/images/favicon.png"
+               const webHookURL = "https://ritabot.gg/index/images/favicon.png";
 
                if (!existingWebhook)
                {

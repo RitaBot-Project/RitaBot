@@ -15,7 +15,7 @@
     "Translating",
     "Assistant",
     "Real-Time Interchangeable Translating Assistant",
-    "https://ritabot.org",
+    "https://ritabot.gg",
     "RitaBot",
     "Rita Deploy",
     "Rita Deploy Heroku",
@@ -24,7 +24,7 @@
     "Open source translator" 
   ],
   "logo": "https://cdn.discordapp.com/attachments/599327653752995861/759555905661960212/android-chrome-192x192.png",
-  "website": "https://ritabot.org/",
+  "website": "https://ritabot.gg/",
   "repository": "https://github.com/Zyc0r3/RitaBot",
   "success_url": "/",
   "env": {
@@ -34,12 +34,12 @@
       "required": true
     },
     "DISCORD_DEBUG_WEBHOOK_ID": {
-      "description": "Enter the ID for Webhook Debug logging, This is for sending log and error messages to a designated channel, however it is not needed , it's only for debugging, if you wish to turn it on later in the future you can do so in the Environment Variables tab in App Settings. Refer to https://ritabot.org/troubleshooting/ for help",
+      "description": "Enter the ID for Webhook Debug logging, This is for sending log and error messages to a designated channel, however it is not needed , it's only for debugging, if you wish to turn it on later in the future you can do so in the Environment Variables tab in App Settings. Refer to https://ritabot.gg/troubleshooting/ for help",
       "value": "",
       "required": false
     },
     "DISCORD_DEBUG_WEBHOOK_TOKEN": {
-      "description": "Enter the Token for Webhook Debug logging. This is for sending log and error messages to a designated channel, however it is not needed , it's only for debugging, if you wish to turn it on later in the future you can do so in the Environment Variables tab in App Settings. Refer to https://ritabot.org/troubleshooting/ for help",
+      "description": "Enter the Token for Webhook Debug logging. This is for sending log and error messages to a designated channel, however it is not needed , it's only for debugging, if you wish to turn it on later in the future you can do so in the Environment Variables tab in App Settings. Refer to https://ritabot.gg/troubleshooting/ for help",
       "value": "",
       "required": false
     },

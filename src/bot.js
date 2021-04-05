@@ -3,7 +3,11 @@
 // -----------------
 
 // codebeat:disable[LOC,ABC,BLOCK_NESTING]
-require("dotenv").config();
+const path = require("path");
+const env = __dirname.slice(0, -3) + ".env"
+require("dotenv").config({
+   path: env
+});
 const discord = require("discord.js");
 const client = new discord.Client();
 const auth = require("./core/auth");
@@ -11,7 +15,6 @@ const auth = require("./core/auth");
 // ---------------
 // Event Listener
 // ---------------
-
 const events = require("./events");
 
 events.listen(client);
