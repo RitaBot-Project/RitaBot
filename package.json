@@ -1,6 +1,6 @@
 {
   "name": "ritabot",
-  "version": "1.2.1-11",
+  "version": "1.2.1-12",
   "engines": {
     "node": "14.0.0"
   },
@@ -35,8 +35,8 @@
     "type": "git",
     "url": "https://github.com/RitaBot-Project/RitaBot.git"
   },
-  "funding": "https://ritabot.org",
-  "homepage": "https://ritabot.org/",
+  "funding": "https://ritabot.gg",
+  "homepage": "https://ritabot.gg/",
   "bugs": "https://github.com/RitaBot-Project/RitaBot/issues",
   "dependencies": {
     "common-tags": "^1.8.0",

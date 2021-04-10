@@ -115,13 +115,32 @@ const Tasks = db.define("tasks", {
 // Init/create tables
 // -------------------
 
-exports.initializeDatabase = function()
+exports.initializeDatabase = function(client)
 {
-   Servers.sync({ logging: console.log });
+   Servers.sync({ logging: console.log }).then(() =>
+   {
+      Servers.upsert({ id: "bot",
+         lang: "en" });
+      const guilds = client.guilds.array().length;
+      const guildsArray = client.guilds.array();
+      var i;
+      for (i = 0; i < guilds; i++)
+      {
+         const guild = guildsArray[i];
+         const guildID = guild.id;
+         Servers.findAll({ where: { id: guildID } }).then(projects =>
+         {
+            if (projects.length === 0)
+            {
+               Servers.upsert({ id: guildID,
+                  lang: "en" });
+            }
+         });
+      }
+      console.log("----------------------------------------\nDatabase fully initialized.\n----------------------------------------");
+   });
    Tasks.sync({ logging: console.log });
    // Add global server row
-   Servers.upsert({ id: "bot",
-      lang: "en" });
 };
 
 // -----------------------
@@ -135,6 +154,34 @@ exports.addServer = function(id, lang)
       lang: lang
    });
 };
+
+
+// ------------------
+// Make sure every Server is in Database
+// ------------------
+/*
+exports.checkServers = function(client)
+{
+   const guilds = client.guilds.array().length
+   const guildsArray = client.guilds.array()
+   var query;
+   var i;
+   for (i = 0; i < guilds; i++) {
+      const guild = guildsArray[i]
+      const guildID = guild.id
+      const updatedAt = Date.now();
+      const createdAt = guild.createdAt
+      query = "INSERT INTO servers(id, lang, embedstyle, bot2botstyle, createdat, updatedat) VALUES (" + guildID + ", 'en', 'on', 'off','" + createdAt + "','" + updatedAt + "') ON CONFLICT DO NOTHING"
+      db.query(query)
+      var log;
+      log = "Database fully initialized\n"
+      log += "----------------------------------------"
+
+      return console.log(log)
+   }
+}*/
+
+
 
 // ------------------
 // Deactivate Server
