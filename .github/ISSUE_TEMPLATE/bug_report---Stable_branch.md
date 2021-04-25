@@ -2,7 +2,7 @@
 name: Bug report - Stable Branch
 about: Create a report to help us improve
 title: ''
-labels: 1.2.1-?, Bug
+labels: 1.2.2-?, Bug
 assignees: ''
 
 ---
