@@ -2,7 +2,7 @@
 // Global variables
 // -----------------
 
-// Codebeat:disable[LOC,ABC,BLOCK_NESTING]
+// codebeat:disable[LOC,ABC,BLOCK_NESTING]
 const discord = require("discord.js");
 const auth = require("./core/auth");
 
@@ -11,10 +11,7 @@ const auth = require("./core/auth");
 // ------------------------
 
 const path = require("path");
-const bot = path.join(
-   __dirname,
-   "bot.js"
-);
+const bot = path.join(__dirname, "bot.js");
 
 // --------------
 // Shard Manager
@@ -24,19 +21,14 @@ let shards = 2;
 
 if (auth.shards)
 {
-
    shards = auth.shards;
-
 }
 
 const shardingOptions = {
-   "totalShards": shards
+   totalShards: shards
 };
 
-const manager = new discord.ShardingManager(
-   bot,
-   shardingOptions
-);
+const manager = new discord.ShardingManager(bot, shardingOptions);
 
 // -------------
 // Spawn Shards

@@ -2,7 +2,8 @@
 // Global variables
 // -----------------
 
-// Codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
+/* eslint-disable no-undef */
 
 
 // -------------

@@ -1,251 +1,155 @@
-/* eslint-disable no-bitwise */
 // -----------------
 // Global variables
 // -----------------
 
-// Codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
-/* eslint-disable consistent-return */
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
 const discord = require("discord.js");
 const auth = require("./auth");
 const colors = require("./colors").get;
 const spacer = "​                                                          ​";
 
 const hook = new discord.WebhookClient(
-   auth.loggerWebhookID,
-   auth.loggerWebhookToken
+   auth.loggerWebhookID, auth.loggerWebhookToken
 );
+
+// ------------
+// logger code
+// ------------
+
+module.exports = function(type, data, subtype = null, id = "Unknown")
+{
+   if (hook.id === undefined)
+   {
+      return;
+   }
+   const logTypes = {
+      dev: devConsole,
+      error: errorLog,
+      warn: warnLog,
+      custom: hookSend,
+      guildJoin: logJoin,
+      guildLeave: logLeave
+   };
+
+   //if (logTypes.hasOwnProperty(type))
+   if (Object.prototype.hasOwnProperty.call(logTypes,type))
+   {
+      return logTypes[type](data, subtype, id);
+   }
+};
 
 // --------------------
 // Log data to console
 // --------------------
 
-const devConsole = function devConsole (data)
+const devConsole = function(data)
 {
-
    if (auth.dev)
    {
-
       return console.log(data);
-
    }
-
 };
 
 // ------------
 // Hook Sender
 // ------------
 
-const hookSend = function hookSend (data)
+const hookSend = function(data)
 {
-
-   const embed = new discord.MessageEmbed({
-      "color": colors(data.color),
-      "description": data.msg,
-      "footer": {
-         "text": data.footer
-      },
-      "title": data.title
+   const embed = new discord.RichEmbed({
+      title: data.title,
+      color: colors(data.color),
+      description: data.msg,
+      footer: {
+         text: data.footer
+      }
    });
-   hook.send(embed).catch((err) =>
+   hook.send(embed).catch(err =>
    {
-
-      console.error(`hook.send error:\n${err}`);
-
+      console.error("hook.send error:\n" + err);
    });
-
 };
 
 // -------------
 // Error Logger
 // -------------
 
-const errorLog = function errorLog (error, subtype, id)
+const errorLog = function(error, subtype, id)
 {
-
    let errorTitle = null;
 
    const errorTypes = {
-      "api": ":boom:  External API Error",
-      "command": ":chains: Command Error",
-      "db": ":outbox_tray:  Database Error",
-      "discord": ":notepad_spiral: DiscordAPIError: Unknown Message",
-      "dm": ":skull_crossbones:  Discord - user.createDM",
-      "edit": ":crayon:  Discord - message.edit",
-      "fetch": ":no_pedestrians:  Discord - client.users.fetch",
-      "presence": ":loudspeaker:  Discord - client.setPresence",
-      "react": ":anger:  Discord - message.react",
-      "send": ":postbox:  Discord - send",
-      "shardFetch": ":pager:  Discord - shard.fetchClientValues",
-      "typing": ":keyboard:  Discord - channel.startTyping",
-      "uncaught": ":japanese_goblin:  Uncaught Exception",
-      "unhandled": ":japanese_ogre:  Unhandled promise rejection",
-      "warning": ":exclamation:  Process Warning"
+      dm: ":skull_crossbones:  Discord - user.createDM",
+      fetch: ":no_pedestrians:  Discord - client.fetchUser",
+      send: ":postbox:  Discord - send",
+      edit: ":crayon:  Discord - message.edit",
+      react: ":anger:  Discord - message.react",
+      typing: ":keyboard:  Discord - channel.startTyping",
+      presence: ":loudspeaker:  Discord - client.setPresence",
+      db: ":outbox_tray:  Database Error",
+      uncaught: ":japanese_goblin:  Uncaught Exception",
+      unhandled: ":japanese_ogre:  Unhandled promise rejection",
+      warning: ":exclamation:  Process Warning",
+      api: ":boom:  External API Error",
+      discord: ":notepad_spiral: DiscordAPIError: Unknown Message",
+      command: ":chains: Command Error",
+      shardFetch: ":pager:  Discord - shard.fetchClientValues"
    };
 
-   // If (errorTypes.hasOwnProperty(subtype))
-   if (Object.prototype.hasOwnProperty.call(
-      errorTypes,
-      subtype
-   ))
+   //if (errorTypes.hasOwnProperty(subtype))
+   if (Object.prototype.hasOwnProperty.call(errorTypes,subtype))
    {
-
       errorTitle = errorTypes[subtype];
-
    }
 
    hookSend({
-      "color": "err",
+      title: errorTitle,
+      color: "err",
       // eslint-disable-next-line no-useless-concat
-      "msg": `\`\`\`json\n${error.toString()}\n${error.stack}\n\n` + `Error originated from server: ${id}\`\`\``,
-      "title": errorTitle
+      msg: "```json\n" + error.toString() + "\n" + error.stack + "\n\n" + "Error originated from server: " + id + "```"
    });
-
 };
 
 // ----------------
 // Warnings Logger
 // ----------------
 
-const warnLog = function warnLog (warning)
+const warnLog = function(warning)
 {
-
    hookSend({
-      "color": "warn",
-      "msg": warning
+      color: "warn",
+      msg: warning
    });
-
 };
 
 // ---------------
 // Guild Join Log
 // ---------------
 
-const logJoin = function logJoin (guild)
+const logJoin = function(guild)
 {
-
-   if (guild.owner)
-   {
-
-      hookSend({
-         "color": "ok",
-         "msg":
-         `${`:white_check_mark:  **${guild.name}**\n` +
-         "```md\n> "}${guild.id}\n@${guild.owner.user.username}#${
-            guild.owner.user.discriminator}\n${guild.memberCount} members\n\`\`\`${spacer}${spacer}`,
-         "title": "Joined Guild"
-
-      });
-
-   }
-   else
-   {
-
-      hookSend({
-         "color": "ok",
-         "msg":
-         `${`:white_check_mark:  **${guild.name}**\n` +
-         "```md\n> "}${guild.id}\n${guild.memberCount} members#\n\`\`\`${spacer}${spacer}`,
-         "title": "Joined Guild"
-
-      });
-
-   }
-
+   hookSend({
+      color: "ok",
+      title: "Joined Guild",
+      msg:
+         `:white_check_mark:  **${guild.name}**\n` +
+         "```md\n> " + guild.id + "\n@" + guild.owner.user.username + "#" +
+         guild.owner.user.discriminator + "\n```" + spacer + spacer
+   });
 };
 
 // ----------------
 // Guild Leave Log
 // ----------------
 
-const logLeave = function logLeave (guild)
+const logLeave = function(guild)
 {
-
-   if (guild.owner)
-   {
-
-      hookSend({
-         "color": "warn",
-         "msg":
-         `${`:regional_indicator_x:  **${guild.name}**\n` +
-         "```md\n> "}${guild.id}\n@${guild.owner.user.username}#${
-            guild.owner.user.discriminator}\n${guild.memberCount} members\n\`\`\`${spacer}${spacer}`,
-         "title": "Left Guild"
-      });
-
-   }
-   else
-   {
-
-      hookSend({
-         "color": "warn",
-         "msg":
-         `${`:regional_indicator_x:  **${guild.name}**\n` +
-         "```md\n> "}${guild.id}\n${guild.memberCount} members\n\`\`\`${spacer}${spacer}`,
-         "title": "Left Guild"
-      });
-
-   }
-
-};
-
-// ------------
-// Logger code
-// ------------
-
-module.exports = function run (type, data, subtype = null, id = "Unknown")
-{
-
-   if (hook.id === undefined)
-   {
-
-      return;
-
-   }
-   const logTypes = {
-      "custom": hookSend,
-      "dev": devConsole,
-      "error": errorLog,
-      "guildJoin": logJoin,
-      "guildLeave": logLeave,
-      "warn": warnLog
-   };
-
-   // If (logTypes.hasOwnProperty(type))
-   if (Object.prototype.hasOwnProperty.call(
-      logTypes,
-      type
-   ))
-   {
-
-      if (data.message !== undefined)
-      {
-
-         if (data.message.guild !== undefined)
-
-         {
-
-            console.log("Has guild");
-            const id = data.message.guild.name;
-            return logTypes[type](
-               data,
-               subtype,
-               id
-            );
-
-         }
-
-         console.log("Has Message");
-
-      }
-
-      console.log("Has");
-
-      return logTypes[type](
-         data,
-         subtype,
-         id
-      );
-
-   }
-
+   hookSend({
+      color: "warn",
+      title: "Left Guild",
+      msg:
+         `:regional_indicator_x:  **${guild.name}**\n` +
+         "```md\n> " + guild.id + "\n@" + guild.owner.user.username + "#" +
+         guild.owner.user.discriminator + "\n```" + spacer + spacer
+   });
 };

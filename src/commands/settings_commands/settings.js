@@ -2,38 +2,79 @@
 // Global variables
 // -----------------
 
-// Codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
+// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
 const db = require("../../core/db");
 const logger = require("../../core/logger");
 const sendMessage = require("../../core/command.send");
-const fs = require("fs");
-const path = require("path");
-const time = {
-   "long": 10000,
-   "short": 5000
+
+// --------------------------
+// Proccess settings params
+// --------------------------
+
+module.exports = function(data)
+{
+   // -------------------------------
+   // Command allowed by admins only
+   // -------------------------------
+
+   if (!process.env.DISCORD_BOT_OWNER_ID)
+   {
+      data.color = "warn";
+      data.text = ":warning: Please set `DISCORD_BOT_OWNER_ID` as an array of User IDs allowed to use this command in configuration vars. \n\n **Ex.** ```js\nDISCORD_BOT_OWNER_ID = ['ALLOWED_USER_1_ID', 'ALLOWED_USER_2_ID', 'ALLOWED_USER_3_ID']```\n Place this with ID's in your .env file (local hosting) or environment variables (Heroku).";
+
+      return sendMessage(data);
+   }
+
+   if (!process.env.DISCORD_BOT_OWNER_ID.includes(data.message.author.id))
+   {
+      data.color = "warn";
+      data.text = ":warning: These Commands are for developers only.";
+      return sendMessage(data);
+   }
+
+   // -----------------------------------
+   // Error if settings param is missing
+   // -----------------------------------
+
+   if (!data.cmd.params)
+   {
+      data.color = "error";
+      data.text =
+         ":warning:  Missing `settings` parameter. Use `" +
+         `${data.config.translateCmdShort} help settings\` to learn more.`;
+
+      // -------------
+      // Send message
+      // -------------
+
+      return sendMessage(data);
+   }
+
+   // ----------------
+   // Execute setting
+   // ----------------
+
+   getSettings(data);
 };
 
 // -------------------
 // Available Settings
 // -------------------
 
-const getSettings = function getSettings (data)
+const getSettings = function(data)
 {
-
    // ----------------------------
    // Set default server language
    // ----------------------------
 
-   const setLang = function setLang (data)
+   const setLang = function(data)
    {
-
       // ---------------------------
       // Error for invalid language
       // ---------------------------
 
       if (data.cmd.to.valid.length !== 1)
       {
-
          data.color = "error";
          data.text = ":warning:  Please specify 1 valid language.";
 
@@ -42,7 +83,6 @@ const getSettings = function getSettings (data)
          // -------------
 
          return sendMessage(data);
-
       }
 
       // ------------------------
@@ -51,20 +91,18 @@ const getSettings = function getSettings (data)
 
       if (data.cmd.server && data.cmd.to.valid[0].iso === data.cmd.server.lang)
       {
-
          data.color = "info";
          data.text =
-            `:information_source:  **\`${
-               data.cmd.to.valid[0].name}\`** is the current default ` +
-            `languange of this server. To change:\n\`\`\`md\n# Example\n${
-               data.config.translateCmd} settings setLang to french\n\`\`\``;
+            ":information_source:  **`" +
+            data.cmd.to.valid[0].name + "`** is the current default " +
+            "languange of this server. To change:\n```md\n# Example\n" +
+            data.config.translateCmd + " settings setLang to french\n```";
 
          // -------------
          // Send message
          // -------------
 
          return sendMessage(data);
-
       }
 
       // ----------------
@@ -74,89 +112,62 @@ const getSettings = function getSettings (data)
       return db.updateServerLang(
          data.message.channel.guild.id,
          data.cmd.to.valid[0].iso,
-         function error (err)
+         function(err)
          {
-
             if (err)
             {
-
-               return logger(
-                  "error",
-                  err,
-                  "db",
-                  data.message.channel.guild.name
-               );
-
+               return logger("error", err, "db", data.message.guild.name);
             }
             data.color = "ok";
             data.text =
-               `Default language for server has been changed to **\`${
-                  data.cmd.to.valid[0].name}\`**.`;
+               "Default language for server has been changed to **`" +
+               data.cmd.to.valid[0].name + "`**.";
 
             // -------------
             // Send message
             // -------------
 
             return sendMessage(data);
-
          }
       );
-
    };
 
    // -------------
    // List Servers
    // -------------
-
-   const listServers = function listServers (data)
+   const listServers = function(data)
    {
+      data.text = "__**Active Servers**__ - ";
 
-      data.text = "Active Servers - ";
-
-      const activeGuilds = data.client.guilds.cache.array();
+      const activeGuilds = data.client.guilds.array();
 
       data.text += `${activeGuilds.length}\n\n`;
 
-      activeGuilds.forEach((guild) =>
+      activeGuilds.forEach(guild =>
       {
-
-         data.text += `${guild.name}\n${guild.id}\n${guild.memberCount} members\n`;
+         data.text += "```md\n";
+         data.text += `# ${guild.name}\n> ${guild.id}\n> ${guild.memberCount} members\n`;
          if (guild.owner)
          {
-
-            data.text += `${guild.owner.user.username}#`;
-            data.text += `${guild.owner.user.discriminator}\n\n`;
-
+            data.text += `@${guild.owner.user.username}#`;
+            data.text += guild.owner.user.discriminator + "\n```";
          }
          else
          {
-
-            data.text += "\n";
-
+            data.text += "```";
          }
-
       });
 
-      // ------------------
-      // Send message/file
-      // ------------------
+      const splitOpts = {
+         maxLength: 2000,
+         char: ""
+      };
 
-      data.message.delete({"timeout": time.short}).catch((err) => console.log(
-         "Command Message Deleted Error, command.send.js = ",
-         err
-      ));
-      fs.writeFileSync(
-         path.resolve(
-            __dirname,
-            "../../files/serverlist.txt"
-         ),
-         data.text
-      );
-      data.message.channel.send(
-         "Server List.",
-         {"files": ["./src/files/serverlist.txt"]}
-      );
+      // -------------
+      // Send message
+      // -------------
 
+      return data.message.channel.send(data.text, {split: splitOpts});
    };
 
 
@@ -164,55 +175,43 @@ const getSettings = function getSettings (data)
    // Update bot
    // -----------
 
-   const updateBot = function updateBot (data)
+   const updateBot = function(data)
    {
-
-      // Const activeGuilds = data.client.guilds.array();
-      // Data.color = "info";
-      // Data.text = `Updating bot for **${activeGuilds.length}** servers.`;
-      // Return sendMessage(data);
+      //const activeGuilds = data.client.guilds.array();
+      //data.color = "info";
+      //data.text = `Updating bot for **${activeGuilds.length}** servers.`;
+      //return sendMessage(data);
       //
-      // ActiveGuilds.forEach(guild =>
-      // {
-      //   Guild.owner.send(
+      //activeGuilds.forEach(guild =>
+      //{
+      //   guild.owner.send(
       //   "Hello, this bot has been updated to a new version.\n " +
       //   "More info: https://ritabot.gg/whats-new/#new-in-121\n");
-      // });
-      data.message.delete({"timeout": time.short}).catch((err) => console.log(
-         "UpdateBot Command Message Deleted Error, command.send.js = ",
-         err
-      ));
-      return data.message.channel.send({"embed": {
-         "author": {
-            "icon_url": data.client.user.displayAvatarURL(),
-            "name": data.client.user.username
+      //});
+      return data.message.channel.send({embed: {
+         color: 13107200,
+         author: {
+            name: data.client.user.username,
+            icon_url: data.client.user.displayAvatarURL
          },
-         "color": 13107200,
-         "description": ":no_entry_sign: This command has been disabled"
+         description: ":no_entry_sign: This command has been disabled"
 
       }}).then((msg) =>
       {
-
-         msg.delete({"timeout": time.long}).catch((err) => console.log(
-            "UpdateBot Bot Message Deleted Error, settings.js = ",
-            err
-         ));
-
+         msg.delete(5000).catch(err => console.log("UpdateBot Bot Message Deleted Error, settings.js = ", err));
       });
-
    };
+
 
    // -----------------
    // DM server owners
    // -----------------
-   // Announcements not possible until D.js v12
-
    /*
-   Const announcement = async function(data)
+   const announcement = async function(data)
    {
       const guildArray = Array.from(bot.client.guilds.values());
       var i;
-      for (i = 0; i < guildArray.length; i += 1)
+      for (i = 0; i < guildArray.length; i++)
       {
          console.log("Hello");
          const guild = await guildArray[i];
@@ -227,16 +226,16 @@ const getSettings = function getSettings (data)
             console.log(err);
          });
       }
-   };
-   */
+   };*/
+
+   // Announcements not possible until D.js v12
 
    // ----------
    // Update db
    // ----------
 
-   function updateDB (data)
+   function updateDB(data)
    {
-
       data.color = "info";
       data.text =
          ":white_check_mark: **Database has been updated.**";
@@ -244,11 +243,9 @@ const getSettings = function getSettings (data)
       // -------------
       // Send message
       // -------------
-
       db.updateColumns();
 
       return sendMessage(data);
-
    }
 
    // --------------------------
@@ -256,22 +253,17 @@ const getSettings = function getSettings (data)
    // --------------------------
 
    const validSettings = {
-   // "announcement": announcement,
-      "listservers": listServers,
       "setlang": setLang,
-      "updatebot": updateBot,
-      "updatedb": updateDB
+      "listservers": listServers,
+      "updatedb": updateDB,
+      "updatebot": updateBot
+      //"announcement": announcement
    };
 
    const settingParam = data.cmd.params.split(" ")[0].toLowerCase();
-   if (Object.prototype.hasOwnProperty.call(
-      validSettings,
-      settingParam
-   ))
+   if (Object.prototype.hasOwnProperty.call(validSettings,settingParam))
    {
-
       return validSettings[settingParam](data);
-
    }
 
    // ------------------------
@@ -280,80 +272,13 @@ const getSettings = function getSettings (data)
 
    data.color = "error";
    data.text =
-      `:warning:  **\`${data.cmd.params
-      }\`** is not a valid settings option.`;
+      ":warning:  **`" + data.cmd.params +
+      "`** is not a valid settings option.";
 
    // -------------
    // Send message
    // -------------
 
    return sendMessage(data);
-
 };
 
-// --------------------------
-// Proccess settings params
-// --------------------------
-
-module.exports = function run (data)
-{
-
-   // -------------------------------
-   // Command allowed by admins only
-   // -------------------------------
-
-   if (!process.env.DISCORD_BOT_OWNER_ID)
-   {
-
-      data.color = "warn";
-      data.text = ":warning: Please set `DISCORD_BOT_OWNER_ID` as an array of User IDs allowed to use this command in configuration vars. \n\n **Ex.** ```js\nDISCORD_BOT_OWNER_ID = ['ALLOWED_USER_1_ID', 'ALLOWED_USER_2_ID', 'ALLOWED_USER_3_ID']```\n Place this with ID's in your .env file (local hosting) or environment variables (Heroku).";
-
-      // -------------
-      // Send message
-      // -------------
-
-      return sendMessage(data);
-
-   }
-
-   if (!process.env.DISCORD_BOT_OWNER_ID.includes(data.message.author.id))
-   {
-
-      data.color = "warn";
-      data.text = ":warning: These Commands are for developers only.";
-
-      // -------------
-      // Send message
-      // -------------
-
-      return sendMessage(data);
-
-   }
-
-   // -----------------------------------
-   // Error if settings param is missing
-   // -----------------------------------
-
-   if (!data.cmd.params)
-   {
-
-      data.color = "error";
-      data.text =
-         ":warning:  Missing `settings` parameter. Use `" +
-         `${data.config.translateCmdShort} help settings\` to learn more.`;
-
-      // -------------
-      // Send message
-      // -------------
-
-      return sendMessage(data);
-
-   }
-
-   // ----------------
-   // Execute setting
-   // ----------------
-
-   return getSettings(data);
-
-};
