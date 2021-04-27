@@ -4,5 +4,7 @@ SQLlite
 *.exe
 sqlite3.dll
 sqlite3.def
+serverlist.txt
 *.db
 .env
+package-lock.json.old

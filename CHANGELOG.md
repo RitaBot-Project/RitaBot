@@ -1,10 +1,63 @@
-## 1.3.0 - Unreleased & EXPERIMENTAL
-* EXPERIMENTAL version of RITA - Not safe for normal use.
-* Discord.js update from V11 to V12
-* All feature in previous versions are included however core functions are faulty and may cause DB issues. 
-  * Updating to this version may corrupt your DB, Do not do this unless you have backed it up. 
+## 1.2.2 Change Log
+ 
+* With the introduction of Version 1.2.2, we are proud to introduce the Centralized Version of Rita with a One-Click Invite. This means you can still create your own personal RITA bot. Though now you have the option to forgo that personal setup and can instead use the Centralized version of RITA. Which has the added benefit of not requiring any of the setup steps required that you would have to do for your own personal RITA bot. Just invite the bot to your server and setup the bot to your liking.  
+* One-Click Invite Trial, We have decided to set up an extended trial of the Centralized Version of Rita. If you would like to take part and have access to the Centralized Version of RITA. Please join our discord for more info. https://discord.gg/AtJcjvnkg6
 
-## 1.2.2 - Test Branch
+### 1.2.2 Major Changes
+* Rita now uses Discord.js V12.
+
+### 1.2.2 Bug Fixes
+* Same channel translation is now working. You no longer need to have multiple channels set up, you can do it all in one channel.
+    * Example `!tr channel from english to spanish for #SameChannelMention` Will translate any English messages to Spanish in your current channel
+* AUTO Translate is now working, you can define the "from" language as "AUTO" and it will detect the language for you.
+    * Example `!tr auto to lang for #channel` So running `!tr auto to en for #channel` will auto translate anything not in English to English for that channel. 
+* DM Translations have been fixed and enabled, thanks to Artanis and Brozer.
+    * You can enable this by running the following command `!tr channel to de from en for @user` That will translate English messages to German for the user. Which they will receive in a DM. 
+* Duplicate language translation bug is now fixed, meaning you can not translate English to English or French to French etc.
+* Various fixes to Nickname Bugs, this should now be working. 
+* Desktop Client Gif keyboard caused error due to exclusive embed style.
+ 
+* `google-translate-api` has been changed to RCP to reduce and mitigate the load limiter.
+* We have found a way to speed up the translation process, so it should be a little snappier in future. 
+ 
+### 1.2.2 Command Changes 
+* New commands added (`debug`, `donate`, `prefix`, `help commands`, `create`)
+  > `debug` Is for debug options. Examples below:
+    >> - `!tr debug on` - turns on debugging, creates debugging channel and webhook
+    >> - `!tr debug off` - turns off debugging
+    >> - `!tr stats debug` - prints webhook "ID" and "Token" in channel
+
+  > `donate` - If you would like to donate to RITA you can find the info with this command. Since RITA bot is 100% free donations are greatly appreciated to help with server costs. Examples below:
+    >> - `!tr donate` - Will return donation options
+    >> - `!tr donate github` - You can Donate at Github Sponsors
+    >> - `!tr donate oc` - You can Donate at Open Collective
+    
+  > `prefix` - You can now change the prefix of your bot, you can make it whatever you want. Examples below:
+    >> - `!tr prefix` - Will list your current prefix. Default prefix is `!tr`
+    >> - `!tr prefix $tr` - your prefix would now be `$tr` instead of `!tr`
+    >> - `!tr prefix reset` - resets your prefix back to `!tr` So if you changed the prefix to `$tr` you would run `$tr prefix reset`
+ 
+  > `help commands` - Shows a list of all available commands. Example below:
+    >> - `!tr help`
+
+  > `create` - Allows you to use RITA to create a new channel. Example below:
+    >> - `!tr create bob` - will create a new channel named bob
+* Command Changed (`stats global`, `stats server`)
+  > `stats global` - Stat tracking of messages sent in global servers.
+  > `stats server` - Stat tracking of messages sent in local server.
+* Command Removed (`settings dbfix`, `cpu`)
+  > `settings dbfix` - This is no longer needed as DB is repaired (If needed) on each startup. 
+  > `cpu` - It was broken and I have no idea how to fix it.
+ 
+### 1.2.2 Database Changes
+* As the new variables above are stored in the DB, we have made a few changes to how these are handled and they are auto-created upon load. Meaning you no longer need to worry about them again. (If you get any error's please let us know) 
+ 
+### 1.2.2 Misc Changes
+
+* Various Security vulnerabilities fixed.
+* Fixed various issues.
+* Major code changes
+* Dev Dependencies core to this bot, the `google-translate-api` & `google-translate-token` & `gulp-watch` have been updated
 
 ## 1.2.1 
 * New commands added (embed, bot2bot, settings updatedb)
