@@ -5,6 +5,8 @@
 // https://discordapp.com/developers/applications/me
 // ------------------------------------------------------------
 
+
+
 exports.token = process.env.DISCORD_TOKEN;
 
 // ----------------------------------------------------------------------
@@ -45,7 +47,7 @@ exports.intervals = false;
 // Add donation URL (optional)
 // ----------------------------
 
-exports.donation = null;
+exports.donation = "https://opencollective.com/ritabot-project";
 
 // -------------------------
 // Changelog URL (optional)

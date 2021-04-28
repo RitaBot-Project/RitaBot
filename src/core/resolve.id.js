@@ -2,128 +2,184 @@
 // Global variables
 // -----------------
 
-// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
+// Codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
+/* eslint-disable sort-keys */
+/* eslint-disable default-param-last */
 
 // -----------
 // ID Helpers
 // -----------
 
-exports.idPrefix = function(id)
+exports.idPrefix = function idPrefix (id)
 {
+
    const regex = (/[@&#]+/gm);
-   var prefix = regex.exec(id);
+   const prefix = regex.exec(id);
 
    if (prefix)
    {
+
       return prefix[0];
+
    }
    return null;
+
 };
 
-exports.idPure = function(id)
+exports.idPure = function idPure (id)
 {
+
    if (module.exports.idPrefix(id))
    {
+
       const prefixLen = module.exports.idPrefix(id).length;
       return id.substring(prefixLen);
+
    }
    return id;
+
 };
 
-exports.getChName = function(channel)
+exports.getChName = function getChName (channel)
 {
+
    if (channel.type === "dm")
    {
+
       return channel.recipient.username;
+
    }
    return channel.name;
+
 };
 
 // ----------------------------------------------------------
 // Convert IDs to prefixed names (for google-translate link)
 // ----------------------------------------------------------
 
-exports.idConvert = function(string, client, guild)
+exports.idConvert = function idConvert (string, client, guild)
 {
+
    const regex = (/<([@#]&?\d*)>/gm);
-   const output = string.replace(regex, function(match, contents)
-   {
-      return module.exports.main(client, contents, "prefixedName", guild);
-   });
+   const output = string.replace(
+      regex,
+      function res (match, contents)
+      {
+
+         return module.exports.main(
+            client,
+            contents,
+            "prefixedName",
+            guild
+         );
+
+      }
+   );
    return output;
+
 };
 
 // ------------
 // ID Resolver
 // ------------
 
-exports.main = function(client, id, output = null, guild)
+exports.main = function main (client, id, output = null, guild)
 {
-   var resolved = {
-      id: id,
-      prefix: module.exports.idPrefix(id),
-      pure: module.exports.idPure(id),
-      name: null,
-      obj: null
+
+   const resolved = {
+      id,
+      "name": null,
+      "obj": null,
+      "prefix": module.exports.idPrefix(id),
+      "pure": module.exports.idPure(id)
    };
 
    const prefixMap =
    {
-      "@": function()
+      "@" ()
       {
-         resolved.obj = client.users.get(resolved.pure);
+
+         resolved.obj = client.users.cache.get(resolved.pure);
          resolved.name = resolved.obj.username;
+
       },
-      "@&": function()
+      "@&" ()
       {
+
          resolved.name = "@group";
          if (guild)
          {
-            resolved.obj = guild.roles.get(resolved.pure);
+
+            resolved.obj = guild.roles.cache.get(resolved.pure);
             resolved.name = resolved.obj.name;
+
          }
+
       },
-      "#": function()
+      "#" ()
       {
+
          resolved.obj = client.channels.get(resolved.pure);
          resolved.name = module.exports.getChName(resolved.obj);
+
       }
    };
 
-   if (Object.prototype.hasOwnProperty.call(resolved.prefix && prefixMap,resolved.prefix))
+   if (Object.prototype.hasOwnProperty.call(
+      resolved.prefix && prefixMap,
+      resolved.prefix
+   ))
    {
+
       prefixMap[resolved.prefix]();
+
    }
    else
    {
+
       resolved.obj = client.channels.get(id);
       resolved.name = module.exports.getChName(resolved.obj);
       resolved.prefix = "#";
+
    }
 
    const idOutputMap =
    {
-      "name": function()
+      "name" ()
       {
+
          return resolved.name;
+
       },
-      "prefixed": function()
+      "prefixed" ()
       {
+
          return resolved.prefix + resolved.pure;
+
       },
-      "prefixedName": function()
+      "prefixedName" ()
       {
+
          return resolved.prefix + resolved.name;
+
       },
-      "type": function()
+      "type" ()
       {
+
          return resolved.prefix;
+
       }
    };
 
-   if (Object.prototype.hasOwnProperty.call(output && idOutputMap,output))
+   if (Object.prototype.hasOwnProperty.call(
+      output && idOutputMap,
+      output
+   ))
    {
+
       return idOutputMap[output]();
+
    }
    return resolved.obj;
+
 };

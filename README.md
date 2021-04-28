@@ -5,8 +5,8 @@
 ------
 
 <p align="center">
-<img src="https://img.shields.io/github/package-json/v/ZyC0R3/RitaBot?label=Stable%20Version"> <a href="https://discordapp.com/invite/mgNR64R"><img src="https://img.shields.io/badge/Discord_Support-JOIN-7289DA.svg?"></a><a href="https://opensource.org/licenses/MIT"> <img src="https://img.shields.io/github/license/ZyC0R3/RitaBot.svg"> </a> <a href="https://github.com/Zyc0r3/RitaBot/tree/test-branch-1.3.0/"><img src="https://img.shields.io/github/package-json/v/ZyC0R3/RitaBot/test-branch?label=Test%20Version"></a> <a href="https://github.com/Zyc0r3/RitaBOt/stargazers/"> <img src="https://img.shields.io/github/stars/Zyc0r3/RitaBot" href="https://github.com/Zyc0r3/RitaBot/stargazers"> </a>
- <img src="https://img.shields.io/github/checks-status/Zyc0r3/RitaBot/ed616d5df0c63cfde954b4ea36fbab13c1ad86a6?label=build"> <a href="https://github.com/Zyc0r3/RitaBot/fork"> <img src="https://img.shields.io/badge/dynamic/json?color=success&label=forks&query=forks&url=https%3A%2F%2Fapi.github.com%2Frepos%2FZyc0r3%2FRitaBot"> </a>
+<img src="https://img.shields.io/github/package-json/v/RitaBot-Project/RitaBot?label=Stable%20Version"> <a href="https://discordapp.com/invite/mgNR64R"><img src="https://img.shields.io/badge/Discord_Support-JOIN-7289DA.svg?"></a><a href="https://opensource.org/licenses/MIT"> <img src="https://img.shields.io/github/license/RitaBot-Project/RitaBot.svg"> </a> <a href="https://github.com/RitaBot-Project/RitaBot/tree/test-branch-1.3.0/"><img src="https://img.shields.io/github/package-json/v/RitaBot-Project/RitaBot/test-branch?label=Test%20Version"></a> <a href="https://github.com/RitaBot-Project/RitaBOt/stargazers/"> <img src="https://img.shields.io/github/stars/RitaBot-Project/RitaBot" href="https://github.com/RitaBot-Project/RitaBot/stargazers"> </a>
+ <img src="https://img.shields.io/github/checks-status/RitaBot-Project/RitaBot/ed616d5df0c63cfde954b4ea36fbab13c1ad86a6?label=build"> <a href="https://github.com/RitaBot-Project/RitaBot/fork"> <img src="https://img.shields.io/badge/dynamic/json?color=success&label=forks&query=forks&url=https%3A%2F%2Fapi.github.com%2Frepos%2FRitaBot-Project%2FRitaBot"> </a>
 </p><br/><br/>
 <p align="center"> 
 <img alt="open collective badge" src="https://opencollective.com/ritabot-project/tiers/supporter/badge.svg?label=Supporter&color=brightgreen" />
@@ -19,7 +19,7 @@
 
 ![Rita Translator Diagram](https://storage.pixteller.com/designs/designs-images/2021-02-03/05/poster-simple-quote-1-601a17471d0b6.png)
 
-##### If you like what we are doing, please [star](https://github.com/Zyc0r3/RitaBot/stargazers) our repo using the top-right star icon
+##### If you like what we are doing, please [star](https://github.com/RitaBot-Project/RitaBot/stargazers) our repo using the top-right star icon
 
 
 
@@ -60,7 +60,7 @@
 
 #### 1. Fork this repository.
 * If you don't yet have a Github account, [create one](https://github.com/join)! It's free and easy.
-* Click [here](https://github.com/ZyC0R3/RitaBot/fork) or use the button in the upper righthand side of this page to fork the repository so that it will be associated with your Github account.
+* Click [here](https://github.com/RitaBot-Project/RitaBot/fork) or use the button in the upper righthand side of this page to fork the repository so that it will be associated with your Github account.
 
 
 * Please ***star our project*** if you like it using the top-right Star icon. Every star helps us! 
@@ -100,12 +100,12 @@
     *  **https://discordapp.com/oauth2/authorize?&client_id=CLIENTID&scope=bot&permissions=8**
     
 * Visit the resulting URL and add your bot to any server where you have admin privileges.
-  * Once added, your bot should show up as online, **now go back to [Heroku](https://heroku.com/) and go to the "Deploy" section, scroll down to "Manual Deploy" and deploy the *master* branch. Once finished deploying type in `!t settings dbfix`, `!t settings updatedb` and`!t embed on` or `!t embed off` in chat and you are good to go!**
-    * Your bot is now setup and ready for any translation you have for it to do. Use the commands `!t help` and `!t help modules` to learn more about the commands Rita has!
+  * Once added, your bot should show in your server, **now go back to [Heroku](https://heroku.com/) and go to the "Deploy" section, scroll down to "Manual Deploy" and deploy the *master* branch. That's it your are good to go!**
+    * Your bot is now setup and ready for any translation you have for it to do. Use the commands `!tr help` and `!tr help modules` to learn more about the commands Rita has!
   
 
 * **Important Note**
- * The `!t embed` command is changeable whenever you like. It simply decides wether you would like translations to be sent as Webhooks (more user-like, profile picture) or embed (bot sends message with anembed message contintaining user profile picture.)
+ * The `!tr embed` command is changeable whenever you like. It simply decides wether you would like translations to be sent as Webhooks (more user-like, profile picture) or embed (bot sends message with anembed message contintaining user profile picture.)
 
 ------
 
@@ -114,7 +114,7 @@
 * You must have a bot already running on your server, if not then refer to [Setting up a New Bot](#new-bot)
 
 #### 2. Make a Pull Request to your Fork from this Repo
-* Complete a Pull Request from the master Branch of ZyC0R3/Rita to your master branch. 
+* Complete a Pull Request from the master Branch of RitaBot-Project/Rita to your master branch. 
   * Detailed instructions with example can be found **[here](https://www.sitepoint.com/quick-tip-sync-your-fork-with-the-original-without-the-cli/)**
 
 
@@ -125,11 +125,7 @@
 
 #### 4. Updating Database
 
-* Once the bot has been deployed with the successfully updated fork you will need to update the database using some commands.
-* Run the following commands in order
-  * **`!t settings updatedb`**
-  * **`!t settings dbfix`**
-  * **`!t embed on`** or **`!t embed off`** (value of the translation style)
+* Once the bot has been deployed with the successfully updated fork you are all done.
 ------
 
 ## <a name="local"></a>:desktop_computer: Running Rita Locally
@@ -143,7 +139,7 @@ Any Database that runs with [SQL Sequelize](https://sequelize.org/master/) can b
 Install [node.js](https://nodejs.org/en/) and make sure you have [Git](https://git-scm.com/downloads) and [npm](https://www.npmjs.com/get-npm) installed
 
 #### 4. Install the bot
-* Run **```git clone https://github.com/Zyc0r3/RitaBot```**
+* Run **```git clone https://github.com/RitaBot-Project/RitaBot```**
 * Download dependencies using **`npm install`**
 
 #### 5. Create a new .env File
@@ -155,12 +151,8 @@ Rename the existing **.env.example** file and name it **.env**. Edit the Values 
 * Replace the **CLIENTID** string in the following URL with your own apps client id: https://discordapp.com/oauth2/authorize?&client_id=**CLIENTID**&scope=bot&permissions=8
   * Visit the resulting URL and add your bot to any server where you have admin privileges.
 
-* Once added, your bot should show up as online. However, the first deploy is always broken so you have to turn it off and deploy the bot again.
-  * When you first run it ***restart/deploy the bot once(again)*** and then type in chat the following commands:
-    * `!t settings dbfix`
-    * `!t settings updatedb`
-    * `!t embed on` or `!t embed off`
-  * Your bot is now setup and ready for any translation you have for it to do. Use the commands `!t help` and `!t help modules` to learn more about the commands Rita has!
+* Once added, your bot should show up as online. 
+  * Your bot is now setup and ready for any translation you have for it to do. Use the commands `!tr help` and `!tr help modules` to learn more about the commands Rita has!
 
 ## <a name="database"></a>Heroku Database Support
 Sometimes you need to edit the Database manually, This is not something you should be playing around with unless you really know what you are doing.
@@ -192,28 +184,23 @@ At this point, if we were to hit ‘save’ (please don’t), something very str
 ### <a name="soon"></a>:bulb: Coming Soon!
 
 01. Error Message Support Section.
-02. Auto Reverse translation for the auto function.
-03. `!t tasks #TargetChannel` Implementation.
-04. Introduction of a Streamlined Command Handler. (This will be done as a New Project)
-05. Update to Discord.js V12 (V1.3.0)
-06. Allow Bot Translation (V1.3.0)
-07. Webhooks (`!t embed off` version) using Nickname instead of Username (1.3.0) 
-08. Check what language translation requests are orignally in to stop unnecessary translations and to make automatic-same channel translation ethical (1.3.0)
-09. Discord slash commands introduction
+02. `!tr tasks #TargetChannel` Implementation.
+03. Allow Bot Translation (V1.3.0)
+04. Discord slash commands introduction
 
 ------
 
 ### <a name="supporters"></a> :clap: Supporters
 
-[![Stargazers repo roster for @Zyc0r3/RitaBot](https://reporoster.com/stars/RitaBot-Project/RitaBot)](https://github.com/RitaBot-Project/RitaBot/stargazers)
-[![Forkers repo roster for @Zyc0r3/RitaBot](https://reporoster.com/forks/RitaBot-Project/RitaBot)](https://github.com/RitaBot-Project/RitaBot/network/members)
+[![Stargazers repo roster for @RitaBot-Project/RitaBot](https://reporoster.com/stars/RitaBot-Project/RitaBot)](https://github.com/RitaBot-Project/RitaBot/stargazers)
+[![Forkers repo roster for @RitaBot-Project/RitaBot](https://reporoster.com/forks/RitaBot-Project/RitaBot)](https://github.com/RitaBot-Project/RitaBot/network/members)
 
 ------
 
 
 ### <a name="credits-&-license"></a>:star_struck: Credits & License
 
-This project was originally released by Aziz under the MIT license. He chose to take the project private/commercial at version 0.4.2 Beta. Bobby Johnson forked the project and renamed it Louie after his dog. AlooAkbar forked Louie and added the necessary modifications for simple and free deployment of the bot using Heroku. ZyC0R3 Picked up the fork and as part of a team fixed over 200 errors and brought it in to the modern age, All would like to thank Aziz for his hard work and making these early versions OSS so that others may learn and build on his hard work to share with the community.
+This project was originally released by Aziz under the MIT license. He chose to take the project private/commercial at version 0.4.2 Beta. Bobby Johnson forked the project and renamed it Louie after his dog. AlooAkbar forked Louie and added the necessary modifications for simple and free deployment of the bot using Heroku. RitaBot-Project Picked up the fork and as part of a team fixed over 200 errors and brought it in to the modern age, All would like to thank Aziz for his hard work and making these early versions OSS so that others may learn and build on his hard work to share with the community.
 
 ------
 

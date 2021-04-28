@@ -2,24 +2,30 @@
 // Global variables
 // -----------------
 
-// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
-const botSend = require("../core/send");
-const fn = require("../core/helpers");
-const db = require("../core/db");
-const logger = require("../core/logger");
+// Codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
+/* eslint-disable no-use-before-define */
+/* eslint-disable vars-on-top */
+/* eslint-disable sort-keys */
+/* eslint-disable consistent-return */
+const fn = require("../../core/helpers");
+const db = require("../../core/db");
+const logger = require("../../core/logger");
+const sendMessage = require("../../core/command.send");
 
 // -------------------------------
 // Auto translate Channel/Author
 // -------------------------------
 
-module.exports = function(data)
+module.exports = function run (data)
 {
+
    // -------------------------------------------------
    // Disallow this command in Direct/Private messages
    // -------------------------------------------------
 
    if (data.message.channel.type === "dm")
    {
+
       data.color = "error";
       data.text =
          ":no_entry:  This command can only be called in server channels.";
@@ -28,37 +34,42 @@ module.exports = function(data)
       // Send message
       // -------------
 
-      return botSend(data);
+      return sendMessage(data);
+
    }
 
    // ----------------
    // Language checks
    // ----------------
 
-   if (data.cmd.from === "auto" || data.cmd.from.valid.length !== 1)
+   if (data.cmd.from.valid.length !== 1)
    {
+
       data.color = "error";
       data.text =
-         ":warning:  Auto Function Under Construction, Please use a defined language to translate from for now.";
+         ":warning:  Please use a defined `langFrom` language to translate from.";
 
       // -------------
       // Send message
       // -------------
 
-      return botSend(data);
+      return sendMessage(data);
+
    }
 
-   if (data.cmd.to.valid.length !== 1)
+   if (data.cmd.to.valid.length !== 1 || data.cmd.to.valid[0] === "auto")
    {
+
       data.color = "error";
       data.text =
-         ":warning:  Please specify one valid language for auto translation.";
+         ":warning:  Please use a defined `langTo` language to translate to.";
 
       // -------------
       // Send message
       // -------------
 
-      return botSend(data);
+      return sendMessage(data);
+
    }
 
    // ------------------
@@ -66,18 +77,18 @@ module.exports = function(data)
    // ------------------
 
    data.task = {
-      origin: data.message.channel.id,
-      for: data.cmd.for,
-      dest: [],
-      invalid: [],
-      from: data.cmd.from.valid[0].iso,
-      to: data.cmd.to.valid[0].iso,
-      server: data.message.guild.id,
-      reply: data.message.guild.nameAcronym
+      "origin": data.message.channel.id,
+      "for": data.cmd.for,
+      "dest": [],
+      "invalid": [],
+      "from": data.cmd.from.valid[0].iso,
+      "to": data.cmd.to.valid[0].iso,
+      "server": data.message.guild.id,
+      "reply": data.message.guild.nameAcronym
    };
 
    // --------------------
-   // log task data (dev)
+   // Log task data (dev)
    // --------------------
 
    logger("dev", data.task);
@@ -85,36 +96,47 @@ module.exports = function(data)
    // ------------------------------------------
    // Error if non-manager sets channel as dest
    // ------------------------------------------
-
-   if (data.cmd.for[0] !== "me" && !data.message.isManager)
+   Override: if (!process.env.DISCORD_BOT_OWNER_ID.includes(data.message.author.id))
    {
-      data.color = "error";
-      data.text =
+
+      if (data.cmd.for[0] !== "me" && !data.message.isManager)
+      {
+
+         data.color = "error";
+         data.text =
          ":cop:  You need to be a channel manager to " +
          "auto translate for others.";
 
-      // -------------
-      // Send message
-      // -------------
+         // -------------
+         // Send message
+         // -------------
 
-      return botSend(data);
+         return sendMessage(data);
+
+      }
+      break Override;
+
    }
 
    // -----------------------------------------------
    // Error if channel exceeds maximum allowed tasks
    // -----------------------------------------------
 
-   db.getTasksCount(data.task.origin, function(err, res)
+   db.getTasksCount(data.task.origin, function getTasksCount (err, res)
    {
+
       if (err)
       {
-         logger("error", err);
+
+         logger("error", err, "command", data.message.channel.guild.name);
+
       }
 
       const taskCount = res[Object.keys(res)[0]];
 
       if (data.task.for.length + taskCount >= data.config.maxTasksPerChannel)
       {
+
          data.color = "error";
          data.text =
             ":no_entry:  Cannot add more auto-translation tasks for this " +
@@ -124,144 +146,162 @@ module.exports = function(data)
          // Send message
          // -------------
 
-         return botSend(data);
+         return sendMessage(data);
+
       }
 
       taskLoop();
+
    });
 
    // -------------------------------------------------
    // Resolve ID of each destiantion (user dm/channel)
    // -------------------------------------------------
 
-   const taskLoop = function()
+   const taskLoop = function taskLoop ()
    {
-      data.task.for.forEach(dest => //eslint-disable-line complexity
+
+      data.task.for.forEach((dest) => // eslint-disable-line complexity
       {
-         // resolve `me` / original message author
+
+         // Resolve `me` / original message author
 
          if (dest === "me")
          {
-            data.color = "error";
-            data.text =
-               ":warning: DM / User Translation Function Disabled";
-
-            // -------------
-            // Send message
-            // -------------
-
-            return botSend(data);
 
             // ---------------
             // Old Code Below
             // ---------------
 
-            //taskBuffer.update("@" + data.message.author.id);
+            taskBuffer.update(`@${data.message.author.id}`);
+
          }
 
-         // resolve @everyone/@here
+         // Resolve @everyone/@here
 
          if (dest === "@everyone" || dest === "@here")
          {
+
             taskBuffer.update(data.message.channel.id);
+
          }
 
-         // resolve mentioned user(s)
+         // Resolve mentioned user(s)
 
          if (dest.startsWith("<@"))
          {
-            data.color = "error";
-            data.text =
-               ":warning: DM / User Translation Function Disabled";
-
-            // -------------
-            // Send message
-            // -------------
-
-            return botSend(data);
 
             // ---------------
             // Old Code Below
             // ---------------
 
-            /*
-            const userID = dest.slice(3,-1);
 
-            fn.getUser(data.client, userID, user =>
+            const userID = dest.slice(3, -1);
+
+            fn.getUser(data.client, userID, (user) =>
             {
+
                if (user && !user.bot && user.createDM)
                {
-                  user.createDM().then(dm =>
-                  {
-                     taskBuffer.update(dm.id);
-                  }).catch(err => logger("error", err));
 
-                  taskBuffer.update("@" + user.id);
+                  user.createDM().then((dm) =>
+                  {
+
+                     taskBuffer.update(dm.id);
+
+                  }).
+                     catch((err) => logger("error", err));
+
+                  taskBuffer.update(`@${user.id}`);
+
                }
                else
                {
+
                   data.task.invalid.push(dest);
                   taskBuffer.reduce();
+
                }
+
             });
-            */
+
          }
 
-         // resolve mentioned channel(s)
+         // Resolve mentioned channel(s)
 
          if (dest.startsWith("<#"))
          {
-            const channel = data.client.channels.get(dest.slice(2,-1));
+
+            const channel = data.client.channels.cache.get(dest.slice(2, -1));
 
             if (channel)
             {
+
                taskBuffer.update(channel.id);
+
             }
             else
             {
+
                data.task.invalid.push(dest);
                taskBuffer.reduce();
+
             }
+
          }
 
-         // invalid dests
+         // Invalid dests
 
          if (
             dest.startsWith("@") ||
             !dest.startsWith("<") && dest !== "me"
          )
          {
+
             data.task.invalid.push(dest);
             taskBuffer.reduce();
+
          }
+
       });
+
    };
 
    // ------------
    // Task buffer
    // ------------
 
+   // eslint-disable-next-line no-var
    var taskBuffer = {
-      len: data.task.for.length,
-      dest: [],
-      reduce: function()
+      "len": data.task.for.length,
+      "dest": [],
+      reduce ()
       {
+
+         // eslint-disable-next-line no-plusplus
          this.len--;
          this.check();
+
       },
-      update: function(dest)
+      update (dest)
       {
+
          this.dest.push(dest);
          this.check();
+
       },
-      check: function()
+      check ()
       {
+
          if (this.dest.length === this.len)
          {
+
             data.task.dest = fn.removeDupes(this.dest);
             data.task.invalid = fn.removeDupes(data.task.invalid);
             validateTask();
+
          }
+
       }
    };
 
@@ -269,14 +309,16 @@ module.exports = function(data)
    // Validate Task(s) before sending to database
    // --------------------------------------------
 
-   const validateTask = function()
+   const validateTask = function validateTask ()
    {
+
       // --------------
       // Invalid dests
       // --------------
 
       if (data.task.invalid.length > 0)
       {
+
          data.color = "error";
          data.text = ":warning:  Invalid auto translation request.";
 
@@ -284,25 +326,33 @@ module.exports = function(data)
          // Send message
          // -------------
 
-         return botSend(data);
+         return sendMessage(data);
+
       }
 
       // ----------------------------------
       // Multiple dests set by non-manager
       // ----------------------------------
-
-      if (data.task.dest.length > 1 && !data.message.isManager)
+      Override: if (!process.env.DISCORD_BOT_OWNER_ID.includes(data.message.author.id))
       {
-         data.color = "error";
-         data.text =
+
+         if (data.task.dest.length > 1 && !data.message.isManager)
+         {
+
+            data.color = "error";
+            data.text =
             ":cop::skin-tone-3:  You need to be a channel manager " +
             "to auto translate this channel for others.";
 
-         // -------------
-         // Send message
-         // -------------
+            // -------------
+            // Send message
+            // -------------
 
-         return botSend(data);
+            return sendMessage(data);
+
+         }
+         break Override;
+
       }
 
       // ---------------------
@@ -317,9 +367,7 @@ module.exports = function(data)
 
       const langFrom = data.cmd.from.valid[0].name;
       const langTo = data.cmd.to.valid[0].name;
-      const forNames = data.cmd.for.join(",  ").replace(
-         "me", `<@${data.message.author.id}>`
-      );
+      const forNames = data.cmd.for.join(",  ").replace("me", `<@${data.message.author.id}>`);
 
       data.color = "ok";
       data.text =
@@ -331,6 +379,8 @@ module.exports = function(data)
       // Send message
       // -------------
 
-      return botSend(data);
+      return sendMessage(data);
+
    };
+
 };
