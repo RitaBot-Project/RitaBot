@@ -1,6 +1,6 @@
 const gulp = require("gulp");
 const eslint = require("gulp-eslint");
-const watch = require("gulp-watch");
+const watch = require("rita-gulp-watch");
 const lec = require("gulp-line-ending-corrector");
 //const uglify = require('gulp-uglify-es').default;
 

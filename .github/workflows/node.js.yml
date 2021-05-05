@@ -6,9 +6,9 @@ name: Node.js CI
 on:
   workflow_dispatch:
   push:
-    branches: [ master, test-branch ]
+    branches: [ master, test-branch, RitaBot, Send.js-Patch ]
   pull_request:
-    branches: [ master, test-branch ]
+    branches: [ master, test-branch, RitaBot, Send.js-Patch ]
 
 jobs:
   test:

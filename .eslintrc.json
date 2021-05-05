@@ -7,10 +7,13 @@
         "node": true,
         "es6": true
     },
-    "extends": "eslint:recommended",
+    //"extends": "eslint:recommended",
+    "extends": "eslint:all",
     "parser": "babel-eslint",
     "rules": {
+      // -------------
       // eslint Error
+      // -------------
       "new-parens": "error",
       "no-lonely-if": "error",
       "no-multi-assign": "error",
@@ -28,20 +31,26 @@
       "no-return-assign": "error",
       "no-self-compare": "error",
       "no-whitespace-before-property": "error",
-      // eslint Warn
-      "eqeqeq": "warn",
-      "no-extra-parens": "warn",
-      "complexity": ["warn", 10],
-      "no-multi-spaces": "warn",
-      "no-multi-str": "warn",
-      "no-unused-expressions": "warn",
-      "no-useless-concat": "warn",
+      "no-useless-return": "error",
+      "complexity": ["error", 25],
+      "no-useless-concat": "error",
       "no-constant-condition": "error",
-      "yoda": "warn",
       "callback-return": "error",
       "global-require": "error",
+      "space-before-blocks": ["error", "always"],
+      "no-mixed-spaces-and-tabs": "error",
+      "no-unreachable": "error",
+      "no-unused-vars": "error",
+      "no-multi-spaces": "error",
+      // ------------
+      // eslint Warn
+      // ------------
+      "eqeqeq": "warn",
+      "no-extra-parens": "warn",
+      "no-multi-str": "warn",
+      "no-unused-expressions": "warn",
+      "yoda": "warn",
       "brace-style": ["warn", "allman", {"allowSingleLine": true}],
-      "camelcase": "warn",
       "comma-dangle": ["warn", "never"],
       "func-call-spacing": "warn",
       "indent": ["warn", 3, {"SwitchCase": 1}],
@@ -49,32 +58,71 @@
       "keyword-spacing": "warn",
       "linebreak-style": "warn",
       "max-depth": ["warn", 4],
-      "max-len": ["warn", 400],
+      "max-len": ["warn", 500],
       "max-nested-callbacks": ["warn", 5],
       "max-params": ["warn", 5],
       "max-statements-per-line": ["warn", {"max": 2}],
       "no-trailing-spaces": "warn",
       "object-property-newline": "warn",
       "operator-linebreak": ["warn", "after"],
-      "padded-blocks": ["warn", "never"],
       "quotes": ["warn", "double", {"allowTemplateLiterals": true}],
       "semi": "warn",
       "semi-spacing": "warn",
-      "space-before-blocks": ["warn", "always"],
       "space-in-parens": "warn",
       "wrap-regex": "warn",
       "prefer-const": "warn",
       "template-curly-spacing": "warn",
-      "no-mixed-spaces-and-tabs": "warn",
       "no-extra-semi": "warn",
       "no-prototype-builtins": "warn",
-      "no-unreachable": "warn",
+      "padded-blocks": ["warn", "always"],
+      "new-cap": ["warn", {"properties": false}],
+      "capitalized-comments": "warn",
+      "quote-props": "warn",
+      "no-plusplus": "warn",
+      // -----------
       // eslint Off
-      "no-unused-vars": "off",
+      // -----------
       "block-scoped-var": "off",
-      "no-useless-return": "off",
       "no-console": "off",
-      "no-dupe-keys": "off"
-      
+      "camelcase": "off",
+      "no-dupe-keys": "off",
+      // -----------------------------
+      // eslint all override defaults
+      // -----------------------------
+      "max-lines-per-function": "off",
+      "max-statements": "off",
+      "no-labels": "off",
+      "no-lone-blocks": "off",
+      "one-var": "off",
+      "id-length": "off",
+      "max-lines": "off",
+      "prefer-destructuring": ["error", {"object": false, "array": false}],
+      "no-undefined": "off",
+      "func-style": "off",
+      "no-shadow": "off",
+      "array-bracket-newline": "off",
+      "array-element-newline": "off",
+      "array-bracket-spacing": "off",
+      "function-call-argument-newline": "off",
+      "no-process-env": "off",
+      "no-underscore-dangle": "off",
+      "no-magic-numbers": "off",
+      "prefer-arrow-callback": "off",
+      // --------------
+      // DO NOT CHANGE
+      // --------------
+      "multiline-comment-style":["off", "separate-lines"],
+      "handle-callback-err": "off",
+      "no-sync": "off",
+      "no-negated-condition": "off",
+      "no-mixed-operators": "off",
+      "no-ternary": "off",
+      "no-nested-ternary": "off",
+      // ---------------------
+      // These could be fixed
+      // ---------------------
+      "require-unicode-regexp": "off",
+      "prefer-named-capture-group": "off",
+      "prefer-regex-literals": "off" 
     }
 }
