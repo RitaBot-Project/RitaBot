@@ -2,28 +2,31 @@
 // Global variables
 // -----------------
 
-// codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
-/*eslint-disable no-irregular-whitespace*/
-const botSend = require("../core/send");
-const auth = require("../core/auth");
-const fn = require("../core/helpers");
-const logger = require("../core/logger");
-const stripIndent = require("common-tags").stripIndent;
-const oneLine = require("common-tags").oneLine;
-const secConverter = require("seconds-converter");
+// Codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
+/* eslint-disable no-irregular-whitespace*/
+/* eslint-disable no-magic-numbers */
+const auth = require("../../core/auth");
+const fn = require("../../core/helpers");
+const logger = require("../../core/logger");
+const process = require("process");
+const {stripIndent} = require("common-tags");
+const {oneLine} = require("common-tags");
+const secConverter = require("rita-seconds-converter");
+const sendMessage = require("../../core/command.send");
 
 // ------------
 // Invite Link
 // ------------
 
-exports.invite = function(data)
+module.exports.invite = function invite (data)
 {
+
    data.color = "info";
    data.text = `Invite ${data.bot} `;
    data.text += `\`v${data.config.version}\` to your server\n\n`;
    data.text += `${auth.invite}`;
    data.footer = {
-      text:
+      "text":
          "Requires VIEW, SEND, REACT, EMBED, ATTACH and MENTION permissions.\n"
    };
 
@@ -31,28 +34,26 @@ exports.invite = function(data)
    // Send message
    // -------------
 
-   return botSend(data);
+   return sendMessage(data);
+
 };
 
 // -----------------------
 // Get info on all shards
 // -----------------------
 
-exports.shards = function(data)
+module.exports.shards = function shards (data)
 {
-   if (!data.message.author.id === data.config.owner)
-   {
-      return;
-   }
 
    // ---------------
    // Get shard info
    // ---------------
 
-   const shard = data.message.client.shard;
+   const {shard} = data.message.client;
 
    if (!shard)
    {
+
       // ---------------
       // Render message
       // ---------------
@@ -60,48 +61,61 @@ exports.shards = function(data)
       data.title = "Shards Info";
 
       data.footer = {
-         text: "Single Process - No Sharding Manager"
+         "text": "Single Process - No Sharding Manager"
       };
 
       data.color = "info";
 
-      data.text = "​\n" + oneLine`
+      data.text = `​\n${oneLine`
          :bar_chart:  ​
-         **${data.message.client.guilds.size}**  guilds  ·  ​
-         **${data.message.client.channels.size}**  channels  ·  ​
-         **${data.message.client.users.size}**  users
-      ` + "\n​";
+         **${data.message.client.guilds.cache.size}**  guilds  ·  ​
+         **${data.message.client.channels.cache.size}**  channels  ·  ​
+         **${data.message.client.users.cache.size}**  users
+      `}\n​`;
 
       // -------------
       // Send message
       // -------------
 
-      return botSend(data);
+      return sendMessage(data);
+
    }
 
    // --------------------------
    // Get proccess/shard uptime
    // --------------------------
 
-   const shardErr = function(err)
+   const shardErr = function shardErr (err)
    {
-      return logger("error", err, "shardFetch");
+
+      return logger(
+         "error",
+         err,
+         "shardFetch",
+         data.message.guild.name
+      );
+
    };
 
-   shard.fetchClientValues("guilds.size").then(guildsSize =>
+   shard.fetchClientValues("guilds.cache.size").then((guildsSize) =>
    {
-      shard.fetchClientValues("channels.size").then(channelsSize =>
+
+      shard.fetchClientValues("channels.cache.size").then((channelsSize) =>
       {
-         shard.fetchClientValues("users.size").then(usersSize =>
+
+         shard.fetchClientValues("users.cache.size").then((usersSize) =>
          {
+
             const output = [];
 
-            for (let i = 0; i < shard.count; ++i)
+            // eslint-disable-next-line no-plusplus
+            for (let i = 0; i < shard.count; i += 1)
             {
+
                output.push({
-                  name: `:pager: - Shard #${i}`,
-                  inline: true,
-                  value: stripIndent`
+                  "inline": true,
+                  "name": `:pager: - Shard #${i}`,
+                  "value": stripIndent`
                      ​
                      **\`${guildsSize[i]}\`** guilds
 
@@ -111,6 +125,7 @@ exports.shards = function(data)
                      ​
                   `
                });
+
             }
 
             // ---------------
@@ -119,42 +134,45 @@ exports.shards = function(data)
 
             data.title = "Shards Info";
 
-            data.text = "​\n" + oneLine`
+            data.text = `​\n${oneLine`
                :bar_chart:   Total:  ​
                **${shard.count}**  shards  ·  ​
                **${fn.arraySum(guildsSize)}**  guilds  ·  ​
                **${fn.arraySum(channelsSize)}**  channels  ·  ​
                **${fn.arraySum(usersSize)}**  users
-            ` + "\n​";
+            `}\n​`;
 
             data.color = "info";
 
             data.fields = output;
 
             // -------------
-            // Send message
+            // Catch errors
             // -------------
 
-            botSend(data);
+         }).
+            catch(shardErr);
 
-            // -------------
-            // catch errors
-            // -------------
-         }).catch(shardErr);
-      }).catch(shardErr);
-   }).catch(shardErr);
+      }).
+         catch(shardErr);
+
+   }).
+      catch(shardErr);
+
+   // -------------
+   // Send message
+   // -------------
+
+   return sendMessage(data);
+
 };
 
 // ----------------------
 // Current proccess info
 // ----------------------
 
-exports.proc = function(data)
+module.exports.proc = function proc (data)
 {
-   if (!data.message.author.id === data.config.owner)
-   {
-      return;
-   }
 
    // ------------------
    // Get proccess data
@@ -168,30 +186,37 @@ exports.proc = function(data)
    // Get shard info
    // ---------------
 
-   let shard = data.message.client.shard;
+   let {shard} = data.message.client;
 
    if (!shard)
    {
+
       shard = {
-         id: 0,
-         count: 1
+         "count": 1,
+         "id": 0
+
       };
+
    }
 
    // -----------------------
    // Byte formatter (mb/gb)
    // -----------------------
 
-   const byteFormat = function(bytes)
+   const byteFormat = function byteFormat (bytes)
    {
+
       if (bytes > 750000000)
       {
+
          const gb = bytes / 1000 / 1000 / 1000;
-         return gb.toFixed(3) + " gb";
+         return `${gb.toFixed(3)} gb`;
+
       }
 
       const mb = bytes / 1000 / 1000;
-      return mb.toFixed(2) + " mb";
+      return `${mb.toFixed(2)} mb`;
+
    };
 
    // -----------------
@@ -206,26 +231,25 @@ exports.proc = function(data)
       **\`${byteFormat(memory.external)}\`** \`external\`
    `;
 
-   // --------------
-   // Get CPU usage
-   // --------------
-
-   const cpu = process.cpuUsage();
-
    // --------------------------
    // Get proccess/shard uptime
    // --------------------------
 
-   const procUptime = secConverter(Math.round(process.uptime()), "sec");
+   const procUptime = secConverter(
+      Math.round(process.uptime()),
+      "sec"
+   );
 
    const shardUptime = secConverter(data.message.client.uptime);
 
-   const uptimeFormat = function(uptime)
+   const uptimeFormat = function uptimeFormat (uptime)
    {
+
       return oneLine`
          **\`${uptime.days}\`** days
          **\`${uptime.hours}:${uptime.minutes}:${uptime.seconds}\`**
       `;
+
    };
 
    // ---------------
@@ -236,8 +260,6 @@ exports.proc = function(data)
       :robot:  Process:  ${title + pid + platform}
 
       :control_knobs:  RAM:  ${memoryFormat}
-
-      :control_knobs:  CPU:  **\`${cpu}%\`**
 
       :stopwatch:  Proc Uptime:  ${uptimeFormat(procUptime)}
 
@@ -250,37 +272,41 @@ exports.proc = function(data)
    // Send message
    // -------------
 
-   botSend(data);
+   sendMessage(data);
+
 };
 
 // --------------
-// Get CPU Usage
+// Ident Message
 // --------------
 
-const cpuUsage = function()
+module.exports.ident = function ident (data)
 {
-   function secNSec2ms (secNSec)
-   {
-      return secNSec[0] * 1000 + secNSec[1] / 1000000;
-   }
 
-   var startTime = process.hrtime();
-   var startUsage = process.cpuUsage();
+   // ------------------
+   // Gather ID Details
+   // ------------------
 
-   // spin the CPU for 500 milliseconds
+   console.log("DEBUG: ID Message");
 
-   var now = Date.now();
-   while (Date.now() - now < 500)
-   {
-      //do nothing
-   }
+   data.color = "info";
+   data.text = `*User Name:* \`${data.message.author.username}\`\n`;
+   data.text += `*User ID:* \`${data.message.author.id}\`\n\n`;
+   data.text += `*Server Name:* \`${data.message.channel.guild.name}\`\n`;
+   data.text += `*Server ID:* \`${data.message.channel.guild.id}\`\n\n`;
+   data.text += `*Bot Name:* \`${data.bot.username}\`\n`;
+   data.text += `*Bot ID:* \`${data.bot.id}\`\n\n`;
+   data.text += `*Chan Name:* \`${data.message.channel.name}\`\n`;
+   data.text += `*Chan ID:* \`${data.message.channel.id}\``;
+   data.footer = {
+      "text":
+         "Requires VIEW, SEND, REACT, EMBED, ATTACH and MENTION permissions.\n"
+   };
 
-   var elapTime = process.hrtime(startTime);
-   var elapUsage = process.cpuUsage(startUsage);
-   var elapTimeMS = secNSec2ms(elapTime);
-   var elapUserMS = secNSec2ms(elapUsage.user);
-   var elapSystMS = secNSec2ms(elapUsage.system);
-   var cpuPercent = Math.round(100 * (elapUserMS + elapSystMS) / elapTimeMS);
+   // -------------
+   // Send message
+   // -------------
 
-   return cpuPercent;
+   return sendMessage(data);
+
 };
