@@ -44,7 +44,7 @@ const removeTask = function removeTask (res, data, origin, dest, destDisplay)
       function error (err)
       {
 
-         console.log("DEBUG: remoteTask()");
+         // console.log("DEBUG: remoteTask()");
          if (err)
          {
 

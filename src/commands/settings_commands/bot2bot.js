@@ -19,7 +19,7 @@ const bot2bot = function bot2bot (data)
    if (commandVariable1 === "on" || commandVariable1 === "off")
    {
 
-      console.log(`DEBUG: bot2bot variable ${commandVariable1}`);
+      // console.log(`DEBUG: bot2bot variable ${commandVariable1}`);
       return db.updateBot2BotVar(
          data.message.channel.guild.id,
          commandVariable1,

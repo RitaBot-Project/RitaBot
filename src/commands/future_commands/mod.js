@@ -16,7 +16,7 @@ module.exports.ban = function ban (data)
    // Command Code
    // -------------
 
-   console.log("DEBUG: Ban");
+   // console.log("DEBUG: Ban");
 
    data.color = "info";
    data.text = `Ban`;
@@ -40,7 +40,7 @@ module.exports.unban = function unban (data)
    // Command Code
    // -------------
 
-   console.log("DEBUG: Unban");
+   // console.log("DEBUG: Unban");
 
    data.color = "info";
    data.text = `Unban`;
@@ -64,7 +64,7 @@ module.exports.mute = function mute (data)
    // Command Code
    // -------------
 
-   console.log("DEBUG: Mute");
+   // console.log("DEBUG: Mute");
 
    data.color = "info";
    data.text = `Mute`;
@@ -88,7 +88,7 @@ module.exports.unmute = function unmute (data)
    // Command Code
    // -------------
 
-   console.log("DEBUG: Unmute");
+   // console.log("DEBUG: Unmute");
 
    data.color = "info";
    data.text = `Unmute`;

@@ -8,3 +8,4 @@ serverlist.txt
 *.db
 .env
 package-lock.json.old
+src/files/serverlist.txt

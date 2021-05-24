@@ -76,7 +76,7 @@
       "no-prototype-builtins": "warn",
       "padded-blocks": ["warn", "always"],
       "new-cap": ["warn", {"properties": false}],
-      "capitalized-comments": "warn",
+      "capitalized-comments": "off",
       "quote-props": "warn",
       "no-plusplus": "warn",
       // -----------

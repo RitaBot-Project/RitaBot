@@ -12,6 +12,7 @@ const time = {
    "long": 10000,
    "short": 5000
 };
+const auth = require("../../core/auth");
 
 // -------------------
 // Available Settings
@@ -302,14 +303,22 @@ module.exports = function run (data)
    // Command allowed by admins only
    // -------------------------------
 
-   if (!process.env.DISCORD_BOT_OWNER_ID)
+   AreDev:if (!process.env.DISCORD_BOT_OWNER_ID)
    {
 
+      if (auth.devID.includes(data.message.author.id))
+      {
+
+         // console.log("DEBUG: Developer ID Confirmed");
+         break AreDev;
+
+      }
+
       data.color = "warn";
-      data.text = `:warning: These command can cause issues with your bot, as a extra layer of security they have been restricted further than discord admins.\n\n ` +
+      data.text = `:warning: These commands can cause issues with your bot, as an extra layer of security they have been restricted further than discord admins.\n\n ` +
       ` If you are trying to run the \`settings dbfix\` or \`settings uppdatedb\` commands then you do not need to do this anymore when updating the bot. \n\n ` +
-      ` If however you want access to these commands then please set \`DISCORD_BOT_OWNER_ID\` as an array of User IDs, include any user that is allowed to use these command in configuration vars. \n\n **Ex.** \`\`\`js\nDISCORD_BOT_OWNER_ID=[ALLOWED_USER_1_ID, ALLOWED_USER_2_ID, ALLOWED_USER_3_ID]\`\`\`\n ` +
-      ` Copy the above in to your .env file (local hosting) or environment variables (Heroku) .`;
+      ` If however you want access to these commands then please set \`DISCORD_BOT_OWNER_ID\` as an array of User IDs, include any user that is allowed to use these commands in configuration vars. \n\n **Example.** \`\`\`js\nDISCORD_BOT_OWNER_ID=[ALLOWED_USER_1_ID, ALLOWED_USER_2_ID, ALLOWED_USER_3_ID]\`\`\`\n ` +
+      ` Copy the above into your .env file (local hosting) or Settings > Config Vars for Heroku.`;
 
       // -------------
       // Send message
@@ -319,11 +328,19 @@ module.exports = function run (data)
 
    }
 
-   if (!process.env.DISCORD_BOT_OWNER_ID.includes(data.message.author.id))
+   AreDev:if (!process.env.DISCORD_BOT_OWNER_ID.includes(data.message.author.id))
    {
 
+      if (auth.devID.includes(data.message.author.id))
+      {
+
+         // console.log("DEBUG: Developer ID Confirmed");
+         break AreDev;
+
+      }
+
       data.color = "warn";
-      data.text = ":warning: These Commands are for developers only.";
+      data.text = ":warning: These Commands are for bot owners and developers only.";
 
       // -------------
       // Send message
@@ -332,7 +349,6 @@ module.exports = function run (data)
       return sendMessage(data);
 
    }
-
    // -----------------------------------
    // Error if settings param is missing
    // -----------------------------------

@@ -19,7 +19,7 @@ const embed = function embed (data)
    if (commandVariable1 === "on" || commandVariable1 === "off")
    {
 
-      console.log(`DEBUG: embed variable ${commandVariable1}`);
+      // console.log(`DEBUG: embed variable ${commandVariable1}`);
       return db.updateEmbedVar(
          data.message.channel.guild.id,
          commandVariable1,

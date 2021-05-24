@@ -12,6 +12,7 @@ const time = {
    "long": 60000,
    "short": 5000
 };
+const auth = require("../core/auth");
 
 // ---------------------
 // Send Data to Channel
@@ -84,7 +85,7 @@ module.exports = function run (data)
    // Send Data to Channel
    // ---------------------
 
-   if (process.env.DISCORD_BOT_OWNER_ID.includes(data.message.author.id))
+   if (auth.devID.includes(data.message.author.id))
    {
 
       console.log("Developer Override");

@@ -18,7 +18,7 @@ const donate = function donate (data)
    if (commandVariable1 === "github")
    {
 
-      console.log(`DEBUG: donate ${commandVariable1}`);
+      // console.log(`DEBUG: donate ${commandVariable1}`);
       {
 
          const outputgh =
@@ -40,7 +40,7 @@ const donate = function donate (data)
    else if (commandVariable1 === "oc")
    {
 
-      console.log(`DEBUG: donate ${commandVariable1}`);
+      // console.log(`DEBUG: donate ${commandVariable1}`);
       {
 
          const outputoc =

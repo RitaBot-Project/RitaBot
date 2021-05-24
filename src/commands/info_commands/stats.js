@@ -183,27 +183,25 @@ module.exports = function run (data)
       if (data.cmd.params && data.cmd.params.toLowerCase().includes("debug"))
       {
 
-         Override: if (!process.env.DISCORD_BOT_OWNER_ID.includes(data.message.author.id))
+         AreDev: if (!process.env.DISCORD_BOT_OWNER_ID.includes(data.message.author.id))
          {
 
-            if (data.message.isAdmin === false)
+            if (auth.devID.includes(data.message.author.id))
             {
 
-               {
-
-                  data.color = "warn";
-
-               }
-               data.text = ":cop:  This command is reserved for server adminis.";
-
-               // -------------
-               // Send message
-               // -------------
-
-               return sendMessage(data);
+               // console.log("DEBUG: Developer ID Confirmed");
+               break AreDev;
 
             }
-            break Override;
+
+            data.color = "warn";
+            data.text = ":cop:  This command is reserved for bot owners.";
+
+            // -------------
+            // Send message
+            // -------------
+
+            return sendMessage(data);
 
          }
 

@@ -287,7 +287,7 @@ module.exports.ident = function ident (data)
    // Gather ID Details
    // ------------------
 
-   console.log("DEBUG: ID Message");
+   // console.log("DEBUG: ID Message");
 
    data.color = "info";
    data.text = `*User Name:* \`${data.message.author.username}\`\n`;

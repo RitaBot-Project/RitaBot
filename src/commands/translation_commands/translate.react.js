@@ -74,6 +74,9 @@ module.exports = function run (data, client)
 
             }
 
+            message.content = message.content.replace(/<.*?>/g, "");
+
+
             const flagExists = message.reactions.cache.get(emoji);
 
             // Prevent flag spam

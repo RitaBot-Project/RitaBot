@@ -22,7 +22,7 @@ const prefix = function prefix (data)
    {
 
       const reset = "!tr";
-      console.log(`DEBUG: New Prefix ${newPrefix}`);
+      // console.log(`DEBUG: New Prefix ${newPrefix}`);
       return db.updatePrefix(
          data.message.channel.guild.id,
          reset,
@@ -59,7 +59,7 @@ const prefix = function prefix (data)
    else if (newPrefix !== "")
    {
 
-      console.log(`DEBUG: New Prefix ${newPrefix}`);
+      // console.log(`DEBUG: New Prefix ${newPrefix}`);
       return db.updatePrefix(
          data.message.channel.guild.id,
          // This would be the new prefix
