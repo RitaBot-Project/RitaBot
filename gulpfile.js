@@ -1,32 +1,39 @@
+/* eslint-disable no-unused-vars */
 const gulp = require("gulp");
 const eslint = require("gulp-eslint");
-const watch = require("gulp-watch");
+const watch = require("rita-gulp-watch");
 const lec = require("gulp-line-ending-corrector");
-//const uglify = require('gulp-uglify-es').default;
+// const uglify = require('gulp-uglify-es').default;
 
-//tasks
+// tasks
 
-function lint()
+function lint ()
 {
-   //execute
-   return gulp.src(["src/**/*.js"])
-      .pipe(lec())
-      .pipe(eslint())
-      .pipe(eslint.format())
-      .pipe(eslint.failAfterError());
-}
 
-function compress()
-{
    // execute
-   return gulp.src("src/**/*.js")
-   //.pipe(uglify())
-      .pipe(gulp.dest("build"));
+   return gulp.src(["src/**/*.js"]).
+      pipe(lec()).
+      pipe(eslint()).
+      pipe(eslint.format()).
+      pipe(eslint.failAfterError());
+
 }
 
-function GulpWatch()
+function compress ()
 {
+
+   // execute
+   return gulp.src("src/**/*.js").
+   // .pipe(uglify())
+      pipe(gulp.dest("build"));
+
+}
+
+function GulpWatch ()
+{
+
    gulp.watch("src/**/*.js", gulp.series("default"));
+
 }
 
 gulp.task("compress", compress);

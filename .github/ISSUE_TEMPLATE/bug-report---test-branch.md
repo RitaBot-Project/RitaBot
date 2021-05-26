@@ -2,7 +2,7 @@
 name: Bug report - Test Branch
 about: Create a report to help us improve
 title: ''
-labels: 1.2.2-?, Bug
+labels: 1.2.3-?, Bug
 assignees: ''
 
 ---
