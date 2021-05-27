@@ -1,39 +1,101 @@
+// -----------------
+// Global variables
+// -----------------
+
+// Codebeat:disable[LOC,ABC,BLOCK_NESTING,ARITY]
+
+const time = {
+   "long": 60000,
+   "short": 20000
+};
+
 // ------------------
 // Update Bot Status
 // ------------------
 
-module.exports = function(bot, status, config, channel, writable = true)
+// eslint-disable-next-line consistent-return
+module.exports = function run (bot, status, config, writable = true)
 {
+
+   const activevar = [
+      `ritabot.gg | !tr help`,
+      `for messages to translate | ritabot.gg`,
+      "messages to translate | ritabot.gg",
+      `!tr help commands | ritabot.gg`,
+      "translations | ritabot.gg",
+      `v.${config.version} | ritabot.gg`,
+      `!tr help modules | ritabot.gg`
+   ];
+   const statusvar = [
+      "PLAYING",
+      "WATCHING",
+      "LISTENING",
+      "WATCHING",
+      "WATCHING",
+      "PLAYING",
+      "WATCHING"
+   ];
    const statusMap =
    {
-      "online": function()
+      "busy" ()
       {
+
          bot.setPresence({
-            status: "online",
-            game: {
-               name: config.translateCmdShort + " help / " + config.translateCmd +" help - V." + config.version
-            }
+            "status": "dnd"
          });
+
       },
 
-      "busy": function()
+      "free" ()
       {
+
          bot.setPresence({
-            status: "dnd"
+            "status": "online"
          });
+
       },
 
-      "free": function()
+      "online" ()
       {
+
+         // Run this on stratup
          bot.setPresence({
-            status: "online"
+            "activities": {
+               "name": activevar[0]
+            },
+            "status": "online"
+
          });
+         setInterval(
+            // Every 20 seconds generate a random number and update status to that
+            function res ()
+            {
+
+               const actID = Math.floor(Math.random() * 6);
+               bot.setPresence({
+
+                  "activities": {
+                     "name": activevar[actID],
+                     "type": statusvar[actID]
+                  },
+                  "status": "online"
+               });
+
+            },
+            time.short
+         );
+
       }
    };
 
-   //if (status && statusMap.hasOwnProperty(status) && writable)
-   if (Object.prototype.hasOwnProperty.call(status && statusMap,status) && writable)
+   if (Object.prototype.hasOwnProperty.call(
+      status && statusMap,
+      status
+   ) && writable)
    {
+
       return statusMap[status]();
+
    }
+
 };
