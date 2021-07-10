@@ -143,11 +143,10 @@
 4. Open a terminal/console in the RitaBot folder and download dependencies using **`npm install`**
 5. Start the bot with **`npm start`**
 6. Invite your bot to your server and configure it!
-* Replace the **CLIENTID** string in the following URL with your own apps client id: https://discordapp.com/oauth2/authorize?&client_id=**CLIENTID**&scope=bot&permissions=8
-  * Visit the resulting URL and add your bot to any server where you have admin privileges.
 
-* Once added, your bot should show up as online. 
-  * Your bot is now setup and ready for any translation you have for it to do. Use the commands `!tr help` and `!tr help modules` to learn more about the commands Rita has!
+* If you don't already have a invite for your bot, you can replace the **CLIENTID** string in the following URL with your own apps client id: https://discordapp.com/oauth2/authorize?&client_id=**CLIENTID**&scope=bot&permissions=8 . Visit the resulting URL and add your bot to any server where you have admin privileges. Once added, your bot should show up as online.
+
+* Your bot is now setup and ready for any translation you have for it to do. Use the commands `!tr help` and `!tr help modules` to learn more about the commands Rita has!
 
 ## <a name="database"></a>Heroku Database Support
 Sometimes you need to edit the Database manually, This is not something you should be playing around with unless you really know what you are doing.
